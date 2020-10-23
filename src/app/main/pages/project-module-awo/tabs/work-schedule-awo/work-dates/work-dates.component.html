@@ -1,0 +1,46 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Dates</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="startWorkForm" name="startWorkForm">
+      <input matInput formControlName="work_ID" hidden>
+      <input matInput formControlName="schd_ID" hidden>
+      <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field  appearance="outline" fxFlex>
+              <mat-label>Actual Start Date</mat-label>
+              <input matInput [matDatepicker]="picker1"  formControlName="ActualStart" #ActualStart name="ActualStart">
+                                                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                  <mat-datepicker #picker1></mat-datepicker>
+                  
+                    </mat-form-field>
+        
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Actual Close Date</mat-label>
+                <input matInput [matDatepicker]="picker2"  formControlName="ActualClose" #ActualClose name="ActualClose">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field></div>
+          
+
+
+      </form>
+
+  </div>
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button   class="mat-accent mr-0 mr-sm-16" [disabled]="startWorkForm.invalid" (click)="saveWorkDate(startWorkForm.value);dialogRef.close();"><!--[routerLink]="'/dashboards/pmqa-dashboard'"-->
+      SAVE
+   </button>
+  </div>
+
+  
+</div>

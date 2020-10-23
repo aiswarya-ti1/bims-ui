@@ -1,0 +1,304 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="mat-accent m-0">
+      <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Edit Profile</span>
+          <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+          <img src="assets/images/avatars/profile.jpg" class="avatar contact-avatar huge m-0"
+               />
+               <input hidden type="file" #fileInput accept=".png, .jpg" (change)="handleFileInput($event.target.files)"/>
+               <button mat-icon-button aria-label="Add photo" matTooltip="Change Profile Pic" (click)="fileInput.click()">
+                   <mat-icon>photo</mat-icon>
+               </button>
+          <!--<div class="contact-name mt-8">Aiswarya</div>-->
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 pb-0 m-0">
+
+      <form [formGroup]="editProfile"  *ngFor="let detail of details"  fusePerfectScrollbar >
+          <div [hidden]="first">
+                <input formControlName="userID" matInput hidden>
+                <input formControlName="editID" matInput hidden>
+         <!-- <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>First Name</mat-label>
+                  <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                  <input name="name" formControlName="name" matInput required [value]="FirstName">
+              </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Lastname</mat-label>
+                  <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                  <input name="lastName" formControlName="lastName" matInput [value]="LastName">
+              </mat-form-field>
+          </div>-->
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="detail.Type==='Organization'">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Organization Name</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input name="lastName" formControlName="orgName" matInput [value]="detail.OrganizationName">
+            </mat-form-field>
+        </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="User_Category!=='3' || User_Category!=='5'">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Grade</mat-label>
+                  <input name="grade" formControlName="grade" matInput [value]="detail.Grade">
+              </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="User_Category!=='3' || User_Category!=='5'">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>GST</mat-label>
+                <input name="grade" formControlName="gst" matInput [value]="detail.GST">
+            </mat-form-field>
+        </div>
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="User_Category!=='3' || User_Category!=='5'">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>License</mat-label>
+                <input name="grade" formControlName="license" matInput [value]="detail.License">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Experience</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input name="name" formControlName="exp" matInput [value]="detail.Experiece">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>No. of projects completed</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input name="name" formControlName="projects" matInput [value]="detail.No_Projects">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Standard Rate/Unit</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="name" formControlName="stdRate" matInput [value]="detail.stdRate">
+                </mat-form-field>
+            </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="detail.Type==='Individual'">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Birthday</mat-label>
+                <input matInput [matDatepicker]="birthdayDatePicker" name="birthday" formControlName="birthday" [value]="detail.Birthday">
+                <!--<mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #birthdayDatePicker></mat-datepicker>-->
+            </mat-form-field>
+        </div>
+
+          <!--<div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Email</mat-label>
+                  <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                  <input name="email" formControlName="email" matInput type="email" [value]="Email">
+              </mat-form-field>
+          </div>-->
+
+          <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Location</mat-label>
+                  <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                  <input name="company" formControlName="location" matInput [value]="detail.Loc_Name">
+              </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>About Me</mat-label>
+                  <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                  <textarea matInput formControlName="descr" [value]="detail.Descr"></textarea>
+              </mat-form-field>
+          </div>
+
+        
+
+         
+
+         <!-- <div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Notes</mat-label>
+                  <textarea name="notes" formControlName="notes" matInput type="text" max-rows="4"></textarea>
+              </mat-form-field>
+          </div>-->
+
+        </div>
+      <div [hidden]="second">
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Occupation</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input name="name" formControlName="occupation" matInput required [value]="Occupation">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Skills</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <textarea matInput formControlName="skills" [value]="Skills"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Experience</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input name="name" formControlName="exp" matInput required [value]="Exp">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Jobs</mat-label>
+                <textarea matInput formControlName="jobs" [value]="Jobs"></textarea>
+            </mat-form-field>
+        </div>
+
+        
+    </div>
+    <div [hidden]="third">
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Address Line 1</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input  formControlName="addr1" matInput required [value]="detail.Address_line1">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Address Line 2</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input formControlName="addr2" matInput [value]="detail.Address_line2">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>City</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input  formControlName="city" matInput [value]="detail.Address_town">
+            </mat-form-field>
+        </div>
+
+        <!--<div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Contact</mat-label>
+              <input  formControlName="contact" matInput [value]="detail.Contact_phone">
+          </mat-form-field>
+      </div>-->
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Email</mat-label>
+                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                <input name="email" formControlName="email" matInput type="email" [value]="detail.Address_email">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Website</mat-label>
+                <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                <input name="company" formControlName="website" matInput [value]="detail.Address_url">
+            </mat-form-field>
+        </div>
+
+      
+    </div>
+    <div [hidden]="four">
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Organization Name</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input  formControlName="orgName" matInput required [value]="detail.OrganizationName">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>GST</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input formControlName="gst" matInput [value]="detail.GST">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Total No. of Workers</mat-label>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <input  formControlName="total" matInput [value]="detail.Total_WRKS">
+            </mat-form-field>
+        </div>
+
+        <!--<div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Contact</mat-label>
+              <input  formControlName="contact" matInput [value]="detail.Contact_phone">
+          </mat-form-field>
+      </div>-->
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>No. of Keralite Workers</mat-label>
+                <mat-icon matSuffix class="secondary-text"></mat-icon>
+                <input name="keralaWrks" formControlName="keralaWrks" matInput type="email" [value]="detail.Keral_WKRS">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>No. of Non-keralite Workers</mat-label>
+                <mat-icon matSuffix class="secondary-text"></mat-icon>
+                <input name="nonKeralaWrks" formControlName="nonKeralaWrks" matInput [value]="detail.NonKerala_WKRS">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Territory</mat-label>
+                <mat-icon matSuffix class="secondary-text"></mat-icon>
+                <input name="territory" formControlName="territory" matInput [value]="detail.Territory">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Radius</mat-label>
+                <mat-icon matSuffix class="secondary-text"></mat-icon>
+                <input name="radius" formControlName="radius" matInput [value]="detail.Radius">
+            </mat-form-field>
+        </div>
+
+
+      
+    </div>
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+
+            <button 
+              mat-button
+              class="save-button mat-accent"
+              (click)="editProfileDetail(editProfile.value); matDialogRef.close();"
+              
+              aria-label="SAVE"><!--[disabled]="editProfile.invalid"-->
+          SAVE
+      </button>
+
+  </div>
+</div>

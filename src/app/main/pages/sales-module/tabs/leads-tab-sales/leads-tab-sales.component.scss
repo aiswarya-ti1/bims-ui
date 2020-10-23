@@ -1,0 +1,40 @@
+@import "src/@fuse/scss/fuse";
+.demo
+{
+    position: relative;
+    }
+
+
+    .add-event-button {
+        position: absolute;
+        right: 18px;
+       //bottom: -26px;
+        //z-index: 10;
+z-index: 20;
+//cursor: pointer;
+    }
+
+
+
+        table {
+            width: 100%;
+          }
+          
+          .mat-form-field {
+            font-size: 14px;
+           // width: 50%;
+           // margin-left: 20px;
+           
+           
+          }
+          
+          td, th {
+            width: 25%;
+          }
+    
+          
+      
+        
+   
+
+

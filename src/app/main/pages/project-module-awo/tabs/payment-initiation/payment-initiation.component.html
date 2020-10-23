@@ -1,0 +1,73 @@
+
+<div id="timeline" class="p-24" fxLayout="row wrap">       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+      
+            <div class="profile-box add-post">
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Initiated Payments</div>
+                            <div class="more secondary-text">
+                              <a class="pl-12" mat-button  aria-label="Set Priority" (click)="initiatePay(1)" ><mat-icon>add</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">               
+                    <table class="simple invoice-table">
+                           
+                            <tbody>
+                                <tr *ngFor="let pay of payments" (click)="editPay(pay.InitPay_ID,2, pay.PayStatus_ID)">
+                                      
+                                    <td>
+                                        <div class="title">Requested <span style="font-weight: bold;color:deeppink">Rs.{{pay.ReqAmount}}</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.ReqDate  | date:'dd/MM/yyyy'}}</span>({{pay.Trans_Type}})</div>
+                                        <div class="detail" *ngIf="pay.Comments">{{pay.Comments}}</div>
+                                        
+                                    </td>
+                                   
+                                    
+                                              <td class="text-right">
+                                                  <div class="detail" >Status : <span class="title" style="color: rgb(20, 5, 75);font-weight: bold"> {{pay.Pay_StatusName}}</span>
+                                                </div>
+                                            
+                                                 
+                                </tr>
+                            </tbody>
+                        </table>  
+                           
+                        
+    </div>
+            </div> 
+            </div>
+            <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+           
+          
+    
+              <div class="profile-box latest-activity" fxLayout="column">
+           
+                      <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div class="title">Initiate Payment Summary</div>
+                          
+                      </header>
+                       <div class="content" fxLayout="row wrap">
+                     
+                      <div class="content">
+                       <div class="info-line">
+                         <div class="title">Total Initiated Amount</div>
+                         <div class="info">{{this.InitAmount}}</div>
+                     </div>
+                     <div class="info-line">
+                       <div class="title">Total Paid Amount</div>
+                       <div class="info">{{this.PaidAmount}}</div>
+                   </div>
+                   <div class="info-line">
+                    <div class="title">Balance Amount</div>
+                    <div class="info">{{this.BalAmount}}</div>
+                </div>
+                      </div>
+           
+                     
+                  </div>
+              
+           </div>
+           </div>
+           </div>
+
+  
+  

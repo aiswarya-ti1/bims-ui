@@ -1,0 +1,82 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Upload Documents</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="docForm" name="docForm">
+            <input matInput formControlName="assocID" hidden>
+            <input matInput formControlName="typeID" hidden>
+            <input MatInput formControlName="fileName" hidden>
+
+            
+                
+                <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Select Document Type</mat-label>
+                                
+                            <mat-select formControlName="type">
+                                
+                                <mat-option  [value]="'2'">Agreement Form</mat-option>
+                                <mat-option  [value]="'1'">Aadhar Card</mat-option>
+                                
+                                </mat-select>
+                                    
+                                          </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Enter Document Number</mat-label>
+                                
+                                <input matInput formControlName="docNo">
+                                </mat-form-field>
+                            </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        
+                                
+                                <div class="file-uploader" align="center">
+                                    <input type="file" 
+                              (change)="onFileSelected($event.target.files)" 
+                              multiple="false" 
+                              accept="'image/*,application/pdf'" 
+                              style="display: none;"
+                              name="image"
+                              #fileUpload>
+                                    <button mat-raised-button color="accent" name="aadhar" aria-label="upload aadhar" (click)="fileUpload.click()" style='margin-left: 2px;'>Click to select document</button>
+                                   
+            
+                                </div>
+                                 
+                                    
+                                          
+                    </div>
+                    
+
+           
+
+        </form>
+
+    </div>
+  
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button
+                mat-button color="accent"
+                class="save-button mat-accent"
+                (click)="uploadDoc(docForm.value);matDialogRef.close();"
+                
+                aria-label="SAVE">
+            SAVE
+        </button><!-- matDialogRef.close();-->
+
+    </div>
+</div>

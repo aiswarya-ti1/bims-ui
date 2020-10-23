@@ -1,0 +1,221 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Add New Associate</span>
+            <button mat-icon-button (click)="dialogRef_AddNew.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+  
+      <form [formGroup]="firstFormGroup" name="firstFormGroup">
+        <input matInput formControlName="type_ID" hidden>
+        <input matInput formControlName="assoc_ID" hidden>
+        <input matInput formControlName="user_ID" hidden>
+        
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Reference</mat-label>
+              <mat-icon matSuffix class="secondary-text">category</mat-icon>
+              <mat-select  formControlName="Ref" required [value]="reference">
+                  <mat-option [value]="'Employee Reference'">
+                      Employee Reference
+                  </mat-option>
+                  <mat-option [value]="'Associate Reference'">
+                    Associate Reference
+                  </mat-option>
+                  <mat-option [value]="'Customer Reference'">
+                    Customer Reference
+                  </mat-option>
+                  <mat-option [value]="'Online Data'">
+                    Online Data
+                  </mat-option>
+                  <mat-option [value]="'Offline Data'">
+                    Offline Data
+                  </mat-option>
+                  
+                  </mat-select>
+                
+                        </mat-form-field>
+
+      </div>
+          <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Type_ID==1">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Type</mat-label>
+                <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                <mat-select  formControlName="Type" required [value]="type">
+                    <mat-option [value]="'Individual'">
+                        Individual
+                    </mat-option>
+                    <mat-option [value]="'Organization'">
+                      Organization
+                    </mat-option>
+                    
+                    </mat-select>
+                  
+                          </mat-form-field>
+  
+        </div>
+        
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>First Name</mat-label>
+              <mat-icon matSuffix class="secondary-text">perm_identity</mat-icon>
+             <input matInput formControlName="FirstName" required ><!--[value]="fname"-->
+            
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Middle Name</mat-label>
+              <mat-icon matSuffix class="secondary-text">perm_identity</mat-icon>
+              <input matInput  formControlName="MidName"><!-- [value]="mname"-->
+            
+           </mat-form-field>
+        </div>
+          
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Last Name</mat-label>
+              <mat-icon matSuffix class="secondary-text">perm_identity</mat-icon>
+              <input matInput  formControlName="LastName"><!--[value]="lname"-->
+           
+           </mat-form-field>
+          </div>
+          
+          <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Experience(Years)</mat-label>
+                <mat-icon matSuffix class="secondary-text">format_list_numbered</mat-icon>
+                      <input matInput  formControlName="Years" pattern="[0-9]+">
+                      
+                   </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Address Line 1</mat-label>
+                <mat-icon matSuffix class="secondary-text">home</mat-icon>
+                         <input matInput formControlName="Address1" required ><!--[value]="addr1"-->
+                       
+                        </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Address Line 2</mat-label>
+                <mat-icon matSuffix class="secondary-text">straighten</mat-icon>
+                          <input matInput  formControlName="Address2" required><!-- [value]="addr2"-->
+                       </mat-form-field>
+          </div>
+                      
+          <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>City</mat-label>
+                <mat-icon matSuffix class="secondary-text">location_city</mat-icon>
+                        <input matInput formControlName="City" required>
+                      
+                       </mat-form-field>
+                      </div>
+                     
+                      <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Contact Person</mat-label>
+                            <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                           <input matInput  formControlName="Contact_Person"><!-- [value]="c_name"-->
+                           
+                          </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Contact Number</mat-label>
+                            <mat-icon matSuffix class="secondary-text">contact_phone</mat-icon>
+                            <input matInput  formControlName="Contact_Number" pattern="[0-9]+"><!-- [value]="c_number"-->
+                           
+                         </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start" >
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Alternate Contact Number</mat-label>
+                            <mat-icon matSuffix class="secondary-text">contact_phone</mat-icon>
+                            <input matInput  formControlName="Alt_Number" pattern="[0-9]+"><!-- [value]="a_number"-->
+                           
+                         </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Whatsapp Number</mat-label>
+                            <mat-icon matSuffix class="secondary-text">contact_phone</mat-icon>
+                          <input matInput formControlName="Whatsapp_Number" pattern="[0-9]+"><!-- [value]="c_whats"-->
+                       </mat-form-field>
+                         </div>
+                         
+                         
+                        
+                               
+                            
+                         
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Type_ID==1 || this.Type_ID==3">
+                          <mat-form-field appearance="outline" fxFlex>
+                              <mat-label>Segments Offered</mat-label>
+                              <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                    <mat-select formControlName="services" multiple (ngModelChange)="onServiceChange($event)" [disabled]="segDis" [value]="seg">
+                                        <mat-option *ngFor="let seg of segment" [value]="seg.Seg_ID">{{seg.Seg_Name}}</mat-option>
+                                      </mat-select>
+                                   
+                                        </mat-form-field>
+                         </div>
+                      
+                         <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Type_ID==1 || this.Type_ID==3">
+                          <mat-form-field appearance="outline" fxFlex>
+                              <mat-label>Products Offered</mat-label>
+                              <mat-icon matSuffix class="secondary-text">tools</mat-icon>
+                                            <mat-select placeholder="Sub Category" formControlName="categories" multiple [disabled]="catDis" [value]="ser">
+                                                <mat-option *ngFor="let cat of category" [value]="cat.Group_ID">{{cat.Group_Name}}</mat-option>
+                                              </mat-select>
+                                              
+                                       </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field appearance="outline" fxFlex>
+                                  <mat-label>Bank A/C Number</mat-label>
+                                  <mat-icon matSuffix class="secondary-text">format_list_numbered_rtl</mat-icon>
+                                <input matInput formControlName="accountNo" pattern="[0-9]+"><!-- [value]="acNo"-->
+                             </mat-form-field>  
+                               </div>
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field appearance="outline" fxFlex>
+                                  <mat-label>GST Number</mat-label>
+                                  <mat-icon matSuffix class="secondary-text">format_list_numbered_rtl</mat-icon>
+                                <input matInput formControlName="gst"><!-- [value]="gstNo"-->
+                             </mat-form-field>  
+                               </div>
+                               <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field appearance="outline" fxFlex>
+                                  <mat-label>Email</mat-label>
+                                  <mat-icon matSuffix class="secondary-text">format_list_numbered_rtl</mat-icon>
+                                <input matInput formControlName="email"><!-- [value]="gstNo"-->
+                             </mat-form-field>  
+                               </div>
+                  
+                                           
+                         
+                   
+                    
+                      <div></div>
+                      
+        
+      </form>
+     
+
+</div>
+  
+    
+  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+  
+      <!--[disabled]="!firstFormGroup.valid"--><button mat-raised-button color="accent" name="save1"  (click)="addAssociate(firstFormGroup.value);dialogRef_AddNew.close();">Save</button><!-- -->
+        
+    </div>
+  </div>
+  

@@ -1,0 +1,94 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Rates</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form  [formGroup]="addRateForm">
+
+              <input type="text"  formControlName="rateID" hidden>
+             
+            
+              <!--<div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field  appearance="outline" fxFlex>
+                            <mat-label>Segment</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                    <input type="number" matInput formControlName="seg" disabled>
+                        
+                          </mat-form-field>
+        
+                         </div>
+                         <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field  appearance="outline" fxFlex>
+                                    <mat-label>Service</mat-label>
+                                    <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                            <input type="number" matInput formControlName="ser" disabled>
+                                
+                                  </mat-form-field>
+                
+                                 </div>-->
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>Pattern</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                                            <mat-select placeholder="Select" formControlName="pattern">
+                                                <mat-option [value]="'Labour Only'">
+                                                    Labour Only
+                                                </mat-option>
+                                                <mat-option [value]="'Material + Labour'">
+                                                    Material + Labour
+                                                </mat-option>
+                                                <mat-option [value]="'Both'">
+                                                    Both
+                                                </mat-option>
+                                                
+                                                </mat-select>
+                                        
+                                          </mat-form-field>
+                        
+                                         </div>
+                                         <div fxLayout="row" fxLayoutAlign="start start">
+                                            <mat-form-field  appearance="outline" fxFlex>
+                                                    <mat-label>Labor Only Rate</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                                            <input type="number" matInput formControlName="rateL">
+                                                
+                                                  </mat-form-field>
+                                
+                                                 </div>
+                                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                                    <mat-form-field  appearance="outline" fxFlex>
+                                                            <mat-label>Labor with Material Rate</mat-label>
+                                                            <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                                                    <input type="number" matInput formControlName="rateML">
+                                                        
+                                                          </mat-form-field>
+                                        
+                                                         </div>
+                         
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+      <button 
+              mat-raised-button
+              (click)="updateRates(addRateForm.value);dialogRef.close();"
+              class="save-button mat-accent"
+              [disabled]="addRateForm.invalid"
+              
+              aria-label="UPDATE">
+          SAVE
+      </button> 
+    
+
+      
+  </div>
+</div>

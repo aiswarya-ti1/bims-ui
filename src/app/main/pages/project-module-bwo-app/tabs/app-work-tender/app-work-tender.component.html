@@ -1,0 +1,635 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+    
+
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+       
+        <!--Online Tender Display-->
+        <div *ngFor="let assocOn of assoc_On">
+            <div class="profile-box add-post">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="accent"  *ngIf="assocOn.SelectStatus==0">
+                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                <div class="wrapp">
+                               <div> {{assocOn.Assoc_FirstName}} {{assocOn.Assoc_LastName}}  </div>
+                                <div style="font-size: x-small;color: white">Online Tender</div></div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                
+                                                           </mat-panel-description>
+                            <mat-panel-description>
+                                <div class="wrapp">
+<div style="color: white; font-weight: bold;" class="text-right" *ngIf="assocOn.TotalQuote">Rs. {{assocOn.TotalQuote}}</div>
+<div style="color: white; font-size: x-small;" class="text-right" *ngIf="assocOn.Work_Days">{{assocOn.Work_Days}} Days</div></div></mat-panel-description>
+
+<mat-panel-description>
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="edit" [disabled]="assocOn.TenderFinish_Flag==0 && assocOn.Tender_Rec_Flag==0" (click)="editTender(assocOff.WorkTender_ID)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit Tender</span>
+                    </button>
+                    <button mat-menu-item aria-label="delete" (click)="deleteTender(assocOff.WorkTender_ID)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete Tender</span>
+                    </button>
+                </mat-menu>
+    </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <!--FinalizedTender-->
+                        <mat-expansion-panel-header class="warn"  *ngIf="assocOn.SelectStatus==1">
+                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                <div class="wrapp">
+                               <div> {{assocOn.Assoc_FirstName}} {{assocOn.Assoc_LastName}}  </div>
+                                <div style="font-size: x-small;color: white">Online Tender- Finalized</div></div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                
+                                                           </mat-panel-description>
+                            <mat-panel-description>
+                                <div class="wrapp">
+<div style="color: white; font-weight: bold;" class="text-right" *ngIf="assocOn.TotalQuote">Rs. {{assocOn.TotalQuote}}</div>
+<div style="color: white; font-size: x-small;" class="text-right" *ngIf="assocOn.Work_Days">{{assocOn.Work_Days}} Days</div></div></mat-panel-description>
+
+                        </mat-expansion-panel-header>
+                        <!--Finalized Tender-->
+                        <div class="content">
+                            
+                            
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="color: darkblue; font-weight: bold;" >{{assocOn.Status_Code}}</div>
+                                        <div style="color: maroon;font-size: 9pt;" *ngIf="assocOn.Experiece">{{assocOn.Experiece}} years Experience</div>
+                                        <div style="color: gold; font-size: x-small;"  *ngIf="assocOn.TotalRating">Rating : {{assocOn.TotalRating}}</div>
+                                    </td>
+                                    <td>
+                                       <!--<span class="text-right"><button mat-raised-button class="accent" *ngIf="assocOn.Work_Days==0 || assocOn.Work_Days==null" (click)=addWorkDays(assocOn.WorkTender_ID)>Add Work Days</button>
+                                            <button mat-raised-button class="accent" *ngIf="assocOn.Work_Days!=null && assocOn.updateFlag==0 && assocOn.TenderFinish_Flag==0" (click)="finishTender(assocOn.WorkTender_ID)">Finish Tender</button>
+                                            <button mat-raised-button class="accent" *ngIf="assocOn.updateFlag==1">Schedule Site Visit</button></span>-->
+                                        </td>
+                                <tr>
+                                    <td>
+                                        
+                                        <div style="color: darkorange; font-size: 9pt;" *ngIf="assocOn.Sch_Site_Visit">Scheduled Site Visit : {{assocOn.Sch_Site_Visit}}</div>
+                                        <div style="color: darkgreen;font-size: 9pt;" *ngIf="assocOn.Act_Site_Visit">Site Visit On : {{assocOn.Act_Site_Visit}}</div>
+                                    </td>
+                                    <td>
+                                    </td>
+                                        
+                                </tr>
+                                
+                            </table>
+                            <div *ngIf="assocOn.Tender_Rec_Flag==0">
+                                <div class="title">Tender Not Yet Received!!</div>
+                            </div>
+                            <div *ngIf="assocOn.Tender_Rec_Flag==1">
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label style="color:darkblue; font-size: 13pt;">Tender Details</mat-label> 
+                                <input matInput                                         
+                                       hidden>     
+                            <table class="simple invoice-table" *ngIf="assocOn.TenderFinish_Flag==0">
+                                
+                                <tr *ngFor="let onTender of onTenders">
+                                    <div *ngIf="assocOn.WorkTender_ID==onTender.WorkTender_ID"  (click)="addQuoteDetails(onTender.WorkTenderLab_ID,onTender.LineItem_ID ,onTender.LineItem_Name,onTender.Unit_Code, onTender.Quantity, onTender.WorkTender_ID)">
+                                        <td>
+                                            <div class="title">{{onTender.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="onTender.Quantity" style="color: darkblue">{{onTender.Quantity}} {{onTender.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="onTender.Value">Rs.{{onTender.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="onTender.Rate">Rs.{{onTender.Rate}} per {{onTender.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        </div>
+                                    </tr>
+                                
+                               
+                            </table>
+                            <table class="simple invoice-table" *ngIf="assocOn.TenderFinish_Flag==1">
+                                
+                                <tr *ngFor="let onTender of onTenders">
+                                    <div *ngIf="assocOn.WorkTender_ID==onTender.WorkTender_ID">
+                                        <td>
+                                            <div class="title">{{onTender.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="onTender.Quantity" style="color: darkblue">{{onTender.Quantity}} {{onTender.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="onTender.Value">Rs.{{onTender.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="onTender.Rate">Rs.{{onTender.Rate}} per {{onTender.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        </div>
+                                    </tr>
+                                
+                               
+                            </table>  
+                            <table class="simple invoice-table-footer" *ngIf="assocOn.TotalQuote!=0">
+                                    <tbody >
+                                        <tr class="subtotal">
+                                            <td>TOTAL</td>
+                                            <td>Rs.{{this.Total}}</td>
+                                        </tr>
+                                        <tr class="subtotal">
+                                                <td>IN WORDS</td>
+                                                <td>Rupees {{this.words}} Only</td>
+                                            </tr>
+                                       
+                                    </tbody>
+                                </table></mat-form-field>
+                                 <!--<mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue; font-size: 13pt;">Key Deliverables</mat-label> <button mat-mini-fab class="add-event-button mat-accent"  (click)="addInTenderKey(assocOn.WorkTender_ID,1)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}" *ngIf="assocOn.TenderFinish_Flag==0">
+                                    <mat-icon>add</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           <div *ngFor="let t_key of tenderKeys">
+                                            <li *ngIf="assocOn.WorkTender_ID==t_key.WorkTender_ID">
+                                                    <span>{{t_key.Key_Name}}</span>
+                                                    <span><a class="pl-12" mat-button  aria-label="Delete Keys" *ngIf="assocOn.TenderFinish_Flag==0" (click)="delInTenderKeys(t_key.Key_ID, assocOn.WorkTender_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                    
+                                                 </li>
+                                       </div>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue ; font-size: 13pt;">Terms & Conditions</mat-label> <button mat-mini-fab class="add-event-button mat-accent" (click)="addInTenderTerms(assocOn.WorkTender_ID,1)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}"*ngIf="assocOn.TenderFinish_Flag==0">
+                                    <mat-icon>add</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           <div *ngFor="let t_term of tenderTerms">
+                                            <li *ngIf="assocOn.WorkTender_ID==t_term.Tender_ID">
+                                                    <span>{{t_term.Term_Name}}</span>
+                                                    <span><a class="pl-12" mat-button  aria-label="Delete Keys" *ngIf="assocOn.TenderFinish_Flag==0" (click)="delInTenderTerms(t_term.Term_ID, assocOn.WorkTender_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                    
+                                                 </li>
+                                       </div>
+                                </mat-form-field>
+                                
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue ; font-size: 13pt;">Payment Terms</mat-label> <button mat-mini-fab class="add-event-button mat-accent" (click)="editTenderPayTerm(assocOn.WorkTender_ID)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}" *ngIf="assocOn.TenderFinish_Flag==0">
+                                    <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           
+                                            <div class="info">{{assocOn.Payment_Terms}}</div>
+                                        
+                                </mat-form-field>-->
+                                 
+                                 
+                                     
+                                
+                            </div>
+                                    </div>
+
+                               
+                                </mat-expansion-panel>
+                                </mat-accordion>
+                                </div>
+                                
+        </div>
+        <!--Online Tender Display-->
+       <!--Offline Tender Display-->
+        <div *ngFor="let assocOff of assoc_Off">
+            <div class="profile-box add-post">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="accent"  *ngIf="assocOff.SelectStatus==0">
+                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                <div class="wrapp">
+                               <div> {{assocOff.Assoc_FirstName}} {{assocOff.Assoc_LastName}}  </div>
+                                <div style="font-size: x-small;color: white">Offline Tender</div></div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                <div class="wrapp">
+                                       
+                                </div>
+                                                           </mat-panel-description>
+                            <mat-panel-description>
+                                <div class="wrapp">
+<div style="color: white; font-weight: bold;" class="text-right" *ngIf="assocOff.TotalQuote">Rs. {{assocOff.TotalQuote}}</div>
+<div style="color: white; font-size: x-small;" class="text-right" *ngIf="assocOff.Work_Days">{{assocOff.Work_Days}} Days</div></div></mat-panel-description>
+<mat-panel-description>
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="edit" [disabled]="assocOff.TenderFinish_Flag==0" (click)="editTender(assocOff.WorkTender_ID)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit Tender</span>
+                    </button>
+                    <button mat-menu-item aria-label="delete" (click)="deleteTender(assocOff.WorkTender_ID)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete Tender</span>
+                    </button>
+                </mat-menu>
+    </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+                        <!--Finalized Tender-->
+                        <mat-expansion-panel-header class="warn"  *ngIf="assocOff.SelectStatus==1">
+                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                <div class="wrapp">
+                               <div> {{assocOff.Assoc_FirstName}} {{assocOff.Assoc_LastName}}  </div>
+                                <div style="font-size: x-small;color: white">Offline Tender - Finalized</div></div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                <div class="wrapp">
+                                       
+                                </div>
+                                                           </mat-panel-description>
+                            <mat-panel-description>
+                                <div class="wrapp">
+<div style="color: white; font-weight: bold;" class="text-right" *ngIf="assocOff.TotalQuote">Rs. {{assocOff.TotalQuote}}</div>
+<div style="color: white; font-size: x-small;" class="text-right" *ngIf="assocOff.Work_Days">{{assocOff.Work_Days}} Days</div></div></mat-panel-description>
+<mat-panel-description>
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="edit" [disabled]="assocOff.TenderFinish_Flag==0" (click)="editTender(assocOff.WorkTender_ID)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit Tender</span>
+                    </button>
+                    <button mat-menu-item aria-label="delete" (click)="deleteTender(assocOff.WorkTender_ID)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete Tender</span>
+                    </button>
+                </mat-menu>
+    </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+                        <!--Finalized Tender-->
+                        <div class="content">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="color: darkblue; font-weight: bold;" >{{assocOff.Status_Code}}</div>
+                                        <div style="color: maroon;font-size: 9pt;" *ngIf="assocOff.Experiece">{{assocOff.Experiece}} years Experience</div>
+                                        <div style="color: gold; font-size: x-small;"  *ngIf="assocOff.TotalRating">Rating : {{assocOff.TotalRating}}</div>
+                                    </td>
+                                    <td>
+                                        <span class="text-right"><button mat-raised-button class="accent" *ngIf="!assocOff.Work_Days" (click)=addWorkDays(assocOff.WorkTender_ID)>Add Duration</button>
+                                            <button mat-raised-button class="accent" *ngIf="assocOff.Work_Days!=null &&  assocOff.TenderFinish_Flag==0" (click)="finishTender(assocOff.WorkTender_ID)">Finish Tender</button>
+                                            <button mat-raised-button class="accent" *ngIf="assocOff.SelectStatus==1">Schedule Site Visit</button></span>
+                                        </td>
+                                <tr>
+                                    <td>
+                                        
+                                        <div style="color: darkorange; font-size: 9pt;" *ngIf="assocOff.Sch_Site_Visit">Scheduled Site Visit : {{assocOff.Sch_Site_Visit}}</div>
+                                        <div style="color: darkgreen;font-size: 9pt;" *ngIf="assocOff.Act_Site_Visit">Site Visit On : {{assocOff.Act_Site_Visit}}</div>
+                                    </td>
+                                    <td>
+                                    </td>
+                                        
+                                </tr>
+                                
+                            </table>
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label style="color:darkblue; font-size: 13pt;">Tender Details</mat-label> 
+                                <input matInput                                         
+                                       hidden>     
+                            <table class="simple invoice-table" *ngIf="assocOff.TenderFinish_Flag==0">
+                                
+                                <tr *ngFor="let offTender of offTenders">
+                                    <div *ngIf="assocOff.WorkTender_ID==offTender.WorkTender_ID"  (click)="addQuoteDetails(offTender.WorkTenderLab_ID,offTender.LineItem_ID ,offTender.LineItem_Name,offTender.Unit_Code, offTender.Quantity, offTender.WorkTender_ID)">
+                                        <td>
+                                            <div class="title">{{offTender.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="offTender.Quantity" style="color: darkblue">{{offTender.Quantity}} {{offTender.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="offTender.Value">Rs.{{offTender.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="offTender.Rate">Rs.{{offTender.Rate}} per {{offTender.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        </div>
+                                    </tr>
+                                
+                               
+                            </table>  
+                            <table class="simple invoice-table" *ngIf="assocOff.TenderFinish_Flag==1">
+                                
+                                <tr *ngFor="let offTender of offTenders">
+                                    <div *ngIf="assocOff.WorkTender_ID==offTender.WorkTender_ID">
+                                        <td>
+                                            <div class="title">{{offTender.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="offTender.Quantity" style="color: darkblue">{{offTender.Quantity}} {{offTender.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="offTender.Value">Rs.{{offTender.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="offTender.Rate">Rs.{{offTender.Rate}} per {{offTender.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        </div>
+                                    </tr>
+                                
+                               
+                            </table>  
+                            <table class="simple invoice-table-footer">
+                                <tbody>
+                                    <tr class="subtotal" *ngFor="let total of totals">
+                                        <td   *ngIf="assocOff.WorkTender_ID==total.WorkTender_ID">TOTAL</td>
+                                        <td   *ngIf="assocOff.WorkTender_ID==total.WorkTender_ID">Rs.{{total.TotalQuote}}</td>
+                                    </tr>
+                                    
+                                   
+                                </tbody>
+                            </table></mat-form-field>
+                                 <!--<mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue; font-size: 13pt;">Key Deliverables</mat-label> <button mat-mini-fab class="add-event-button mat-accent"  (click)="addInTenderKey(assocOff.WorkTender_ID,1)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}" *ngIf="assocOff.TenderFinish_Flag==0">
+                                    <mat-icon>add</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           <div *ngFor="let t_key of tenderKeys">
+                                            <li *ngIf="assocOff.WorkTender_ID==t_key.WorkTender_ID">
+                                                    <span>{{t_key.Key_Name}}</span>
+                                                    <span><a class="pl-12" mat-button  aria-label="Delete Keys" *ngIf="assocOff.TenderFinish_Flag==0" (click)="delInTenderKeys(t_key.Key_ID, assocOff.WorkTender_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                    
+                                                 </li>
+                                       </div>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue ; font-size: 13pt;">Terms & Conditions</mat-label> <button mat-mini-fab class="add-event-button mat-accent" (click)="addInTenderTerms(assocOff.WorkTender_ID,1)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}"*ngIf="assocOff.TenderFinish_Flag==0">
+                                    <mat-icon>add</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           <div *ngFor="let t_term of tenderTerms">
+                                            <li *ngIf="assocOff.WorkTender_ID==t_term.Tender_ID">
+                                                    <span>{{t_term.Term_Name}}</span>
+                                                    <span><a class="pl-12" mat-button  aria-label="Delete Keys" *ngIf="assocOff.TenderFinish_Flag==0" (click)="delInTenderTerms(t_term.Term_ID, assocOff.WorkTender_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                    
+                                                 </li>
+                                       </div>
+                                </mat-form-field>
+                                
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label style="color:darkblue ; font-size: 13pt;">Payment Terms</mat-label> <button mat-mini-fab class="add-event-button mat-accent" (click)="editTenderPayTerm(assocOff.WorkTender_ID)" aria-label="Add Work"
+                                        [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}" *ngIf="assocOff.TenderFinish_Flag==0">
+                                    <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <input matInput                                         
+                                           hidden>
+                                           
+                                            <div class="info">{{assocOff.Payment_Terms}}</div>
+                                        
+                                </mat-form-field>-->
+                                 
+                                 
+                                     
+                                
+                            
+                                    </div>
+
+                               
+                                </mat-expansion-panel>
+                                </mat-accordion>
+                                </div>
+                                
+        </div>
+        <!--Offline Tender Display-->
+
+    <!--<div class="profile-box add-post">
+       
+        
+                <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header class="accent">
+                <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                    Assoc Name
+                </mat-panel-title>
+                <mat-panel-description>
+Offline Tender
+                </mat-panel-description>
+
+            </mat-expansion-panel-header>
+            <div class="content">
+                <table class="simple invoice-table">
+
+
+                    <tr>
+                        <span>
+                            <td>
+                                <div class="title">Verified</div>
+                                <div class="detail">Offline</div>
+                                <div class="detail1">5 yr Experience 
+                                </div>
+                               
+                            </td>
+
+                            <td class="text-right">
+
+                                <div class="title">
+                                    <span
+                                        style="color: deeppink;font-weight: bold;">Rs.45632</span> 
+                                    <span
+                                        style="color: darkgreen;font-weight: bold;">30 Days</span>
+                                   
+
+
+                                </div>
+
+                            </td>
+                        </span>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-right"> <button mat-raised-button color="accent"
+                                    (click)="viewPaySummary(0)">Delete Tender</button>&nbsp;
+                                
+                                &nbsp; <button mat-raised-button color="accent"
+                                    (click)="printPaySched(0)">Print</button></div>
+                        </td>
+
+                    </tr>
+
+
+
+                </table>
+           </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+                   
+           
+                
+            
+
+</div>-->
+   
+
+        <!--<div class="profile-box add-post">
+               
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Scope</div>
+                    <div class="more secondary-text"><button mat-button (click)="pushSpec()">Push Spec To Associate</button> </div>
+                </header>
+            
+                <div class="content" fxLayout="row wrap">
+                       
+               
+    
+            <table class="simple invoice-table">
+                    
+                    <tbody>
+                        <tr *ngFor="let item of items"  (click)="rowClick(item.LE_ID)">
+                              
+                                <td>
+                                        <div class="title">{{item.LineItem_Name}}</div>
+                                        <div class="detail">{{item.Comments}}</div>
+                                    </td>
+                                   
+                                    <td class="text-right">
+                                      <span *ngIf="item.Quantity"><span style="color: deeppink; font-weight: bold;">{{item.Quantity}} </span> <span style="color: darkgreen;">{{item.Unit_Code}}</span> </span>
+                                    </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>  
+                
+    </div>
+    </div>
+    <mat-divider></mat-divider>-->
+            
+       
+
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+        <div fxLayout="column" *ngIf="this.workStatus!=6">
+            <button mat-raised-button color="primary"   (click)="selectAssoc(1)">Online Tender</button>
+
+      </div>  
+      <div class="profile-box latest-activity" fxLayout="column"  *ngIf="this.workStatus!=6">
+    </div>
+                 <div  fxLayout="column"  *ngIf="this.workStatus!=6">
+                        <button mat-raised-button color="accent"  (click)="selectAssoc(0)">Manual Tender</button>
+                 </div>
+                 <div class="profile-box latest-activity" fxLayout="column"  *ngIf="this.workStatus!=6">
+                    </div>
+                    <div  fxLayout="column"  *ngIf="this.workStatus!=6">
+                        <button mat-raised-button color="accent" aria-label="Add Associate"  (click)="addNewAssoc(1)">Add New Associate</button>
+                 </div>
+                  <div class="profile-box latest-activity" fxLayout="column"  *ngIf="this.workStatus!=6">
+                    </div>
+                    <div  fxLayout="column"  *ngIf="this.workStatus!=6">
+                        <button mat-raised-button color="accent" aria-label="Add Associate" [disabled]="this.pushToCust_Flag==0" (click)="PushToCustomer()">Push Tender To Customer</button>
+                 </div>
+                
+                    
+                  <div class="profile-box latest-activity" fxLayout="column">
+                  </div>
+                  <div class="profile-box latest-activity" fxLayout="column">
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Key Deliverables</div>
+                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Key Deliverables" *ngIf="this.key_button==0" (click)="addKeys(0)"><mat-icon>vpn_key</mat-icon></a></div>
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                   <div *ngIf="this.keys_Flag==0">
+                   
+                            <div class="info-line">
+                                    <div class="title">Key Deliverables Currently Not Available!!</div>
+                                    
+                                </div>
+                               </div>
+                               
+                               <div class="info-line" *ngIf="this.keys_Flag!=0">
+                                <li *ngFor="let key of keys">
+                                        <span  class="title">{{key.Key_Name}}</span>
+                                        <span><a class="pl-12" mat-button  aria-label="Delete Keys" *ngIf="this.key_button==0" (click)="delKeys(key.Key_ID)"><mat-icon>delete</mat-icon></a></span>
+                                     </li>
+                           </div>
+                       
+                        
+                    
+</div>
+
+                  </div>
+                  <div class="profile-box latest-activity" fxLayout="column">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Terms & Conditions</div>
+                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Terms & Conditions" *ngIf="this.key_button==0" (click)="addTerms(0)"><mat-icon>import_contacts</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngIf="this.terms_Flag==0">
+                       
+                                <div class="info-line">
+                                        <div class="title">Terms & Conditions Currently Not Available!!</div>
+                                        
+                                    </div>
+                                   </div>
+                                   <div class="info-line" *ngIf="this.terms_Flag!=0">
+                                        <li *ngFor="let term of terms">
+                                               <span  class="title"> {{term.Term_Name}}</span>
+                                               <span><a class="pl-12" mat-button  aria-label="Delete Terms"*ngIf="this.key_button==0"  (click)="delTerms(term.Term_ID)"><mat-icon>delete</mat-icon></a></span>
+                                             </li>
+                                   </div>
+                                                     
+                            
+                        
+        </div>
+            </div>
+
+            <div class="profile-box latest-activity" fxLayout="column">
+
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Payment Terms</div>
+                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Payment Terms"  *ngIf="this.key_button==0" (click)="addPaymentTerms()" ><mat-icon>add</mat-icon></a></div>
+                </header>
+                <div class="content" fxLayout="row wrap" *ngIf="this.payTerms_Flag==0">
+                        <div class="info-line">
+                                <div class="title">Payment Terms Currently Not Available !! </div>
+                                
+                            </div>
+                </div>
+                <div class="content" fxLayout="row wrap" *ngIf="this.payTerms_Flag!=0">
+                        <div class="info-line">
+                                <div class="title">Payment Terms</div>
+                                <div class="info">{{this.payTerms}}</div>
+                            </div>
+                </div>
+    
+               
+            </div>    
+                 
+      
+       
+           
+    </div>
+
+</div>
+

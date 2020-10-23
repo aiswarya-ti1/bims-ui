@@ -1,0 +1,64 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end">
+
+ <div class="logo my-12 m-sm-0"
+ fxLayout="row" fxLayoutAlign="start center">
+ <div>
+         <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/project'">
+             <mat-icon style="color:white">arrow_back</mat-icon>
+         </button></div>
+
+<div class="logo-text h1" style="color:white">
+    Project Estimation
+</div>
+</div>
+
+
+      
+      <!--<div class="actions" fxLayout="row" fxLayoutAlign="end center"  [@animate]="{value:'*',params:{delay:'200ms'}}">
+           <button mat-raised-button color="accent" aria-label="Follow" (click)="addWork()">Change Assignee</button>
+           
+        </div> -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <p align="right" style="color: darkblue;">{{this.Work_ID}} &nbsp;{{this.CustName}}</p>
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Work Details">
+                <ng-template matTabContent>
+                    <works-site-analysis (siteFlagEvent)="setSiteFlag($event)"></works-site-analysis>
+                  </ng-template>
+               
+            </mat-tab>
+
+            <mat-tab label="Estimation" *ngIf="this.Site_Flag==1">
+                <ng-template matTabContent>
+                <work-estimation></work-estimation>
+                </ng-template>
+                </mat-tab>
+                <mat-tab label="Tendering" *ngIf="this.Est_Flag==1">
+                    <ng-template matTabContent>
+                        <work-tender (initFlagEvent)="setInitFlag($event)"></work-tender>
+                        </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Work Order" *ngIf="this.InitWO_Flag==1">
+                            <ng-template matTabContent>
+                                <work-order-prepare></work-order-prepare>
+                                </ng-template>
+                                </mat-tab>
+                   
+            
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

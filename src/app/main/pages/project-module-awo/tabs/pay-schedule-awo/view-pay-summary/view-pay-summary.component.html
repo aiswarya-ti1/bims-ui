@@ -1,0 +1,11 @@
+<div class="box">
+        <div class="title">Total Amount: <span class="amount"> Rs.{{this.EstTotal}}</span></div>
+        <!--<div class="title">Received Amount Total: <span class="amount">Rs.{{this.RecAmt}}</span></div>-->
+        <div class="title">Received Amount: <span class="amount">Rs.{{this.SplitTotal}}</span></div>
+        <!--<div class="title">Rec.Amount Balance: <span class="amount">Rs.{{this.RecBal}}</span></div>-->
+        
+        <div class="title" *ngIf="this.ReEst!=0">Re-Measured Amount: <span class="amount">Rs.{{this.ReEst}}</span></div>
+        <div class="detail" *ngIf="this.ReEst==0">Balance : <span class="amount">Rs.{{this.SplitBal}}</span></div>
+        <div class="detail" *ngIf="this.ReEst!=0">Re-Balance : <span class="amount">Rs.{{this.ReEstBal}}</span></div>
+    </div>
+   

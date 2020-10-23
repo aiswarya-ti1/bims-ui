@@ -1,0 +1,78 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title" *ngIf="this.Type_ID==1">Add Payments</span>
+          <span class="title dialog-title" *ngIf="this.Type_ID==2">Split Payments</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="startWorkForm" name="startWorkForm">
+      <input matInput formControlName="work_ID" hidden>
+      <input matInput formControlName="type_ID" hidden>
+      <input matInput formControlName="pay_ID" hidden>
+      <div fxLayout="row" *ngIf="this.balAmount">
+        <div align="right" style="color: darkblue; font-weight: bold;">Balance : {{this.balAmount}}</div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Type_ID==2">
+        <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Select Receipt</mat-label>
+            
+            <mat-select formControlName="recipts"  (ngModelChange)="onChange($event)">
+                <mat-option  *ngFor="let rec of RecAmounts" [value]="rec.Rec_ID" >{{rec.Rec_Amount}}<span style="color: darkgreen; font-size: x-small;">({{rec.Rec_Date}})</span></mat-option>
+               
+                </mat-select>
+                    
+          </mat-form-field></div>
+          
+      <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field  appearance="outline" fxFlex>
+              <mat-label>Received Amount</mat-label>
+              <input type="text" matInput formControlName="recAmt">
+                  
+                    </mat-form-field>
+        
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Received Date</mat-label>
+            <input matInput [matDatepicker]="picker1"   formControlName="payDate" #startDate name="payDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field></div>
+           <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Payment Type</mat-label>
+            
+            <mat-select formControlName="type">
+                <mat-option  value="Bank" class="text-truncate">Bank</mat-option>
+                <mat-option  value="Cash" class="text-truncate">Cash</mat-option>
+                <mat-option  value="Others" class="text-truncate">Others</mat-option>
+                </mat-select>
+                    
+          </mat-form-field></div>
+          <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Comments</mat-label>
+           <textarea matInput formControlName="Comment"></textarea>
+                    
+          </mat-form-field></div>
+          
+
+
+      </form>
+
+  </div>
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button   class="mat-accent mr-0 mr-sm-16" [disabled]="startWorkForm.invalid" (click)="saveExtraPayment(startWorkForm.value);dialogRef.close();"><!--[routerLink]="'/dashboards/pmqa-dashboard'"-->
+      SAVE
+   </button>
+  </div>
+
+  
+</div>

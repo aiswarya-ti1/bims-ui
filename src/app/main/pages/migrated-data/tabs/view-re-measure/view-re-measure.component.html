@@ -1,0 +1,58 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Re-Measure Details</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    
+
+        <form [formGroup]="contactForm">
+            <div *ngIf="this.Scope_RFlag==0">No Data Found</div>
+
+            <table class="simple invoice-table" *ngIf="this.Scope_RFlag==1">
+               
+                    <tr *ngFor="let tender of tenders">
+                          
+                        <td *ngIf="tender.Quantity">
+                            <div class="title">{{tender.LineItem_Name}}</div>
+                            <div style="color: darkgray; font-size: x-small;">{{tender.Comments}}</div>
+                            
+                            <span style="color: darkgreen;">Rs.{{tender.Rate}}</span>
+                        </td>
+                       
+                       
+                                      <td class="text-right" *ngIf="tender.Quantity">
+                                            <div  style="font-size: 12pt;" *ngIf="tender.reMeasure_Qty">{{tender.reMeasure_Qty}} {{tender.Unit_Code}}</div>
+<div  class=detail style="font-weight: bold; color: darkred;" *ngIf="tender.reMeasure_Value">Rs. {{tender.reMeasure_Value}}</div>
+                                          </td>
+                                       
+                        
+                    </tr>
+               
+            </table>  
+            <div *ngIf="this.Scope_RFlag==1">
+            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="title">Work Order Value Before ReMeasure</div>
+              <div class="detail"><span class="h2">{{this.Total}}</span>
+              </div></div>
+              <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Work Order Value After ReMeasure</div>
+                <div class="detail"><span class="h2">{{this.reTTotal}}</span>
+                </div></div>
+            </div>
+                
+         
+            
+        </form>
+
+    
+    
+
+  
+</div>

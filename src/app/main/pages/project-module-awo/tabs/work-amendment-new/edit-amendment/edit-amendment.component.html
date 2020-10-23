@@ -1,0 +1,238 @@
+<div class="page-layout carded fullwidth">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+          
+ <div>
+         <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="['/project-management/'+this.Work_ID]">
+             <mat-icon style="color:white">arrow_back</mat-icon>
+         </button></div>
+
+<div class="logo-text h1" style="color:white">
+    Amendment {{this.AmendNo}} Details
+</div>
+       
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+ <!-- CONTENT TOOLBAR -->
+
+
+            <!-- CONTENT -->
+            <div class="content p-24">
+
+                <div id="search-modern" class="p-24" fxLayout="row wrap">
+                    <div class="content p-24" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+                          
+                
+                               <div class="profile-box add-post">
+                                   
+                                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div class="title">Scope</div>
+                                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Line Items"  (click)="addLineItems(1)" ><mat-icon>add</mat-icon></a></div>
+                                        </header>
+                                    
+                                        <div class="content" fxLayout="row wrap">
+                                        <span *ngIf="this.itemsA_Flag==0">Currently no items available!!</span>
+                    
+                                    <table class="simple invoice-table" *ngIf="this.itemsA_Flag!=0">
+                                          
+                           
+                        <tbody>
+                            <tr *ngFor="let item of items"  (click)="addLineItemDetails(item.LE_ID)">
+                                  
+                                    <td>
+                                            <div class="title">{{item.LineItem_Name}}</div>
+                                            <div class="detail">{{item.Comments}}</div>
+                                            <div class="detail"><span *ngIf="item.Quantity" style="color: darkblue;">{{item.Quantity}} {{item.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                       
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="item.Value">Rs.{{item.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="item.Rate">Rs.{{item.Rate}} per {{item.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                              
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="profile-box add-post">
+                               
+                                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div class="title">Work Schedule</div>
+                                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Work Schedule"  (click)="workSchedule(1,0)"><mat-icon>schedule</mat-icon></a></div>
+                                        </header>
+                                    
+                                        <div class="content" fxLayout="row wrap">
+                                               
+                                       <div *ngIf="this.workSchedA_Flag==0">
+                                       
+                                                <div class="info-line">
+                                                        <div class="title">Work Schedule Currently Not Available!!</div>
+                                                        
+                                                    </div>
+                                                   </div>
+                                                   <table class="simple invoice-table" *ngIf="this.workSchedA_Flag!=0">
+                                                 
+                                                    <tr *ngFor="let work of workSched"  (click)="workSchedule(2, work.Work_Schedule_ID)">
+                                                         
+                                                              <td>
+                                                                     <div class="title">{{work.Work_Stage}}</div>
+                                                                     <div class="detail">{{work.Remarks}}</div>
+                                                              </td>  
+                                                     
+                                                              <td class="text-right">
+                                                                            
+                                                                                   <div class="title">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                   <div class="title">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                   <div class="title">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                                                              
+                                                              </td>
+                                                        
+                                                     </tr>
+                                                   
+                                                </table>                       
+                                           
+                                            
+                                        
+                    </div>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="profile-box add-post">
+                               
+                                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div class="title">Payment Schedule</div>
+                                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Pay Schedule" (click)="paymentSchedule(1,0)"><mat-icon>payment</mat-icon></a></div>
+                                        </header>
+                                    
+                                        <div class="content" fxLayout="row wrap">
+                                               
+                                       <div *ngIf="this.paySchedA_Flag==0">
+                                       
+                                                <div class="info-line">
+                                                        <div class="title">Payment Schedule Currently Not Available!!</div>
+                                                        
+                                                    </div>
+                                                   </div>
+                                                   <table class="simple invoice-table" *ngIf="this.paySchedA_Flag!=0">
+                                                   
+                                                    <tr *ngFor="let pay of paySched" (click)="paymentSchedule(2, pay.Pay_Schedule_ID)">
+                                                    <td >
+                                                            <div class="title">{{pay.Payment_Phase}}</div>
+                                                           <div class="detail">{{pay.Remarks}}</div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                                <div>
+                                                                      <span style="color: deeppink; font-weight: bold;">Rs.{{pay.Amount}}</span> 
+                                                                      <span style="color:rgba(0, 0, 0, 0.87) "> on </span> 
+                                                                      <span style="color: darkgreen; font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                                                </div>
+
+                                                        </td>
+                                                        </tr>
+                                                   
+                                                </table>        
+                                        
+                    </div>
+                            </div>
+                            <mat-divider ></mat-divider>
+                            <div class="profile-box add-post">
+                               
+                                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div class="title">Key Deliverables</div>
+                                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Key Deliverables"  (click)="addKeys(1)"><mat-icon>vpn_key</mat-icon></a></div>
+                                    </header>
+                                
+                                    <div class="content" fxLayout="row wrap">
+                                           
+                                   <div *ngIf="this.keysA_Flag==0">
+                                   
+                                            <div class="info-line">
+                                                    <div class="title">Key Deliverables Currently Not Available!!</div>
+                                                    
+                                                </div>
+                                               </div>
+                                              
+                                           <div class="info-line" *ngIf="this.keysA_Flag!=0">
+                                                <li *ngFor="let key of keys">
+                                                        <span  class="title">{{key.Key_Name}}</span>
+                                                        <span><a class="pl-12" mat-button  aria-label="Delete Keys"  (click)="delKeys(key.Key_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                     </li>
+                                           </div>
+                                       
+                                        
+                                    
+                </div>
+                        </div>
+                        <mat-divider ></mat-divider>
+                        <div class="profile-box add-post">
+                               
+                            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="title">Terms & Conditions</div>
+                                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Terms & Conditions" (click)="addTerms(1)"><mat-icon>import_contacts</mat-icon></a></div>
+                                </header>
+                            
+                                <div class="content" fxLayout="row wrap">
+                                       
+                               <div *ngIf="this.termsA_Flag==0">
+                               
+                                        <div class="info-line">
+                                                <div class="title">Terms & Conditions Currently Not Available!!</div>
+                                                
+                                            </div>
+                                           </div>
+                                         
+                                           <div class="info-line" *ngIf="this.termsA_Flag!=0">
+                                                <li *ngFor="let term of terms">
+                                                       <span  class="title"> {{term.Term_Name}}</span>
+                                                       <span><a class="pl-12" mat-button  aria-label="Delete Terms"  (click)="delTerms(term.Term_ID)"><mat-icon>delete</mat-icon></a></span>
+                                                     </li>
+                                           </div>
+                                                             
+                                    
+                                
+                </div>
+                    </div>
+                
+                      
+                
+                       
+                    </div>
+                    <!-- / CONTENT -->
+                    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+                           
+                            <div  fxLayout="column">
+                                   <button mat-raised-button color="accent" aria-label="Finish Amendment"  (click)="finishAmendment()">Finish Amendment</button>
+                                  
+                
+                             </div>  
+                    </div> 
+                
+                </div>
+                
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

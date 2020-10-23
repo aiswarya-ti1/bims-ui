@@ -1,0 +1,825 @@
+
+
+
+
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+         
+          </div>
+            <div class="profile-box">
+                   
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Scope</div>
+                            <div class="more secondary-text">
+                              <button mat-raised-button color="accent" *ngIf="this.Scope_RFlag==0" (click)="finish(0)">Finish</button>
+                              
+                              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.Scope_RFlag==1" (click)="printRemeasure(0)"><mat-icon>pageview</mat-icon></a>
+                            </div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                            
+    
+                    <table class="simple invoice-table" *ngIf="this.Scope_RFlag==0">
+                            <thead>
+                                <tr>
+                                       
+                                    <th>LINE ITEMS</th>
+                                   
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">UNIT</th>
+                                    <th class="text-right">RATE(Rs)</th>
+                                    <th class="text-right">VALUE(Rs)</th>
+                                    <th class="text-right">RE-QUANTITY</th>
+                                    <th class="text-right">RE-RATE(Rs)</th>
+                                    <th class="text-right">RE-VALUE(Rs)</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tender of tenders"  (click)="editQty(tender.WorkTenderLab_ID,tender.LineItem_ID,1)">
+                                      
+                                    <td *ngIf="tender.Quantity">
+                                        <div class="title">{{tender.LineItem_Name}}</div>
+                                        <div class="detail">{{tender.Comments}}</div>
+                                    </td>
+                                   
+                                    <td class="text-right" *ngIf="tender.Quantity">
+                                      <span>{{tender.Quantity}}</span>
+                                    </td>
+                                    <td class="text-right" *ngIf="tender.Quantity">
+                                            <span>{{tender.Unit_Code}}</span>
+                                          </td>
+                                          <td class="text-right" *ngIf="tender.Quantity">
+                                                <span >{{tender.Rate}}</span>
+                                              </td>
+                                              <td class="text-right" *ngIf="tender.Quantity">
+                                                    <span *ngIf="tender.Value">{{tender.Value}}</span>
+                                                  </td>
+                                                  <td class="text-right" *ngIf="tender.Quantity">
+                                                        <span *ngIf="tender.reMeasure_Qty">{{tender.reMeasure_Qty}}</span>
+                                                      </td>
+                                                      <td class="text-right" *ngIf="tender.Quantity">
+                                                        <span *ngIf="tender.reMeasure_Rate">{{tender.reMeasure_Rate}}</span>
+                                                      </td>
+                                                      <td class="text-right" *ngIf="tender.Quantity">
+                                                            <span *ngIf="tender.reMeasure_Value">{{tender.reMeasure_Value}}</span>
+                                                            <span style="font-size: x-small;" *ngIf="tender.Re_Comments">{{tender.Re_Comments}}</span>
+                                                          </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <div  *ngIf="this.Scope_RFlag==1">
+                        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div class="title">Work Order Value Before ReMeasure</div>
+                          <div class="detail"><span class="h2">{{this.Total}}</span>
+                          </div></div>
+                          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Work Order Value After ReMeasure</div>
+                            <div class="detail"><span class="h2">{{this.reTTotal}}</span>
+                            </div></div>
+                        </div>
+
+    </div>
+            </div>
+            
+            <div class="profile-box" *ngIf="this.amend1Exists==1">
+                   
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Amended 1 Scope</div>
+                            <div class="more secondary-text"> <button mat-raised-button color="accent" *ngIf="this.A1_RFlag==0" (click)="finish(1)">Finish</button>
+                              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A1_RFlag==1" (click)="printRemeasure(1)"><mat-icon>pageview</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">  
+    
+                    <table class="simple invoice-table" *ngIf="this.A1_RFlag==0">
+                            <thead>
+                                <tr>
+                                       
+                                    <th>Line Items</th>
+                                   
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">UNIT</th>
+                                    <th class="text-right">RATE(Rs)</th>
+                                    <th class="text-right">VALUE(Rs)</th>
+                                    <th class="text-right">RE-QUANTITY</th>
+                                    <th class="text-right">RE-RATE</th>
+                                    <th class="text-right">RE-VALUE(Rs)</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item1 of items1"  (click)="editQty(item1.LE_ID,item1.LineItem_ID, 2)">
+                                      
+                                    <td>
+                                        <div class="title">{{item1.LineItem_Name}}</div>
+                                        <div class="detail">{{item1.Comments}}</div>
+                                    </td>
+                                   
+                                    <td class="text-right">
+                                      <span *ngIf="item1.Quantity">{{item1.Quantity}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                            <span *ngIf="item1.Quantity">{{item1.Unit_Code}}</span>
+                                          </td>
+                                          <td class="text-right">
+                                                <span *ngIf="item1.Rate">{{item1.Rate}}</span>
+                                              </td>
+                                              <td class="text-right">
+                                                    <span *ngIf="item1.Value">{{item1.Value}}</span>
+                                                  </td>
+                                                  <td class="text-right">
+                                                        <span *ngIf="item1.reMeasure_Qty">{{item1.reMeasure_Qty}}</span>
+                                                      </td>
+                                                      <td class="text-right">
+                                                        <span *ngIf="item1.reMeasure_Rate">{{item1.reMeasure_Rate}}</span>
+                                                      </td>
+                                                      <td class="text-right">
+                                                            <span *ngIf="item1.reMeasure_Value">{{item1.reMeasure_Value}}</span>
+                                                            <span style="font-size: x-small;" *ngIf="item1.Re_Comments">{{item1.Re_Comments}}</span>
+                                                          </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table> 
+                        <div  *ngIf="this.A1_RFlag==1">
+                            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="title">Amendment 1 Before ReMeasure</div>
+                                <div class="more secondary-text"><span class="h2">{{this.AmdTotal1}}</span>
+                                </div></div> 
+                        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div class="title">Amendment 1 After ReMeasure</div>
+                          <div class="more secondary-text"><span class="h2">{{this.AmdReTotal1}}</span>
+                          </div></div> 
+                        </div>
+    </div>
+            </div>
+
+
+<div class="profile-box" *ngIf="this.amend2Exists==1">
+                   
+    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Amended 2 Scope</div>
+            <div class="more secondary-text"> <button mat-raised-button color="accent" *ngIf="this.A2_RFlag==0" (click)="finish(2)">Finish</button>
+              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A2_RFlag==1" (click)="printRemeasure(2)"><mat-icon>pageview</mat-icon></a></div>
+        </header>
+    
+        <div class="content" fxLayout="row wrap">
+       
+
+    <table class="simple invoice-table" *ngIf="this.A2_RFlag==0">
+            <thead>
+                <tr>
+                       
+                    <th>Line Items</th>
+                   
+                    <th class="text-right">QUANTITY</th>
+                    <th class="text-right">UNIT</th>
+                    <th class="text-right">RATE(Rs)</th>
+                    <th class="text-right">VALUE(Rs)</th>
+                    <th class="text-right">RE-QUANTITY</th>
+                    <th class="text-right">RE-RATE(Rs)</th>
+                    <th class="text-right">RE-VALUE(Rs)</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item2 of items2"  (click)="editQty(item2.LE_ID,item2.LineItem_ID, 2)">
+                      
+                    <td>
+                        <div class="title">{{item2.LineItem_Name}}</div>
+                        <div class="detail">{{item2.Comments}}</div>
+                    </td>
+                   
+                    <td class="text-right">
+                      <span *ngIf="item2.Quantity">{{item2.Quantity}}</span>
+                    </td>
+                    <td class="text-right">
+                            <span *ngIf="item2.Quantity">{{item2.Unit_Code}}</span>
+                          </td>
+                          <td class="text-right">
+                                <span *ngIf="item2.Rate">{{item2.Rate}}</span>
+                              </td>
+                              <td class="text-right">
+                                    <span *ngIf="item2.Value">{{item2.Value}}</span>
+                                  </td>
+                                  <td class="text-right">
+                                        <span *ngIf="item2.reMeasure_Qty">{{item2.reMeasure_Qty}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                        <span *ngIf="item2.reMeasure_Rate">{{item2.reMeasure_Rate}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                            <span *ngIf="item2.reMeasure_Value">{{item2.reMeasure_Value}}</span>
+                                            <span style="font-size: x-small;" *ngIf="item2.Re_Comments">{{item2.Re_Comments}}</span>
+                                          </td>
+                    
+                </tr>
+            </tbody>
+        </table>  
+        <div *ngIf="this.A2_RFlag==1">
+            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+                <div class="title">Amendment 2 Before ReMeasure</div>
+                <div class="more secondary-text"><span class="h2">{{this.AmdTotal2}}</span>
+                </div></div> 
+        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+          <div class="title">Amendment 2 After ReMeasure</div>
+          <div class="more secondary-text"><span class="h2">{{this.AmdReTotal2}}</span>
+          </div></div> 
+        </div>
+</div>
+</div>
+
+<div class="profile-box" *ngIf=" this.amend3Exists==1">
+                   
+    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Amended 3 Scope</div>
+            <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A3_RFlag==0" (click)="finish(3)">Finish</button>
+              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A3_RFlag==1" (click)="printRemeasure(3)"><mat-icon>pageview</mat-icon></a></div>
+        </header>
+    
+        <div class="content" fxLayout="row wrap">
+         
+    <table class="simple invoice-table" *ngIf="this.A3_RFlag==0">
+            <thead>
+                <tr>
+                       
+                    <th>Line Items</th>
+                   
+                    <th class="text-right">QUANTITY</th>
+                    <th class="text-right">UNIT</th>
+                    <th class="text-right">RATE(Rs)</th>
+                    <th class="text-right">VALUE(Rs)</th>
+                    <th class="text-right">RE-QUANTITY</th>
+                    <th class="text-right">RE-RATE(Rs)</th>
+                    <th class="text-right">RE-VALUE(Rs)</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item3 of items3"  (click)="editQty(item3.LE_ID,item3.LineItem_ID, 2)">
+                      
+                    <td>
+                        <div class="title">{{item3.LineItem_Name}}</div>
+                        <div class="detail">{{item3.Comments}}</div>
+                    </td>
+                   
+                    <td class="text-right">
+                      <span *ngIf="item3.Quantity">{{item3.Quantity}}</span>
+                    </td>
+                    <td class="text-right">
+                            <span *ngIf="item3.Quantity">{{item3.Unit_Code}}</span>
+                          </td>
+                          <td class="text-right">
+                                <span *ngIf="item3.Rate">{{item3.Rate}}</span>
+                              </td>
+                              <td class="text-right">
+                                    <span *ngIf="item3.Value">{{item3.Value}}</span>
+                                  </td>
+                                  <td class="text-right">
+                                        <span *ngIf="item3.reMeasure_Qty">{{item3.reMeasure_Qty}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                        <span *ngIf="item3.reMeasure_Rate">{{item3.reMeasure_Rate}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                            <span *ngIf="item3.reMeasure_Value">{{item3.reMeasure_Value}}</span>
+                                            <span style="font-size: x-small;" *ngIf="item3.Re_Comments">{{item3.Re_Comments}}</span>
+                                          </td>
+                    
+                </tr>
+            </tbody>
+        </table>  
+        <div *ngIf="this.A3_RFlag==1">
+            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+                <div class="title">Amendment 3 Before ReMeasure</div>
+                <div class="more secondary-text"><span class="h2">{{this.AmdTotal3}}</span>
+                </div></div>
+        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+          <div class="title">Amendment 3 After ReMeasure</div>
+          <div class="more secondary-text"><span class="h2">{{this.AmdReTotal3}}</span>
+          </div></div> 
+        </div>
+</div>
+</div>
+
+<div class="profile-box" *ngIf=" this.amend4Exists==1">
+                   
+    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Amended 4 Scope</div>
+            <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A4_RFlag==0" (click)="finish(4)">Finish</button>
+              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A4_RFlag==1" (click)="printRemeasure(4)"><mat-icon>pageview</mat-icon></a></div>
+        </header>
+    
+        <div class="content" fxLayout="row wrap">
+         
+    <table class="simple invoice-table" *ngIf="this.A4_RFlag==0">
+            <thead>
+                <tr>
+                       
+                    <th>Line Items</th>
+                   
+                    <th class="text-right">QUANTITY</th>
+                    <th class="text-right">UNIT</th>
+                    <th class="text-right">RATE(Rs)</th>
+                    <th class="text-right">VALUE(Rs)</th>
+                    <th class="text-right">RE-QUANTITY</th>
+                    <th class="text-right">RE-RATE(Rs)</th>
+                    <th class="text-right">RE-VALUE(Rs)</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item4 of items4"  (click)="editQty(item4.LE_ID,item4.LineItem_ID, 2)">
+                      
+                    <td>
+                        <div class="title">{{item4.LineItem_Name}}</div>
+                        <div class="detail">{{item4.Comments}}</div>
+                    </td>
+                   
+                    <td class="text-right">
+                      <span *ngIf="item4.Quantity">{{item4.Quantity}}</span>
+                    </td>
+                    <td class="text-right">
+                            <span *ngIf="item4.Quantity">{{item4.Unit_Code}}</span>
+                          </td>
+                          <td class="text-right">
+                                <span *ngIf="item4.Rate">{{item4.Rate}}</span>
+                              </td>
+                              <td class="text-right">
+                                    <span *ngIf="item4.Value">{{item4.Value}}</span>
+                                  </td>
+                                  <td class="text-right">
+                                        <span *ngIf="item4.reMeasure_Qty">{{item4.reMeasure_Qty}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                        <span *ngIf="item4.reMeasure_Rate">{{item4.reMeasure_Rate}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                            <span *ngIf="item4.reMeasure_Value">{{item4.reMeasure_Value}}</span>
+                                            <span style="font-size: x-small;" *ngIf="item4.Re_Comments">{{item4.Re_Comments}}</span>
+                                          </td>
+                    
+                </tr>
+            </tbody>
+        </table>  
+        <div *ngIf="this.A3_RFlag==1">
+            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+                <div class="title">Amendment 4 Before ReMeasure</div>
+                <div class="more secondary-text"><span class="h2">{{this.AmdTotal4}}</span>
+                </div></div>
+        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+          <div class="title">Amendment 4 After ReMeasure</div>
+          <div class="more secondary-text"><span class="h2">{{this.AmdReTotal4}}</span>
+          </div></div> 
+        </div>
+</div>
+</div>
+<div class="profile-box" *ngIf=" this.amend5Exists==1">
+                   
+    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Amended 5 Scope</div>
+            <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A5_RFlag==0" (click)="finish(5)">Finish</button>
+              <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A5_RFlag==1" (click)="printRemeasure(5)"><mat-icon>pageview</mat-icon></a></div>
+        </header>
+    
+        <div class="content" fxLayout="row wrap">
+         
+    <table class="simple invoice-table" *ngIf="this.A5_RFlag==0">
+            <thead>
+                <tr>
+                       
+                    <th>Line Items</th>
+                   
+                    <th class="text-right">QUANTITY</th>
+                    <th class="text-right">UNIT</th>
+                    <th class="text-right">RATE(Rs)</th>
+                    <th class="text-right">VALUE(Rs)</th>
+                    <th class="text-right">RE-QUANTITY</th>
+                    <th class="text-right">RE-RATE(Rs)</th>
+                    <th class="text-right">RE-VALUE(Rs)</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item5 of items5"  (click)="editQty(item5.LE_ID,item5.LineItem_ID, 2)">
+                      
+                    <td>
+                        <div class="title">{{item5.LineItem_Name}}</div>
+                        <div class="detail">{{item5.Comments}}</div>
+                    </td>
+                   
+                    <td class="text-right">
+                      <span *ngIf="item5.Quantity">{{item5.Quantity}}</span>
+                    </td>
+                    <td class="text-right">
+                            <span *ngIf="item5.Quantity">{{item5.Unit_Code}}</span>
+                          </td>
+                          <td class="text-right">
+                                <span *ngIf="item5.Rate">{{item5.Rate}}</span>
+                              </td>
+                              <td class="text-right">
+                                    <span *ngIf="item5.Value">{{item5.Value}}</span>
+                                  </td>
+                                  <td class="text-right">
+                                        <span *ngIf="item5.reMeasure_Qty">{{item5.reMeasure_Qty}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                        <span *ngIf="item5.reMeasure_Rate">{{item5.reMeasure_Rate}}</span>
+                                      </td>
+                                      <td class="text-right">
+                                            <span *ngIf="item5.reMeasure_Value">{{item5.reMeasure_Value}}</span>
+                                            <span style="font-size: x-small;" *ngIf="item5.Re_Comments">{{item5.Re_Comments}}</span>
+                                          </td>
+                    
+                </tr>
+            </tbody>
+        </table>  
+        <div *ngIf="this.A5_RFlag==1">
+            <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+                <div class="title">Amendment 5 Before ReMeasure</div>
+                <div class="more secondary-text"><span class="h2">{{this.AmdTotal5}}</span>
+                </div></div>
+        <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+          <div class="title">Amendment 5 After ReMeasure</div>
+          <div class="more secondary-text"><span class="h2">{{this.AmdReTotal5}}</span>
+          </div></div> 
+        </div>
+</div>
+</div>
+<div class="profile-box" *ngIf=" this.amend6Exists==1">
+                   
+  <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">Amended 6 Scope</div>
+          <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A6_RFlag==0" (click)="finish(6)">Finish</button>
+            <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A6_RFlag==1" (click)="printRemeasure(6)"><mat-icon>pageview</mat-icon></a></div>
+      </header>
+  
+      <div class="content" fxLayout="row wrap">
+       
+  <table class="simple invoice-table" *ngIf="this.A6_RFlag==0">
+          <thead>
+              <tr>
+                     
+                  <th>Line Items</th>
+                 
+                  <th class="text-right">QUANTITY</th>
+                  <th class="text-right">UNIT</th>
+                  <th class="text-right">RATE(Rs)</th>
+                  <th class="text-right">VALUE(Rs)</th>
+                  <th class="text-right">RE-QUANTITY</th>
+                  <th class="text-right">RE-RATE(Rs)</th>
+                  <th class="text-right">RE-VALUE(Rs)</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item6 of items6"  (click)="editQty(item6.LE_ID,item6.LineItem_ID, 2)">
+                    
+                  <td>
+                      <div class="title">{{item6.LineItem_Name}}</div>
+                      <div class="detail">{{item6.Comments}}</div>
+                  </td>
+                 
+                  <td class="text-right">
+                    <span *ngIf="item6.Quantity">{{item6.Quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                          <span *ngIf="item6.Quantity">{{item6.Unit_Code}}</span>
+                        </td>
+                        <td class="text-right">
+                              <span *ngIf="item6.Rate">{{item6.Rate}}</span>
+                            </td>
+                            <td class="text-right">
+                                  <span *ngIf="item6.Value">{{item6.Value}}</span>
+                                </td>
+                                <td class="text-right">
+                                      <span *ngIf="item6.reMeasure_Qty">{{item6.reMeasure_Qty}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                      <span *ngIf="item6.reMeasure_Rate">{{item6.reMeasure_Rate}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                          <span *ngIf="item6.reMeasure_Value">{{item6.reMeasure_Value}}</span>
+                                          <span style="font-size: x-small;" *ngIf="item6.Re_Comments">{{item6.Re_Comments}}</span>
+                                        </td>
+                  
+              </tr>
+          </tbody>
+      </table>  
+      <div *ngIf="this.A3_RFlag==1">
+          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+              <div class="title">Amendment 6 Before ReMeasure</div>
+              <div class="more secondary-text"><span class="h2">{{this.AmdTotal6}}</span>
+              </div></div>
+      <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+        <div class="title">Amendment 6 After ReMeasure</div>
+        <div class="more secondary-text"><span class="h2">{{this.AmdReTotal6}}</span>
+        </div></div> 
+      </div>
+</div>
+</div>
+<div class="profile-box" *ngIf=" this.amend7Exists==1">
+                   
+  <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">Amended 7 Scope</div>
+          <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A7_RFlag==0" (click)="finish(7)">Finish</button>
+            <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A7_RFlag==1" (click)="printRemeasure(7)"><mat-icon>pageview</mat-icon></a></div>
+      </header>
+  
+      <div class="content" fxLayout="row wrap">
+       
+  <table class="simple invoice-table" *ngIf="this.A7_RFlag==0">
+          <thead>
+              <tr>
+                     
+                  <th>Line Items</th>
+                 
+                  <th class="text-right">QUANTITY</th>
+                  <th class="text-right">UNIT</th>
+                  <th class="text-right">RATE(Rs)</th>
+                  <th class="text-right">VALUE(Rs)</th>
+                  <th class="text-right">RE-QUANTITY</th>
+                  <th class="text-right">RE-RATE(Rs)</th>
+                  <th class="text-right">RE-VALUE(Rs)</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item7 of items7"  (click)="editQty(item7.LE_ID,item7.LineItem_ID, 2)">
+                    
+                  <td>
+                      <div class="title">{{item7.LineItem_Name}}</div>
+                      <div class="detail">{{item7.Comments}}</div>
+                  </td>
+                 
+                  <td class="text-right">
+                    <span *ngIf="item7.Quantity">{{item7.Quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                          <span *ngIf="item7.Quantity">{{item7.Unit_Code}}</span>
+                        </td>
+                        <td class="text-right">
+                              <span *ngIf="item7.Rate">{{item7.Rate}}</span>
+                            </td>
+                            <td class="text-right">
+                                  <span *ngIf="item7.Value">{{item7.Value}}</span>
+                                </td>
+                                <td class="text-right">
+                                      <span *ngIf="item7.reMeasure_Qty">{{item7.reMeasure_Qty}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                      <span *ngIf="item7.reMeasure_Rate">{{item7.reMeasure_Rate}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                          <span *ngIf="item7.reMeasure_Value">{{item7.reMeasure_Value}}</span>
+                                          <span style="font-size: x-small;" *ngIf="item7.Re_Comments">{{item7.Re_Comments}}</span>
+                                        </td>
+                  
+              </tr>
+          </tbody>
+      </table>  
+      <div *ngIf="this.A7_RFlag==1">
+          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+              <div class="title">Amendment 7 Before ReMeasure</div>
+              <div class="more secondary-text"><span class="h2">{{this.AmdTotal7}}</span>
+              </div></div>
+      <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+        <div class="title">Amendment 7 After ReMeasure</div>
+        <div class="more secondary-text"><span class="h2">{{this.AmdReTotal7}}</span>
+        </div></div> 
+      </div>
+</div>
+<div class="profile-box" *ngIf=" this.amend8Exists==1">
+                   
+  <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">Amended 8 Scope</div>
+          <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A8_RFlag==0" (click)="finish(8)">Finish</button>
+            <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A8_RFlag==1" (click)="printRemeasure(8)"><mat-icon>pageview</mat-icon></a></div>
+      </header>
+  
+      <div class="content" fxLayout="row wrap">
+       
+  <table class="simple invoice-table" *ngIf="this.A8_RFlag==0">
+          <thead>
+              <tr>
+                     
+                  <th>Line Items</th>
+                 
+                  <th class="text-right">QUANTITY</th>
+                  <th class="text-right">UNIT</th>
+                  <th class="text-right">RATE(Rs)</th>
+                  <th class="text-right">VALUE(Rs)</th>
+                  <th class="text-right">RE-QUANTITY</th>
+                  <th class="text-right">RE-RATE(Rs)</th>
+                  <th class="text-right">RE-VALUE(Rs)</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item8 of items8"  (click)="editQty(item8.LE_ID,item8.LineItem_ID, 2)">
+                    
+                  <td>
+                      <div class="title">{{item8.LineItem_Name}}</div>
+                      <div class="detail">{{item8.Comments}}</div>
+                  </td>
+                 
+                  <td class="text-right">
+                    <span *ngIf="item8.Quantity">{{item8.Quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                          <span *ngIf="item8.Quantity">{{item8.Unit_Code}}</span>
+                        </td>
+                        <td class="text-right">
+                              <span *ngIf="item8.Rate">{{item8.Rate}}</span>
+                            </td>
+                            <td class="text-right">
+                                  <span *ngIf="item8.Value">{{item8.Value}}</span>
+                                </td>
+                                <td class="text-right">
+                                      <span *ngIf="item8.reMeasure_Qty">{{item8.reMeasure_Qty}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                      <span *ngIf="item8.reMeasure_Rate">{{item8.reMeasure_Rate}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                          <span *ngIf="item8.reMeasure_Value">{{item8.reMeasure_Value}}</span>
+                                          <span style="font-size: x-small;" *ngIf="item8.Re_Comments">{{item8.Re_Comments}}</span>
+                                        </td>
+                  
+              </tr>
+          </tbody>
+      </table>  
+      <div *ngIf="this.A8_RFlag==1">
+          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+              <div class="title">Amendment 8 Before ReMeasure</div>
+              <div class="more secondary-text"><span class="h2">{{this.AmdTotal8}}</span>
+              </div></div>
+      <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+        <div class="title">Amendment 8 After ReMeasure</div>
+        <div class="more secondary-text"><span class="h2">{{this.AmdReTotal8}}</span>
+        </div></div> 
+      </div>
+</div>
+</div>
+<div class="profile-box" *ngIf=" this.amend9Exists==1">
+                   
+  <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">Amended 9 Scope</div>
+          <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A9_RFlag==0" (click)="finish(9)">Finish</button>
+            <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A9_RFlag==1" (click)="printRemeasure(9)"><mat-icon>pageview</mat-icon></a></div>
+      </header>
+  
+      <div class="content" fxLayout="row wrap">
+       
+  <table class="simple invoice-table" *ngIf="this.A9_RFlag==0">
+          <thead>
+              <tr>
+                     
+                  <th>Line Items</th>
+                 
+                  <th class="text-right">QUANTITY</th>
+                  <th class="text-right">UNIT</th>
+                  <th class="text-right">RATE(Rs)</th>
+                  <th class="text-right">VALUE(Rs)</th>
+                  <th class="text-right">RE-QUANTITY</th>
+                  <th class="text-right">RE-RATE(Rs)</th>
+                  <th class="text-right">RE-VALUE(Rs)</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item9 of items9"  (click)="editQty(item9.LE_ID,item9.LineItem_ID, 2)">
+                    
+                  <td>
+                      <div class="title">{{item9.LineItem_Name}}</div>
+                      <div class="detail">{{item9.Comments}}</div>
+                  </td>
+                 
+                  <td class="text-right">
+                    <span *ngIf="item9.Quantity">{{item9.Quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                          <span *ngIf="item9.Quantity">{{item9.Unit_Code}}</span>
+                        </td>
+                        <td class="text-right">
+                              <span *ngIf="item9.Rate">{{item9.Rate}}</span>
+                            </td>
+                            <td class="text-right">
+                                  <span *ngIf="item9.Value">{{item9.Value}}</span>
+                                </td>
+                                <td class="text-right">
+                                      <span *ngIf="item9.reMeasure_Qty">{{item9.reMeasure_Qty}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                      <span *ngIf="item9.reMeasure_Rate">{{item9.reMeasure_Rate}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                          <span *ngIf="item9.reMeasure_Value">{{item9.reMeasure_Value}}</span>
+                                          <span style="font-size: x-small;" *ngIf="item9.Re_Comments">{{item9.Re_Comments}}</span>
+                                        </td>
+                  
+              </tr>
+          </tbody>
+      </table>  
+      <div *ngIf="this.A9_RFlag==1">
+          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+              <div class="title">Amendment 9 Before ReMeasure</div>
+              <div class="more secondary-text"><span class="h2">{{this.AmdTotal9}}</span>
+              </div></div>
+      <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+        <div class="title">Amendment 9 After ReMeasure</div>
+        <div class="more secondary-text"><span class="h2">{{this.AmdReTotal9}}</span>
+        </div></div> 
+      </div>
+</div>
+</div>
+<div class="profile-box" *ngIf=" this.amend10Exists==1">
+                   
+  <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">Amended 10 Scope</div>
+          <div class="more secondary-text"> <button mat-raised-button color="primary" *ngIf="this.A10_RFlag==0" (click)="finish(10)">Finish</button>
+            <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.A10_RFlag==1" (click)="printRemeasure(10)"><mat-icon>pageview</mat-icon></a></div>
+      </header>
+  
+      <div class="content" fxLayout="row wrap">
+       
+  <table class="simple invoice-table" *ngIf="this.A10_RFlag==0">
+          <thead>
+              <tr>
+                     
+                  <th>Line Items</th>
+                 
+                  <th class="text-right">QUANTITY</th>
+                  <th class="text-right">UNIT</th>
+                  <th class="text-right">RATE(Rs)</th>
+                  <th class="text-right">VALUE(Rs)</th>
+                  <th class="text-right">RE-QUANTITY</th>
+                  <th class="text-right">RE-RATE(Rs)</th>
+                  <th class="text-right">RE-VALUE(Rs)</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item10 of items10"  (click)="editQty(item10.LE_ID,item10.LineItem_ID, 2)">
+                    
+                  <td>
+                      <div class="title">{{item10.LineItem_Name}}</div>
+                      <div class="detail">{{item10.Comments}}</div>
+                  </td>
+                 
+                  <td class="text-right">
+                    <span *ngIf="item10.Quantity">{{item10.Quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                          <span *ngIf="item10.Quantity">{{item10.Unit_Code}}</span>
+                        </td>
+                        <td class="text-right">
+                              <span *ngIf="item10.Rate">{{item10.Rate}}</span>
+                            </td>
+                            <td class="text-right">
+                                  <span *ngIf="item10.Value">{{item10.Value}}</span>
+                                </td>
+                                <td class="text-right">
+                                      <span *ngIf="item10.reMeasure_Qty">{{item10.reMeasure_Qty}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                      <span *ngIf="item10.reMeasure_Rate">{{item10.reMeasure_Rate}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                          <span *ngIf="item10.reMeasure_Value">{{item10.reMeasure_Value}}</span>
+                                          <span style="font-size: x-small;" *ngIf="item10.Re_Comments">{{item10.Re_Comments}}</span>
+                                        </td>
+                  
+              </tr>
+          </tbody>
+      </table>  
+      <div *ngIf="this.A10_RFlag==1">
+          <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+              <div class="title">Amendment 10 Before ReMeasure</div>
+              <div class="more secondary-text"><span class="h2">{{this.AmdTotal10}}</span>
+              </div></div>
+      <div class="info-line" fxLayout="row" fxLayoutAlign="space-between center" >
+        <div class="title">Amendment 10 After ReMeasure</div>
+        <div class="more secondary-text"><span class="h2">{{this.AmdReTotal10}}</span>
+        </div></div> 
+      </div>
+</div>
+</div>
+</div>
+
+    
+            
+           
+       
+
+        
+    </div>
+
+   
+
+
+

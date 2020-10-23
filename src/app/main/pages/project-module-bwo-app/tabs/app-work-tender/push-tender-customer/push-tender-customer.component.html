@@ -1,0 +1,90 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Push Tender To Customer</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+  
+        <form  name="detailsForm" [formGroup]="detailsForm">
+                
+                   
+                    
+              
+                    <input type="text" formControlName="workID" hidden>
+                    
+                    <div class="example-container mat-elevation-z8">
+                      
+                        <table mat-table #table [dataSource]="dataSource">
+                      
+                          <!-- Checkbox Column -->
+                          <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                            
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row) || row.pushTender_Flag==1">
+                              </mat-checkbox>
+                            </td>
+                          </ng-container>
+                      
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Name</th>
+                            <td mat-cell *matCellDef="let assocLists"><div class="title"> {{assocLists.Assoc_FirstName}}
+                                {{assocLists.Assoc_MiddleName}}{{assocLists.Assoc_LastName}} </div>
+                              <div class="detail"><span *ngIf="assocLists.Online_Flag==0" style="color: darkgreen;">Offline Tender</span>
+                                <span *ngIf="assocLists.Online_Flag==1" style="color: darkred;">Online Tender</span>
+                              </div></td>
+                          </ng-container>
+                      
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="days">
+                            <th mat-header-cell *matHeaderCellDef> Work Days </th>
+                            <td mat-cell *matCellDef="let assocLists"> {{assocLists.Work_Days}} Days</td>
+                          </ng-container>
+                      
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="rate">
+                            <th mat-header-cell *matHeaderCellDef> Quote Value </th>
+                            <td mat-cell *matCellDef="let assocLists">Rs. {{assocLists.TotalQuote}}
+                                
+                                </td>
+                          </ng-container>
+                      
+                          
+                      
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                   (click)="selection.toggle(row)">
+                          </tr>
+                        </table>
+                      </div>
+                      
+                   
+                   
+                        </form>
+                    
+                  
+                
+
+</div>
+  
+    
+  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+  
+        <button
+          mat-raised-button color="accent" (click)="pushTenderToCust(selection.selected, detailsForm.value);" >Push Tender To Customer</button>
+      
+  
+        
+    </div>
+  </div>
+  

@@ -1,0 +1,47 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Transaction Details</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form  name="transactionForm" [formGroup]="transactionForm">
+
+              <input type="text"  formControlName="payID" hidden>
+             
+            
+              <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field  appearance="outline" fxFlex>
+                            <mat-label>Transaction No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                    <input type="number" matInput formControlName="transID" disabled>
+                        
+                          </mat-form-field>
+        
+                         </div>
+                         
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+      <button 
+              mat-raised-button
+              (click)="updateTransaction(transactionForm.value);dialogRef.close();"
+              class="save-button mat-accent"
+              [disabled]="transactionForm.invalid"
+              
+              aria-label="UPDATE">
+          SAVE
+      </button> 
+    
+
+      
+  </div>
+</div>

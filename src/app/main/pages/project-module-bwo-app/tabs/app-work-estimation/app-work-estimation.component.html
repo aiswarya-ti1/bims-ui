@@ -1,0 +1,125 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+        <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+    
+            <div class="profile-box add-post">
+                   
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Scope</div>
+                            <div class="more secondary-text">
+                                <a class="pl-12" mat-button  aria-label="Add Line Items"  *ngIf="this.Est_Flag==0 && (this.Role_ID==10 || this.Role_ID==9 || this.Role_ID==1)" (click)="addLineItems()" ><mat-icon>add</mat-icon></a></div>
+                              
+                                        <a class="pl-12" mat-button  aria-label="Set Priority"  *ngIf="this.Est_Flag==0 && (this.Role_ID==10 || this.Role_ID==9 || this.Role_ID==1)" (click)="setPriority()" ><mat-icon>remove_red_eye</mat-icon></a>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                        <span *ngIf="this.Item_Count==0">Currently no items available!!</span>
+    
+                    <table class="simple invoice-table" *ngIf="this.Item_Count!=0">
+                           
+                            <tbody>
+                                <tr *ngFor="let item of items"  (click)="rowClick(item.LE_ID)">
+                                      
+                                    <td>
+                                        <div class="title">{{item.LineItem_Name}}</div>
+                                        <div class="detail">{{item.Comments}}</div>
+                                    </td>
+                                   
+                                    <td class="text-right">
+                                      <span *ngIf="item.Quantity"><span style="color: deeppink; font-weight: bold;">{{item.Quantity}} </span> <span style="color: darkgreen;">{{item.Unit_Code}}</span> </span>
+                                    </td>
+                                  
+                                </tr>
+                            </tbody>
+                        </table>  
+    </div>
+            </div>
+    
+           
+    
+            
+        </div>
+    
+        <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+               
+                     <div  fxLayout="column">
+                            <button mat-raised-button color="accent" aria-label="Finish Estimation" [disabled]="this.Est_Flag==1" *ngIf="this.Role_ID==10 || this.Role_ID==9 || this.Role_ID==1 || this.workStatus!=11" (click)="finishEst()">Finish Estimation</button>
+                      </div>  
+                      <div class="profile-box latest-activity" fxLayout="column">
+                      </div>
+                      <div  fxLayout="column">
+                        <button mat-raised-button color="accent" aria-label="Print Estimation" *ngIf="this.Est_Flag==1" (click)="printEst()">Print Estimation</button>
+                  </div>  
+                 
+              <div class="profile-box latest-activity" fxLayout="column">
+              </div>
+              <!--<div  fxLayout="column">
+                <button mat-raised-button color="accent" aria-label="Reference"(click)="sendEmail()">Send Email</button>
+          </div> --> 
+          <div class="profile-box latest-activity" fxLayout="column">
+          </div>
+    
+            <div class="profile-box latest-activity" fxLayout="column">
+    
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Design Upload</div>
+                    <div class="more secondary-text">
+                        <a class="pl-12" mat-button  aria-label="Upload Design" (click)="uploadDesign()" ><mat-icon>add_a_photo</mat-icon></a>
+                       <!-- <input hidden type="file" #fileInput accept=".png, .jpg, .pdf" (change)="handleFileInput($event.target.files, '1')" multiple/>
+                        <button mat-icon-button aria-label="Add Design" matTooltip="Add Design" (click)="fileInput.click()">
+                            <mat-icon>photo</mat-icon>
+                        </button>-->
+                    </div>
+                </header><div class="mb-14" fxLayout="row">
+                <span *ngIf="this.design_count==0">Designs currently not available</span></div>
+                <div class="content" fxLayout="row wrap" *ngIf="this.design_count!=0">
+                    <div class="mb-14" fxLayout="row" fxLayoutAlign="start start">
+                        <table>
+                            <tr>
+                                <td>
+                        <input type="text" placeholder="Design Uploaded  : " [disabled]></td>
+                        <td>
+            
+                        </td>
+                        <td>
+                            <input matInput type="text" formControlName="design" [value]="filename" [disabled]>
+                        </td>
+                        <td>
+            
+                        </td>
+                        <td>
+                                <button mat-raised-button class="add-assoc-button mat-accent-bg" (click)="downloadDesign()" aria-label="add customer" id="labEst">
+                                        Download
+                                        </button>  
+                        </td>
+                    </tr>
+                    </table>
+                        </div>
+                </div>
+    
+               
+            </div>
+             <div class="profile-box latest-activity" fxLayout="column">
+    
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Add More Services</div>
+                    <div class="more secondary-text" *ngIf="this.workStatus!=11">
+                        <a class="pl-12" mat-button  aria-label="Add More Services" (click)="addMoreServices()" ><mat-icon>add</mat-icon></a>
+                    </div>
+                </header>
+                <div class="content" fxLayout="row wrap">
+                    <div class="mb-14" fxLayout="row" fxLayoutAlign="start start" *ngFor="let ser of services">
+                        <li><span style="font-weight: bold; color: rgba(0, 0, 0, 0.87);">{{ser.Service_Name}}</span> </li>
+                          
+                        
+                        
+                        </div>
+                </div>
+    
+               
+            </div>
+        </div>
+    
+    </div>
+    
+    

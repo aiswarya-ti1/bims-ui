@@ -1,0 +1,51 @@
+
+    
+<div class="demo mat-elevation-z8">
+      
+    <button mat-fab class="add-event-button mat-accent" (click)="addLead()" aria-label="Add lead"
+    [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+<mat-icon>add</mat-icon>
+</button>        
+     
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field> 
+               
+    <table mat-table [dataSource]="dataSource_fullList">
+        <ng-container matColumnDef="CustName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+            <td mat-cell *matCellDef="let lead"> {{lead.Cust_FirstName}}
+                {{lead.Cust_MidName}}
+                {{lead.Cust_LastName}} </td>
+          </ng-container>
+      
+          <!-- Progress Column -->
+          <ng-container matColumnDef="Location">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell *matCellDef="let lead">  {{lead.Loc_Name}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let lead">  {{lead.Lead_Status_Name}} </td>
+          </ng-container>
+      
+          <!-- Color Column -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let lead" ><button mat-mini-fab aria-label="Example icon-button with a heart icon" (click)="onClickLead(lead.Lead_ID)">
+                <mat-icon>edit</mat-icon>
+              </button></td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns_fullList"></tr>
+          <tr mat-row *matRowDef="let lead; columns: displayedColumns_fullList;"class="Leads">
+          </tr>
+        </table>
+      
+        <mat-paginator  [pageIndex]="0"
+        [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+
+       

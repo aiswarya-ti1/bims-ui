@@ -1,0 +1,170 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+        <div class="profile-box info-box general" fxLayout="column" *ngIf="this.Status_ID==3 || this.Status_ID==6 ||this.Status_ID==7">
+            
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title" *ngIf="this.Status_ID==3">{{this.name}} - Verified</div>
+                <div class="title" *ngIf="this.Status_ID==6">{{this.name}} - Verified with comment</div>
+                <div class="title" *ngIf="this.Status_ID==7">{{this.name}} - Rejected</div>
+               
+            </header>
+            </div>
+    
+
+        <div class="profile-box info-box general" fxLayout="column" *ngIf="this.QACount==1 && this.Status_ID==2">
+            
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Select Status</div>
+               
+            </header>
+
+            <div class="content">
+                <form  name="commentForm" [formGroup]="commentForm" >
+                    <input type="text"  formControlName="assocID" hidden> 
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        
+                <!--<mat-radio-group formControlName="Action" (change)="radioChange($event)">
+                  <mat-radio-button  value="'Verified'">Verified</mat-radio-button>
+                  <mat-radio-button value="'VerifiedWC'">Verified with comment</mat-radio-button>
+                  <mat-radio-button  value="'Rejected'">Rejected</mat-radio-button>
+                  </mat-radio-group>-->
+                  <mat-form-field  appearance="outline" fxFlex>
+                    <mat-label>Select Status</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                    <mat-select placeholder="Select" formControlName="Action" (ngModelChange)="radioChange($event)">
+                        <mat-option [value]="'Verified'">
+                            Verified
+                        </mat-option>
+                        <mat-option [value]="'VerifiedWC'">
+                            Verified With Comment
+                        </mat-option>
+                        <mat-option [value]="'Rejected'">
+                            Rejected
+                        </mat-option>
+                        
+                        </mat-select>
+                
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field  appearance="outline" fxFlex>
+                        <mat-label>Enter Comments</mat-label>
+                        <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                            <textarea matInput  formControlName="comment"></textarea>
+                           </mat-form-field>  
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <button mat-raised-button color="accent" aria-label="Finish Feedback"   (click)="finishSurvey(commentForm.value)">Finish Servey</button>
+                </div>
+              </form>
+            </div>
+            </div>
+
+        
+        <div class="profile-box info-box general" fxLayout="column">
+            
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Project Details</div>
+                
+            </header>
+
+            <div class="content">
+                
+                <table class="simple invoice-table">
+                  
+                        <tbody>
+                            <tr *ngFor="let project of projects" (click)="addFeedback(project.Cust_ID)">
+                                <td *ngIf="project.FeedStatus==1">
+                                    <div class="title">{{project.Cust_Name}}, {{project.Loc_Name}}</div>
+                                    <div class="detail">Ph : {{project.Contact_No}}</div>
+                                    <!--<div class="title" style="color: gold;">* * * * *</div>-->
+                                    <div class="detail" style="color: darkblue;" *ngIf="project.QARating  ">QA Rating : {{project.QARating}}</div>
+    
+                                </td>
+    
+                                <td class="text-right" *ngIf="project.FeedStatus==1">
+                                    
+                                   
+                                        <div class="title"
+                                            style="color: darkmagenta;">{{project.Work_Detail}}</div>
+                                            <div class="detail" project.OrderValue>Total Value : <span style="color: green;">{{project.OrderValue}}</span>
+                                                <span style="color: indigo;" *ngIf="project.Rate_Unit">[{{project.Rate_Unit}}]</span> </div>
+                                            
+                                   
+                                </td>
+    
+                            </tr>
+    
+                        </tbody>
+                    
+
+                    </table>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="35">
+      
+      <div class="profile-box groups" fxLayout="column">
+
+        <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Upload Documents</div>
+            <div class="more secondary-text">
+                <div class="more secondary-text" *ngIf="this.Status_ID==3"><a class="pl-12" mat-button  aria-label="Add Work Schedule" (click)="uploadDocs()"><mat-icon>cloud_upload</mat-icon></a></div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="title" *ngIf="this.assocDocNo==0">Files Not Uploaded</div>
+<div  *ngFor="let doc of docs">
+            <div class="group"  fxLayout="row"
+                 fxLayoutAlign="space-between center" *ngIf="this.assocDocNo!=0 && doc.AadharNo">
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+
+                    <div class="logo">A</div>
+
+                    <div>
+                        <div class="name">Adhar Card</div>
+                        <div class="category">Uploaded On {{doc.AadharDate}}</div>
+                        <div class="members">Aadhar No.: {{doc.AadharNo}}</div>
+                    </div>
+                </div>
+
+                <button mat-icon-button aria-label="More" (click)="docDownload(1)">
+                    <mat-icon>cloud_download</mat-icon>
+                </button>
+            </div>
+            <div class="group"  fxLayout="row"
+                 fxLayoutAlign="space-between center" *ngIf="this.assocDocNo!=0 && doc.AgreeNo">
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+
+                    <div class="logo">C</div>
+
+                    <div>
+                        <div class="name">Agreement</div>
+                        <div class="category">Uploaded On {{doc.AgreeDate}}</div>
+                        <div class="members">Agreement No. : {{doc.AgreeNo}}</div>
+                    </div>
+                </div>
+
+                <button mat-icon-button aria-label="More" (click)="docDownload(2)">
+                    <mat-icon>cloud_download</mat-icon>
+                </button>
+            </div>
+        </div>
+            <div  fxLayout="column">
+                <button mat-raised-button color="accent" aria-label="Finish Feedback" *ngIf="this.assocDocNo!=0 && this.Status_ID==3"  (click)="certify()">Certify</button>
+          </div>  
+        </div>
+
+    </div>
+      
+</div>

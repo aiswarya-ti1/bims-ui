@@ -1,0 +1,97 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+
+        
+        <div class="profile-box info-box general" fxLayout="column">
+            
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Project Details</div>
+                
+            </header>
+
+            <div class="content">
+                
+
+                <table class="simple invoice-table">
+                  
+                        <tbody *ngIf="this.Status_ID==1">
+                            <tr *ngFor="let project of projects" (click)="addFeedback(project.Cust_ID)">
+                                
+                                <td>
+                                    <div class="title">{{project.Cust_Name}}, {{project.Loc_Name}}</div>
+                                    <div class="detail" *ngIf="project.Address_line1">{{project.Address_line1}}, {{project.Address_line2}}, {{project.Address_town}}</div>
+                                    <div class="detail">Ph : {{project.Contact_No}}</div>
+                                    
+                                    <div class="detail" style="color: darkblue;" *ngIf="project.Rating">Rating : {{project.Rating}}</div>
+                                    <div><span id="rating_star"></span>
+                    <form [formGroup]="ratingForm">
+                                        <input type="hidden"  id='hdnRating' formControlName="ratevalue">
+                                             
+                                          {{viewRating()}}</form></div>
+                                        
+                                    
+                                    <!--<div class="title" style="color: gold;" *ngIf="this.Rating==5">* * * * *</div>
+                                    <div class="title" style="color: gold;" *ngIf="this.Rating==4">* * * * <span style="color: silver;">*</span></div>
+                                    <div class="title" style="color: gold;" *ngIf="this.Rating==3">* * * </div>
+                                    <div class="title" style="color: gold;" *ngIf="this.Rating==2">* * </div>
+                                    <div class="title" style="color: gold;" *ngIf="this.Rating==1">*</div>
+                                    <span id="stars" class="stars" [innerHtml]="viewRating(project.Rating)"></span>-->
+    
+                                </td>
+    
+                                <td class="text-right">
+                                    
+                                   
+                                        <div class="title"
+                                            style="color: darkmagenta;">{{project.Work_Detail}}</div>
+                                            <div class="detail" *ngIf="project.OrderValue">Total Value : <span style="color: green;">{{project.OrderValue}}</span>
+                                                <span style="color: indigo;" *ngIf="project.Rate_Unit">[{{project.Rate_Unit}}]</span> </div>
+                                            
+                                   
+                                </td>
+                            
+                            </tr>
+    
+                        </tbody>
+                        <tbody *ngIf="this.Status_ID!=1">
+                            <tr *ngFor="let project of projects">
+                                
+                                <td>
+                                    <div class="title">{{project.Cust_Name}}, {{project.Loc_Name}}</div>
+                                    <div class="detail" *ngIf="project.Address_line1">{{project.Address_line1}}, {{project.Address_line2}}, {{project.Address_town}}</div>
+                                    <div class="detail">Ph : {{project.Contact_No}}</div>
+                                     
+                                    <div class="detail" style="color: darkblue;" *ngIf="project.Rating">Rating : {{project.Rating}}</div>
+    
+                                </td>
+    
+                                <td class="text-right">
+                                    
+                                   
+                                        <div class="title"
+                                            style="color: darkmagenta;">{{project.Work_Detail}}</div>
+                                            <div class="detail" *ngIf="project.OrderValue">Total Value : <span style="color: green;">{{project.OrderValue}}</span>
+                                                <span style="color: indigo;" *ngIf="project.Rate_Unit">[{{project.Rate_Unit}}]</span> </div>
+                                            
+                                   
+                                </td>
+    
+                            </tr>
+    
+                        </tbody>
+                    
+
+                    </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="35">
+        <div  fxLayout="column" *ngIf="this.Status_ID==1">
+            <button mat-raised-button color="accent" aria-label="Finish Feedback"   (click)="finishFeedback()">Finish Survey</button>
+      </div>  
+      
+</div>

@@ -1,0 +1,239 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Feedback</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form  [formGroup]="addFeedbackForm">
+
+              <input type="text"  formControlName="custID" hidden>
+              <input type="text"  formControlName="typeID" hidden>
+              <input type="text"  formControlName="assocID" hidden>
+             
+            
+              <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field  appearance="outline" fxFlex>
+                            <mat-label>Customer Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                    <input matInput formControlName="custName" disabled>
+                        
+                          </mat-form-field>
+        
+                         </div>
+                         <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field  appearance="outline" fxFlex>
+                                    <mat-label>Work Details</mat-label>
+                                    <mat-icon matSuffix class="secondary-text">work_outline</mat-icon>
+                                    <textarea matInput formControlName="WorkDetails" disabled>
+                                    </textarea>
+                                
+                                  </mat-form-field>
+                
+                                 </div>
+                         
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>Order Value</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">home</mat-icon>
+                                    <input  matInput formControlName="orderValue">
+                                        
+                                          </mat-form-field>
+                        
+                                         </div>
+                                         <div fxLayout="row" fxLayoutAlign="start start">
+                                            <mat-form-field  appearance="outline" fxFlex>
+                                                    <mat-label>Rate per Unit</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                                            <input  matInput formControlName="rate">
+                                                
+                                                  </mat-form-field>
+                                
+                                                 </div>
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <div class="ratingScore">
+                                                    <li>5</li>
+                                                    <li>4</li>
+                                                    <li>3</li>
+                                                    <li>2</li>
+                                                    <li>1</li>
+                                                </div>
+                                            </td>
+                                            <!--<td>                                                            
+                                            </td>
+                                            <td>                                                            
+                                            </td>
+                                            <td>
+                                                    <div class="ratingScore">
+                                                        <li>5</li>
+                                                        <li>4</li>
+                                                        <li>3</li>
+                                                        <li>2</li>
+                                                        <li>1</li>
+                                                    </div>
+                                                </td>-->
+                                        </tr>
+                                      <tr>
+                                        <td>
+                                            
+                                                <label name="beh" value="1">Behaviour:  </label></td>
+                                                <td><mat-radio-group formControlName="Behaviour">
+                                                    <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                    
+                                                  </mat-radio-group>
+                                                  
+                                        </td>
+                                      </tr>
+                                      <tr></tr>
+                                        <tr>
+                                        <td>
+                                           
+                                            <label name="know" value="2">Knowledge About:  </label></td>
+                                                <td><mat-radio-group formControlName="Knowledge">
+                                                    <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                    
+                                                  </mat-radio-group>
+                                                  
+                                        </td>
+                                      </tr>
+                                      <tr></tr>
+                                      <tr>
+                                          <td>
+                                            <label name="qual" value="3">Quality of Work:  </label>
+                                              </td>
+                                              <td><mat-radio-group formControlName="Quality">
+                                                <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                
+                                              </mat-radio-group>
+                                              
+                                    </td></tr>
+                                          <tr></tr>
+                          
+                                          <tr>
+                                          <td>
+                                              
+                                                  <label>Level of Work:  </label></td>
+                                                  <td><mat-radio-group formControlName="WorkLevel">
+                                                    <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                    
+                                                  </mat-radio-group>
+                                                 </td> 
+                                                </tr>
+                                      
+                                      <tr></tr>
+                                      <tr>
+                                          <td>
+                                              
+                                                  <label>Time Commitment:  </label></td>
+                                                  <td><mat-radio-group formControlName="Time">
+                                                    <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                    
+                                                  </mat-radio-group>
+                                                  
+                                        </td></tr>
+                                        <tr>
+                          
+                                          </tr>
+                                          <tr>
+                                          <td>
+                                             
+                                                  <label>Payment Integrity:  </label></td>
+                                                  <td><mat-radio-group formControlName="Payment">
+                                                    <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                    <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                    
+                                                  </mat-radio-group>
+                                                  
+                                        </td>
+                                        </tr><tr></tr>
+                                        <tr>
+                                            <td>
+                                                
+                                                    <label>Pricing:  </label></td>
+                                                    <td><mat-radio-group formControlName="Pricing">
+                                                        <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                        
+                                                      </mat-radio-group>
+                                                      
+                                            </td></tr>
+                                            <tr>
+                            
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                               
+                                                    <label>Service Support:  </label></td>
+                                                    <td><mat-radio-group formControlName="Service">
+                                                        <mat-radio-button [value]="'5'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'4'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'3'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'2'"></mat-radio-button>
+                                                        <mat-radio-button [value]="'1'"></mat-radio-button>
+                                                        
+                                                      </mat-radio-group>
+                                                      
+                                            </td>
+                                          </tr>
+                                          
+                                    </table>
+                        
+                                         </div>
+                                         
+                                        
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+      <button 
+              mat-raised-button
+              (click)=addFeedback(addFeedbackForm.value);dialogRef.close();
+              class="save-button mat-accent"
+              [disabled]="addFeedbackForm.invalid"
+              
+              aria-label="UPDATE">
+          SAVE
+      </button> 
+    
+
+      
+  </div>
+</div>

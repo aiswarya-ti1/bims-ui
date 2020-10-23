@@ -1,0 +1,107 @@
+<div class="dialog-content-wrapper">
+      <mat-toolbar matDialogTitle class="mat-accent m-0">
+          <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+              <span class="title dialog-title">Add Rates</span>
+              <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                  <mat-icon>close</mat-icon>
+              </button>
+          </mat-toolbar-row>
+  
+         
+      </mat-toolbar>
+  
+      <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+      <form name="quoteFormGroup" [formGroup]="quoteFormGroup">
+                      
+                         
+              <input type="text" formControlName="itemID" hidden>
+              <input type="text" formControlName="countItem" hidden>
+              <input type="text" formControlName="countFlag" hidden>
+                          <input type="text" formControlName="MEID" hidden>
+                          <input type="text" formControlName="MEName" hidden>
+                          <input type="text" formControlName="workID" hidden>
+                          <input type="text" formControlName="qty" hidden>
+                          <input type="text" formControlName="WTID" hidden>
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field  appearance="outline" fxFlex>
+                                      <mat-label>Associate Name</mat-label>
+                                      <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                <input matInput  formControlName="assocName" [disabled]>
+                         </mat-form-field>
+                         </div>
+                         <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field  appearance="outline" fxFlex>
+                                      <mat-label>Line Item</mat-label>
+                                      <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                            <input matInput  formControlName="itemName" [disabled]>
+                           
+                         </mat-form-field>
+                         </div>
+                         <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field  appearance="outline" fxFlex>
+                                      <mat-label>Quantity</mat-label>
+                                      <mat-icon matSuffix class="secondary-text">format_list_numbered</mat-icon>
+                           <input matInput formControlName="quantity1" [value]="quantity">
+                                                    
+                        </mat-form-field></div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field  appearance="outline" fxFlex>
+                                      <mat-label>Unit</mat-label>
+                                      <mat-icon matSuffix class="secondary-text">ac_unit</mat-icon>
+                          <input matInput formControlName="unit" [disabled]>
+                                                   
+                       </mat-form-field>
+                            
+                          </div>
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field  appearance="outline" fxFlex>
+                                      <mat-label>Rate(Rs)</mat-label>
+                                      <mat-icon matSuffix class="secondary-text">attach_money</mat-icon>
+                               <input matInput formControlName="rate" required>
+                              
+                            </mat-form-field>
+                            
+                               
+                             </div>
+                            
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                       <mat-form-field  appearance="outline" fxFlex>
+                                               <mat-label>No. of Labors</mat-label>
+                                               <mat-icon matSuffix class="secondary-text">supervisor_account</mat-icon>
+                                 <input matInput formControlName="labNo">
+                                
+                              </mat-form-field></div>
+                              <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>No of Days</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">date_range</mat-icon>
+                               <input matInput  formControlName="days">
+                                                        
+                            </mat-form-field>
+                                 
+                               </div>
+                               <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>TenderComment</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                               <textarea matInput rows="6" formControlName="comment"></textarea>
+                               </mat-form-field>
+                               </div>
+                        
+                              </form>
+                          
+                      
+
+      </div>
+      <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="accent" [disabled]="quoteFormGroup.invalid" (click)="saveTenderDetailsMaterial(quoteFormGroup.value)" >Save Details</button><!-- matDialogRef.close();-->
+    
+        </div>
+        </div>
+
+
+
+
+

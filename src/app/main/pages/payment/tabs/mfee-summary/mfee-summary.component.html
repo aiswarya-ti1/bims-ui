@@ -1,0 +1,263 @@
+<!--<div id="timeline" class="p-24" fxLayout="row wrap">
+    <div class="search-input-wrapper mx-24 m-md-0"
+             fxFlex="60" fxLayoutAlign="start center">
+           <strong> <label for="search" class="mr-8">
+                <mat-icon class="secondary-text">search</mat-icon>
+            </label> </strong>
+            <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)">
+            </mat-form-field>
+        </div>
+    <form  fxLayout="column" fxLayoutAlign="start"
+    fxFlex="100" name="tableForm" [formGroup]="tableForm">
+    <input type="text" formControlName="loginID" hidden>    
+        <table mat-table
+                   #table [dataSource]="dataSource_List"
+                   matSort
+                   [@animateStagger]="{value:'50'}"
+                   fusePerfectScrollbar>      
+                   <ng-container matColumnDef="WorkID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> WorkID </th>
+      <td mat-cell *matCellDef="let pay"> <span *ngIf="pay.MFee_Flag==0" style="color: red;">{{pay.Work_ID}}</span> 
+        <span *ngIf="pay.MFee_Flag==1" style="color: darkgreen;">{{pay.Work_ID}}</span>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CustName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CustName </th>
+      <td mat-cell *matCellDef="let pay">   <span *ngIf="pay.MFee_Flag==0" style="color: red;">{{pay.Cust_FirstName}}
+        {{pay.Cust_MidName}}
+        {{pay.Cust_LastName}}</span>
+        <span *ngIf="pay.MFee_Flag==1" style="color: darkgreen;">{{pay.Cust_FirstName}}
+            {{pay.Cust_MidName}}
+            {{pay.Cust_LastName}}</span> </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="AssocName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> AssocName </th>
+      <td mat-cell *matCellDef="let pay"> <span *ngIf="pay.MFee_Flag==0" style="color: red;">{{pay.Assoc_FirstName}}
+        {{pay.Assoc_MiddleName}}
+        {{pay.Assoc_LastName}}</span> 
+        <span *ngIf="pay.MFee_Flag==1" style="color: darkgreen;">{{pay.Assoc_FirstName}}
+            {{pay.Assoc_MiddleName}}
+            {{pay.Assoc_LastName}}</span>  </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Mfee">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mfee </th>
+      <td mat-cell *matCellDef="let pay" ><span *ngIf="pay.MFee_Flag==0" style="color: red;">{{pay.MFee}}</span> 
+        <span *ngIf="pay.MFee_Flag==1" style="color: darkgreen;">{{pay.MFee}}[{{pay.MFee_Perc}}%]</span>  </td>
+    </ng-container>
+ <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let pay" >   
+            <span *ngIf="pay.MFee_Flag==0">Unpaid</span>
+            <span *ngIf="pay.MFee_Flag!=0">Paid</span>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+    <tr mat-row *matRowDef="let pay; columns: displayedColumns1;"class="InitiatePayments">
+    </tr>
+                  
+  
+        </table>
+        <mat-paginator #paginator
+        
+        [pageIndex]="0"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+     
+  </form> 
+</div>-->
+<div id="timeline" class="p-24" fxLayout="row wrap">       
+  <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+         
+           
+
+      <div class="profile-box add-post">
+              <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div class="title">MFee List</div>
+                          <div class="more secondary-text"><a class="pl-12" mat-button (click)="openFilter()">
+                                          <mat-icon>more_vert</mat-icon>
+                                  </a></div>
+                  </header>
+            <div class="content"  *ngFor="let pay of payment | mFeeFilter:workID:custName:sDate:eDate:Paid:Unpaid:startD">
+                          
+                  <table class="simple invoice-table">
+                      <tr>
+                              
+                         <td>
+        <div fxLayout="row" *ngFor="let cust of customers">
+          
+               <span *ngIf="cust.Customer_ID == pay.Customer_ID">
+                      <span class="work">[{{pay.Work_ID}}] </span>&nbsp;
+                      <span class="work"  matTooltip="{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}},{{cust.Address_line1}}, {{cust.Address_line2}}, {{cust.Contact_phone}}"> {{pay.Cust_FirstName}} {{pay.Cust_MidName}} {{pay.Cust_LastName}}</span>
+                     <div>From : <span class="assoc" matTooltip="{{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}}, {{pay.Address_line1}} {{pay.Address_line2}},{{pay.Contact_phone}}"> {{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}} <span *ngIf="pay.Trans_Type"> ({{pay.Trans_Type}}) </span></span></div> 
+
+                  </span>
+                      </div></td>
+                      <td class="text-right">
+                        <div class="title" style="color: darkred; font-weight: bold;" *ngIf="pay.MFee_Flag==0">Unpaid</div>
+                        <div class="title" style="color: darkgreen; font-weight: bold;" *ngIf="pay.MFee_Flag!=0">Paid</div>
+      
+      <div class="detail" *ngIf="pay.MFee_Flag==0">{{pay.MFee}}[{{pay.MFee_Perc}}%]</div>
+      <div class="detail" *ngIf="pay.MFee_Flag!=0">{{pay.MFee}}[{{pay.MFee_Perc}}%] on {{pay.M_PaidDate |date:'dd-MM-yyyy'}}</div>
+    
+             
+                      </td>
+            
+     
+            
+      
+
+      
+</tr>
+       
+      
+      
+      </table>
+
+                        
+            </div>  
+              
+              
+      </div>
+      
+  </div>
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35" >
+  <div class="profile-box latest-activity sticky-top" fxLayout="column" *ngIf="show">
+
+          <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="title">Filter</div>
+              
+          </header>
+         
+          <div class="content" fxLayout="row wrap">
+                 
+
+
+                          <input type="text" name="typeID" hidden ngDefaultControl>
+              
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field appearance="outline" fxFlex>
+                                  <mat-label>Work ID</mat-label>
+                                  <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                                  <!--<mat-select name="workID"  [(ngModel)]="workID">
+                                      <mat-option *ngFor="let work of WorkID" [value]="work.Work_ID">{{work.Work_ID}}</mat-option>
+              
+                                  </mat-select>-->
+                                  <input type="text" matInput name="workID"  [(ngModel)]="workID" fxFlex>
+                              </mat-form-field>
+                               <!-- <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+                  <input matInput placeholder="Work ID" aria-label="State" [matAutocomplete]="auto" [formControl]="workID">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let work of WorkID | async" [value]="state.name">
+                      <img class="example-option-img" aria-hidden [src]="work.Work_ID" height="25">
+                      <span>{{work.Work_ID}}</span> |
+                      
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field> -->
+              
+                          </div>
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                              <mat-form-field appearance="outline" fxFlex>
+                                  <mat-label>Customer</mat-label>
+                                  <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                 <!--<mat-select name="custName" [(ngModel)]="custName">
+                                      <mat-option *ngFor="let cust of customers" [value]="cust.Customer_ID" class="text-truncate" ngDefaultControl>
+                                          {{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</mat-option>
+              
+                                  </mat-select>-->
+                                  <input type="text" matInput name="custName" [(ngModel)]="custName" fxFlex>
+              
+                              </mat-form-field>
+              
+                          </div>
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                          <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" #startDate name="startDate"[(ngModel)]="sDate" ngDefaultControl>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            
+                          </mat-form-field> 
+                          
+                          </div>
+                          
+                          <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                              <mat-label>End Date</mat-label>
+                              <input matInput [matDatepicker]="picker2" #endDate name="endDate"[(ngModel)]="eDate" ngDefaultControl>
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field> 
+                            </div>
+                         
+                  <div fxLayout="row" fxLayoutAlign="start start">
+                      <table>
+                        <tr>
+                            <td>
+                      <label class="example-margin">Status:</label></td>
+                      
+                          
+                              <td>
+                      <mat-checkbox name="init" [(ngModel)]="Paid" ngDefaultControl>Paid</mat-checkbox> </td>
+                     <td> <mat-checkbox name="auth" [(ngModel)]="Unpaid" ngDefaultControl>Unpaid</mat-checkbox>
+                     </td></tr>
+                    
+                       
+                  
+             
+              </table>
+              </div>
+              </div>
+              <div align="center">
+                  <button 
+                  mat-raised-button color="accent" 
+                  
+                  (click)="this.workID=null; custName=null;sDate=null;eDate =null;Paid=null;Unpaid=null;"
+                  
+                  >
+              CLEAR
+          </button>
+              
+          </div>
+  </div>
+  </div>
+</div>
+<!-- <div id="timeline" class="p-24" fxLayout="row wrap">
+  <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+          <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+
+          <div class="profile-box add-post">
+                  <table mat-table [dataSource]="dataSource_List">
+
+                      
+                          <ng-container matColumnDef="ID">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.Work_ID}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Pay">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Pay</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.Cust_FirstName}} </td>
+                          </ng-container>
+
+                       
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns2;" class="InitiatePayments">
+                          </tr>
+                  </table>
+
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+  </div>
+</div> -->
+

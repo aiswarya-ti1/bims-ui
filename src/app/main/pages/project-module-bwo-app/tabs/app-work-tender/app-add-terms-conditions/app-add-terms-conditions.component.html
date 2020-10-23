@@ -1,0 +1,93 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Select Terms & Conditions</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <div class="horizontal-stepper-wrapper">
+
+              <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                      <mat-step [stepControl]="firstFormGroup">
+                      
+                          <ng-template matStepLabel>Select Terms &  Conditions</ng-template>
+                          <div class="search-input-wrapper mx-24 m-md-0"
+                          fxFlex="60" fxLayoutAlign="start center">
+                        <strong> <label for="search" class="mr-8">
+                             <mat-icon class="secondary-text">search</mat-icon>
+                         </label> </strong>
+                         <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                             <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)" #optionSearch>
+                         </mat-form-field>
+                     </div>
+                     <form [formGroup]="firstFormGroup" class="form">
+                          <input type="text" formControlName="workID" hidden>
+                          <input type="text" formControlName="typeID" hidden>
+                          <form class="form" fusePerfectScrollbar>
+                              <mat-selection-list #items class="mat-list" formControlName="itemlist" (selectionChange)="onSelection($event, items.selectedOptions.selected)"
+                              [disableRipple]="true" fusePerfectScrollbar>
+                                  <mat-list-option class="ellipsis" *ngFor="let term of Terms"
+                                    [value]="term.Term_ID"  matTooltip={{term.Term_Name}}>
+                                    {{term.Term_Name}}
+                                  </mat-list-option>
+                                </mat-selection-list>
+                            </form>
+                              </form>
+                          <div align="right">
+                                  <button mat-raised-button color="accent"  (click)="saveKeys(); dialogRef.close();" >Done</button>&nbsp;&nbsp;&nbsp;
+                              <!--<button mat-raised-button color="accent"  (click)="saveLineItem()" matStepperNext >Next</button>-->
+                          <!-- collectdata(this.firstFormGroup.controls['itemlist'].value)"-->
+                                 
+                            
+                          </div>
+                        
+                      </mat-step>
+                      <mat-step [stepControl]="secondFormGroup">
+                       
+                          <ng-template matStepLabel>Add Custom Terms & conditions</ng-template>
+                          <form [formGroup]="secondFormGroup" class="form">
+                                  <input type="text" formControlName="segID" hidden>
+                                  <input type="text" formControlName="workID" hidden>
+                                  <input type="text" formControlName="tenderID" hidden>
+
+                                  <input type="text" formControlName="typeID" hidden>                                  <input type="text" formControlName="typeID" hidden>
+                                  
+                                  <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Enter Terms</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                              <input type ="text" matInput formControlName="termName">
+                                              
+                                           </mat-form-field>
+                                           
+                              </div>
+                             
+
+
+                             
+                                  
+                                
+                                      </form>
+                                  <div align="right">
+                                          <button mat-raised-button color="accent" [disabled]="secondFormGroup.invalid" (click)="saveCustTerms(secondFormGroup.value);clear();">Save</button>&nbsp;&nbsp;&nbsp;
+                                          
+                                  </div>
+      
+                         
+                      
+                          
+                            
+                      </mat-step>
+                      </mat-horizontal-stepper>
+
+      </div>
+
+  </div>
+
+
+</div>

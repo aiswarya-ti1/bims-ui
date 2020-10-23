@@ -1,0 +1,273 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+         <div class="profile-box add-post">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Finalzed Quote</div>
+                            
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngFor="let assocF of assoc_F">
+                       
+                                <div class="info-line">
+                                        <div class="title">Associate</div>
+                                        <div class="info">{{assocF.Assoc_FirstName}} {{assocF.Assoc_MiddleName}} {{assocF.Assoc_LastName}}</div>
+                                    </div>
+                                    <div class="info-line">
+                                            <div class="title">Contact</div>
+                                            <div class="info">{{assocF.Contact_phone}}</div>
+                                        </div>
+                                        <div class="info-line">
+                                            <div class="title">Work Days</div>
+                                            <div class="info">{{assocF.Work_Days}}</div>
+                                        </div></div>
+                        <table class="simple invoice-table">
+                                <thead>
+                                    <tr>
+                                           
+                                        <th>LINE ITEMS</th>
+                                       
+                                       
+                                        <th class="text-right">VALUE</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tenderF of tenderFinal">
+                                          
+                                        <td>
+                                            <div class="title">{{tenderF.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="tenderF.Quantity" style="color: darkblue">{{tenderF.Quantity}} {{tenderF.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                      
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="tenderF.Value">Rs.{{tenderF.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="tenderF.Rate">Rs.{{tenderF.Rate}} per {{tenderF.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        
+                                    </tr>
+                                </tbody>
+                               
+                            </table>  
+                            <table class="simple invoice-table-footer">
+                                    <tbody *ngFor="let assocF of assoc_F">
+                                        <tr class="subtotal">
+                                            <td>TOTAL</td>
+                                            <td>Rs.{{assocF.TotalQuote}}</td>
+                                        </tr>
+                                        <tr class="subtotal">
+                                                <td>IN WORDS</td>
+                                                <td>{{this.words}}</td>
+                                            </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            
+                        
+    </div>
+            </div>
+            
+           
+       
+
+  
+            <mat-divider></mat-divider>
+            <div class="profile-box add-post">
+               
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Key Deliverables</div>
+                       
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                   
+                               <div class="info-line">
+                                <li *ngFor="let key of keys">
+                                        <span  class="title">{{key.Key_Name}}</span>
+                                       
+                                     </li>
+                           </div>
+                       
+                        
+                    
+</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="profile-box add-post">
+               
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Terms & Conditions</div>
+                   
+                </header>
+            
+                <div class="content" fxLayout="row wrap">
+                       
+               
+                           <div class="info-line">
+                                <li *ngFor="let term of terms">
+                                       <span  class="title"> {{term.Term_Name}}</span>
+                                      
+                                     </li>
+                           </div>
+                                             
+                    
+                
+</div>
+    </div>
+    <mat-divider></mat-divider>
+           
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+           
+                 <div  fxLayout="column">
+                        <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==13 ||this.Role_ID==1||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="finishWO()">Finish Work Order</button>
+                       
+
+                  </div>  
+                  <div class="profile-box latest-activity" fxLayout="column">
+                </div>
+                 
+                  <div  fxLayout="column">
+                    <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==1  && (this.Role_ID==13 || this.Role_ID==1 ||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="printWO()">Print Work Order</button>
+                   
+
+              </div> 
+              <div class="profile-box latest-activity" fxLayout="column">
+            </div>
+              <div  fxLayout="column">
+                <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==1 && (this.Role_ID==13 || this.Role_ID==1 ||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="woSignedUp()">WO Signed Up</button>
+               
+
+          </div> 
+          <div class="profile-box latest-activity" fxLayout="column">
+        </div>
+        
+        <div class="profile-box latest-activity" fxLayout="column">
+
+         
+               
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Work Schedule</div>
+                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.woSignUp_Flag==0  && (this.Role_ID==10  || this.Role_ID==9 ||this.Role_ID==1 ||this.workStatus!=11)" (click)="workSchedule(0,0)"><mat-icon>schedule</mat-icon></a></div>
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                   <div *ngIf="this.workSched_Flag==0">
+                   
+                            <div class="info-line">
+                                    <div class="title">Work Schedule Currently Not Available!!</div>
+                                    
+                                </div>
+                               </div>
+                               <table class="simple invoice-table" *ngIf="this.workSched_Flag!=0">
+                               
+                                <tbody>
+                                    <tr *ngFor="let work of workSched"  (click)="workSchedule(2, work.Work_Schedule_ID)">
+                                          
+                                        <td>
+                                            <div class="title">{{work.Work_Stage}}</div>
+                                           <div style="font-size: x-small;">{{work.Remarks}}</div>
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                            <div class="title">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                                            <div class="title">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                                            <div class="title">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                                          <span></span>
+                                        </td>
+                                       
+                                                
+                                        
+                                    </tr>
+                                </tbody>
+                               
+                            </table>                       
+                       
+                        
+                    
+</div></div>
+        
+  
+        <div class="profile-box latest-activity" fxLayout="column">
+           
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Payment Schedule</div>
+                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Pay Schedule" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==10  || this.Role_ID==9 ||this.Role_ID==1 || this.workStatus!=11)" (click)="paymentSchedule(0,0)"><mat-icon>payment</mat-icon></a></div>
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                   <div *ngIf="this.paySched_Flag==0">
+                   
+                            <div class="info-line">
+                                    <div class="title">Payment Schedule Currently Not Available!!</div>
+                                    
+                                </div>
+                               </div>
+                               <table class="simple invoice-table" *ngIf="this.paySched_Flag!=0">
+                               <!-- <thead>
+                                    <tr>
+                                           
+                                        <th>PAYMENT PHASES</th>
+                                       
+                                        <th class="text-right">PAYMENT DATE</th>
+                                        
+                                       
+                                       
+                                    </tr>
+                                </thead>-->
+                                <tbody>
+                                    <tr *ngFor="let pay of paySched" (click)="paymentSchedule(2, pay.Pay_Schedule_ID)">
+                                          
+                                        <td>
+                                            <div class="title">{{pay.Payment_Phase}}</div>
+                                           <div style="font-size: x-small;">{{pay.Remarks}}</div>
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                          <span style="color: deeppink; font-weight: bold;">Rs.{{pay.Amount}}</span> 
+                                          <span style="color:rgba(0, 0, 0, 0.87) "> on </span> 
+                                          <span style="color: darkgreen; font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                        </td>
+                                        
+                                            
+                                        
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr><td>
+                                <div class="title">
+                                    Sub Total : <span style="color: deeppink">Rs.{{this.SubTotal}}</span> 
+                                </div>
+                            <div class="title">
+                                                Pending Total : <span style="color: darkgreen">Rs.{{this.PendingTotal}}
+                                                    </span>
+                                            </div></td>
+                               </tr>
+                                
+                                </tbody>
+                            </table>                       
+                       
+                               
+                       
+                    
+                        
+                    
+</div>
+        </div>
+               
+            
+    </div>
+
+</div>
+

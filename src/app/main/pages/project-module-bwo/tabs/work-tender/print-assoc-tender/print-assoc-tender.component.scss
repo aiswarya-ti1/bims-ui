@@ -1,0 +1,413 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+
+    #invoice {
+
+        &.modern {
+            padding: 0;
+            overflow: auto;
+
+            .invoice-container {
+                padding: 64px;
+
+                .card {
+                    width: 1020px;
+                    min-width: 1020px;
+                    max-width: 1020px;
+                    padding: 88px;
+                    overflow: hidden;
+                    background: #FFFFFF;
+                    @include mat-elevation(7);
+                    @media print{
+                        .noprint{
+                            visibility: hidden;
+                        }
+                    }
+
+                    .header {
+
+                        .ids {
+                            line-height: 22px;
+                            color: rgba(0, 0, 0, 0.54);
+
+                            .detail {
+                                width: 150px;
+                            }
+
+                            .seller {
+                                margin-bottom: 30px;
+
+                                .logo {
+                                    
+                                   // padding-right: 50px
+                                }
+                            }
+                            .secondLabel {
+                                padding-left: 60px;
+                                padding-right: 60px;
+                                font-size: 12px;
+                                padding-top: 80px;
+                            }
+
+                            .client {
+                                padding-top: 1pt;
+
+                                .label {
+                                    width: 300px;
+                                    font-size: 24px;
+                                    font-weight: 300;
+                                }
+                            }
+
+                            .divider {
+                                width: 1px;
+                                margin: 0 48px;
+                                background-color: rgba(0, 0, 0, 0.12);
+                                height: 200px;
+                            }
+                        }
+
+                        .summary {
+                            font-size: 15px;
+                            margin-left: 100px;
+
+                            .label {
+                                color: rgba(0, 0, 0, 0.54);
+                                text-align: right;
+                                padding-right: 16px;
+                            }
+
+                            .value {
+                                color: rgba(0, 0, 0, 1);
+                            }
+
+                            .code {
+                                font-size: 35px;
+                                font-weight: 300;
+
+                                td {
+                                    padding-bottom: 32px;
+                                }
+                            }
+                        }
+                    }
+                    .title1{
+                        padding-top: 1px;
+                        font-size: 10pt;
+                        color: rgba(0, 0, 0, 1);
+                    }
+                    .title2{
+                        
+                        font-size: 11pt;
+                        color: rgba(0, 0, 0, 1);
+                        font-weight: 300;
+                    }
+
+                    .content {
+                        
+
+                        .invoice-table {
+                            margin-top: 26px;
+                            margin-left: 30px;
+                            font-size: 15px;
+
+                            .title {
+                                //padding-top: 15px;
+                                font-size: 14px;
+                                
+                            }
+
+                            .detail {
+                                margin-top: 5px;
+                                font-size: 12px;
+                                color: rgba(0, 0, 0, 0.54);
+                                max-width: auto;
+                            }
+                            .detail-qty
+                            {
+                                margin-top: 8px;
+                                font-size: 12px;
+                                color: rgba(0, 0, 0, 0.54);
+                                max-width: 100%; 
+                            }
+                        }
+
+                        .invoice-table-footer {
+                            margin: 32px 0 96px 0;
+
+                            tr {
+
+                                td {
+                                    text-align: right;
+                                    font-size: 17px;
+                                    font-weight: 500;
+                                    color: rgba(0, 0, 0, 0.54);
+                                    border-bottom: none;
+                                    padding: 8px 8px;
+
+                                    &:first-child {
+                                        text-align: left;
+                                    }
+                                }
+
+                                &.discount {
+
+                                    td {
+                                        padding-bottom: 25px;
+                                    }
+                                }
+
+                                &.total {
+
+                                    td {
+                                        padding: 25px 8px;
+                                        border-top: 1px solid rgba(0, 0, 0, 0.12);
+                                        font-size: 25px;
+                                        font-weight: 300;
+                                        color: rgba(0, 0, 0, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .footer {
+
+                        .note {
+                            padding-top: 15px;
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin-bottom: 8px;
+                        }
+
+                        // IE10 fix
+                        .logo, .small-note {
+                            -ms-flex: 0 1 auto;
+                        }
+
+                        .logo {
+                            width: 32px;
+                            min-width: 32px;
+                            margin-right: 24px;
+                        }
+
+                        .small-note {
+                            font-size: 13px;
+                            font-weight: 500;
+                            color: rgba(0, 0, 0, 0.54);
+                            line-height: 18px;
+                            padding-top: 5px;
+                        }
+                    }
+                }
+
+
+                .title2{
+                        
+                    font-size: 11pt;
+                    color: rgba(0, 0, 0, 1);
+                    font-weight: 300;
+                }
+
+
+
+
+            }
+        }
+    }
+
+    /* PRINT STYLES */
+    @media print {
+
+        /* Invoice Specific Styles */
+        #invoice {
+
+            &.modern {
+
+                .invoice-container {
+                    padding: 0;
+
+                    .card {
+                        width: 100%;
+                        min-width: 0;
+                        background: none;
+                        padding: 0;
+                        box-shadow: none;
+
+                        .header {
+
+                            .ids {
+
+                                .detail {
+                                    width: 200pt;
+                                }
+
+                                .seller {
+                                    margin-bottom: 8pt;
+
+                                    .logo {
+                                        width: 150pt;
+                                        height: 200pt;
+                                    }
+                                }
+
+                                .client {
+                                    padding-top: 1pt;
+
+                                    .label {
+                                        width: 60pt;
+                                        font-size: 16pt;
+                                    }
+                                }
+
+                                .divider {
+                                    margin: 0 12pt;
+                                    height: 100pt;
+                                }
+                            }
+
+                            .summary {
+                                font-size: 10pt;
+
+                                .code {
+                                    font-size: 18pt;
+
+                                    td {
+                                        padding-bottom: 10pt;
+                                    }
+                                }
+                            }
+                        }
+
+                        .content {
+
+                            .invoice-table {
+                                margin-top: 6pt;
+
+                                thead {
+
+                                    tr {
+
+                                        th {
+                                            font-size: 10pt;
+                                            max-width: 50pt;
+
+                                            &:first-child {
+                                                padding-left: 0;
+                                            }
+
+                                            &:last-child {
+                                                padding-right: 0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                tbody {
+
+                                    tr {
+
+                                        td {
+
+                                            &:first-child {
+                                                padding-left: 0;
+                                            }
+
+                                            &:last-child {
+                                                padding-right: 0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .title {
+                                    font-size: 9pt;
+                                }
+
+                                .detail {
+                                    margin-top: 4pt;
+                                    font-size: 8pt;
+                                    max-width: none;
+                                }
+                                .detail1 {
+                                    margin-top: 4pt;
+                                    font-size: 8pt;
+                                    max-width: none;
+                                    color:red($color: #000000);
+                                }
+                            }
+
+                            .invoice-table-footer {
+                                margin: 16pt 0;
+
+                                tr {
+
+                                    td {
+                                        font-size: 13pt;
+                                        padding: 4pt 4pt;
+
+                                        &:first-child {
+                                            text-align: left;
+                                            padding-left: 0;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 0;
+                                        }
+                                    }
+
+                                    &.discount {
+
+                                        td {
+                                            padding-bottom: 16pt;
+                                        }
+                                    }
+
+                                    &.total {
+
+                                        td {
+                                            padding: 16pt 4pt 0 4pt;
+                                            font-size: 16pt;
+
+                                            &:first-child {
+                                                padding-left: 0;
+                                            }
+
+                                            &:last-child {
+                                                padding-right: 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .footer {
+
+                            .note {
+                                font-size: 10pt;
+                                margin-bottom: 8pt;
+                            }
+
+                            .logo {
+                                font-size: 14pt;
+                                margin-right: 8pt;
+                            }
+
+                            .small-note {
+                                font-size: 8pt;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.secondLabel {
+    
+    font-size: 12px;
+    padding-top: 60px;
+}

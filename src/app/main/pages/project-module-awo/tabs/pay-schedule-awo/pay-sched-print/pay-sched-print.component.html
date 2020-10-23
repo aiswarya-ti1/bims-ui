@@ -1,0 +1,169 @@
+<div id="invoice" class="compact page-layout blank" fxLayout="row">
+
+    <div class="invoice-container">
+
+        <div class="card">
+            <div class="noprint" fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="col-md-6"><button mat-raised-button color="accent" [routerLink]="['/pages/project-management/',this.Work_ID]"><mat-icon>arrow_back</mat-icon>Back</button>
+              &nbsp;
+                       <button mat-raised-button color="accent" (click)="printDoc()"><mat-icon>print</mat-icon>Print</button>
+                   </div>
+               </div>
+
+            <div class="header">
+                <div class="invoice-date" *ngIf="this.TypeNo==0">Payment Schedule Based on Work Order No:<span style="font-size: 18px;"> BID-{{this.Work_ID}}</span></div>
+                <div class="invoice-date" *ngIf="this.TypeNo!=0">Payment Schedule Based on Amendment No {{this.TypeNo}}:<span style="font-size: 18px;"> BID-{{this.Work_ID}}</span></div>
+
+
+                <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                    <div class="client">
+                        
+
+                        <div class="info" *ngFor="let cust of custDetails">
+                            <div class="title">Customer</div>
+                            <div class="address">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</div>
+                            <div class="address">{{cust.Address_line1}} ,{{cust.Address_line2}} ,{{cust.Loc_Name}}</div>
+                        
+                        </div>
+
+                        <div class="info" *ngFor="let cust of custDetails">
+                            <div class="title">Location</div>
+                            <div class="address">{{cust.Loc_Name}}</div>
+                           
+                        </div>
+                      
+                    </div>
+
+                    <div class="issuer" fxLayout="row" fxLayoutAlign="start center">
+                        <div class="logo">
+                            <img src="assets/images/logos/logoblue.png">
+                        </div>
+
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                            <th>PAYMENT STAGE</th>
+                          
+                            <th class="text-right">RECEIVED AMOUNT</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                           
+                               
+                                
+                                    <tr *ngFor="let pay of payDetails">
+                                          
+                                                   <td>
+                                                           <div class="title">{{pay.Payment_Phase}}</div>
+                                                           <div class="detail1">{{pay.Remarks}}</div>
+                                                           <div class="detail1">Exp. <span style="color: deeppink;font-weight: bold;">Rs.{{pay.Amount}}</span> on <span style="color: darkgreen;font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                       </td>
+                                                     
+                                                      
+                                                       <td class="text-right"  (click)="addPayment(pay.Pay_Schedule_ID)">
+
+                                                        <div class="title" *ngFor="let pays of payments">
+                                                            <span *ngIf="pay.Pay_Schedule_ID == pays.Pay_ID ">
+                                                                <span
+                                                                    style="color: deeppink;font-weight: bold;">Rs.{{pays.Split_Amount}}</span>
+                                                                on
+                                                                <span
+                                                                    style="color: darkgreen;font-weight: bold;">{{pays.Date  | date:'dd/MM/yyyy'}}</span><span class="detail" *ngIf="pays.Type">({{pays.Type}})</span>
+                                                                <div class="detail" *ngIf="pays.Split_Comment">{{pays.Split_Comment}}</div>
+                                                            </span>
+                                                           
+                
+                
+                                                        </div>
+                
+                                                    </td>
+                                           
+                                                                
+                                    </tr>
+                                   
+                                     
+                                 
+                           
+                    
+                    </tbody>
+                </table>
+
+                <table class="simple invoice-table-footer">
+                    <tbody>
+                        <tr class="subtotal">
+                            <td>WORK TOTAL</td>
+                            <td>Rs. {{this.EstTotal}}</td>
+                        </tr>
+                        <tr class="subtotal"   *ngIf="this.EstReTotal!=0">
+                            <td>RE-MEASURED TOTAL</td>
+                            <td>Rs. {{this.EstReTotal}}</td>
+                        </tr>
+                        
+                        
+                        <tr class="subtotal" *ngIf="this.EstReTotal==0">
+                                <td>BALANCE</td>
+                                <td>Rs. {{this.SplitBal}}</td>
+                            </tr>
+                            <tr class="subtotal"  *ngIf="this.EstReTotal!=0">
+                                <td>BALANCE</td>
+                                <td>Rs. {{this.ReEstBal}}</td>
+                            </tr>
+                       
+                       
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer">
+                <div class="note">Verified By Project Management & Quality Assurance Team</div>
+               
+                    <div class="small-note">
+                       Authorized Signatory
+                    </div>
+                </div>
+            </div>
+
+            <!--
+
+            Use the following elements to add breaks to your pages. This will make sure that the section in between
+            these elements will be printed on a new page. The following two elements must be used before and after the
+            page content that you want to show as a new page. So, you have to wrap your content with them.
+
+            Elements:
+            ---------
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+            <!--
+
+            Example:
+            --------
+
+            Initial page content!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the second page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the third page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+        </div>
+</div>

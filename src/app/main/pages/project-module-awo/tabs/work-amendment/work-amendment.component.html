@@ -1,0 +1,358 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+            <form name="amendmentForm" [formGroup]="amendmentFormGroup" hidden>
+                    <input type="text" formControlName="work_ID" hidden>
+                    <input type="text" formControlName="work_Flag" hidden>
+                    <input type="text" formControlName="pay_Flag" hidden>
+                    <input type="text" formControlName="key_Flag" hidden>
+                    <input type="text" formControlName="terms_Flag" hidden>
+                    <input type="text" formControlName="est_Flag" hidden>
+                    <input type="text" formControlName="amend_Flag" hidden>
+                    <input type="text" formControlName="totalEst" hidden>
+               </form>
+               <div class="profile-box" fxLayout="column"  *ngIf="this.A_Flag!=0 && this.Amend_No==4">    
+                    <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Amandment 4 Summary</div>
+                            <div class="more secondary-text">
+                                <a class="pl-12" mat-button  aria-label="Print Amendment"  (click)="printAmend(4)" ><mat-icon>pageview</mat-icon></a>
+                            </div>
+                        </header>
+                        <div class="content"> 
+           
+                               <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div class="title">Total (Amendment)</div>
+                                        <div class="more secondary-text"><span class="h2">{{this.AmdTotal4}}</span>
+                                        </div></div>
+                                        
+    
+                            </div>
+            </div>
+               <div class="profile-box" fxLayout="column"  *ngIf="this.A_Flag!=0 && this.Amend_No==3">    
+                <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Amandment 3 Summary</div>
+                        <div class="more secondary-text">
+                            <a class="pl-12" mat-button  aria-label="Print Amendment"  (click)="printAmend(3)" ><mat-icon>pageview</mat-icon></a>
+                        </div>
+                    </header>
+                    <div class="content"> 
+       
+                           <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="title">Total (Amendment)</div>
+                                    <div class="more secondary-text"><span class="h2">{{this.AmdTotal3}}</span>
+                                    </div></div>
+                                    
+
+                        </div>
+        </div>
+        <mat-divider *ngIf="this.A_Flag!=0 && this.Amend_No==3"></mat-divider>
+               <div class="profile-box" fxLayout="column" *ngIf="this.A_Flag!=0 && (this.Amend_No==2 ||this.Amend_No==3)">   
+                <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Amendment 2 Summary</div>
+                        <div class="more secondary-text">
+                          
+                            <a class="pl-12" mat-button  aria-label="Print Amendment"  (click)="printAmend(2)" ><mat-icon>pageview</mat-icon></a>
+                        </div>
+                    </header>
+                    <div class="content"> 
+        
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="title">Total (Amendment)</div>
+                                    <div class="more secondary-text"><span class="h2">{{this.AmdTotal2}}</span>
+                                    </div></div>
+   
+
+                        </div>
+        </div>
+        <mat-divider *ngIf="this.A_Flag!=0 && (this.Amend_No==2 ||this.Amend_No==3)"></mat-divider>
+            <div class="profile-box" fxLayout="column" *ngIf="this.A_Flag!=0 && (this.Amend_No==1 ||this.Amend_No==2 ||this.Amend_No==3)">   
+                    <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Amandment 1 Summary</div>
+                            <div class="more secondary-text">
+                               
+                                <a class="pl-12" mat-button  aria-label="Print Amendment"  (click)="printAmend(1)" ><mat-icon>pageview</mat-icon></a>
+                            </div>
+                        </header>
+                        <div class="content"> 
+           
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div class="title">Total (Amendment)</div>
+                                        <div class="more secondary-text"><span class="h2">{{this.AmdTotal1}}</span>
+                                        </div></div>
+
+                            </div>
+            </div>
+            <mat-divider *ngIf="this.A_Flag==1"></mat-divider>
+            <div class="profile-box add-post">
+                   
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Scope</div>
+                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Line Items"  (click)="addLineItems(1)" ><mat-icon>add</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                        <span *ngIf="this.itemsA_Flag==0">Currently no items available!!</span>
+    
+                    <table class="simple invoice-table" *ngIf="this.itemsA_Flag!=0">
+                            <thead>
+                                <tr>
+                                       
+                                    <th>Line Items</th>
+                                   
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">UNIT</th>
+                                    <th class="text-right">RATE(Rs)</th>
+                                    <th class="text-right">VALUE(Rs)</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of items"  (click)="addLineItemDetails(item.LE_ID)">
+                                      
+                                    <td>
+                                        <div class="title">{{item.LineItem_Name}}</div>
+                                        <div class="detail">{{item.Comments}}</div>
+                                    </td>
+                                   
+                                    <td class="text-right">
+                                      <span *ngIf="item.Quantity">{{item.Quantity}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                            <span *ngIf="item.Quantity">{{item.Unit_Code}}</span>
+                                          </td>
+                                          <td class="text-right">
+                                                <span *ngIf="item.Rate">{{item.Rate}}</span>
+                                              </td>
+                                              <td class="text-right">
+                                                    <span *ngIf="item.Value">{{item.Value}}</span>
+                                                  </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>  
+    </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="profile-box add-post">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Work Schedule</div>
+                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Work Schedule"  (click)="workSchedule(1,0)"><mat-icon>schedule</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngIf="this.workSchedA_Flag==0">
+                       
+                                <div class="info-line">
+                                        <div class="title">Work Schedule Currently Not Available!!</div>
+                                        
+                                    </div>
+                                   </div>
+                                   <table class="simple invoice-table" *ngIf="this.workSchedA_Flag!=0">
+                                    <thead>
+                                        <tr>
+                                               
+                                            <th>WORK PHASES</th>
+                                           
+                                            <th class="text-right">START DATE</th>
+                                            <th class="text-right">DURATION</th>
+                                            <th class="text-right">END DATE</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let work of workSched"  (click)="workSchedule(2, work.Work_Schedule_ID)">
+                                              
+                                            <td>
+                                                <div class="title">{{work.Work_Stage}}</div>
+                                               <div class="detail">{{work.Remarks}}</div>
+                                            </td>
+                                           
+                                            <td class="text-right">
+                                              <span>{{work.Start_Date | date:'dd/MM/yyyy'}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                    <span>{{work.Duration}}</span>
+                                                  </td>
+                                                  <td class="text-right">
+                                                        <span>{{work.End_Date | date:'dd/MM/yyyy'}}</span>
+                                                      </td>
+                                                    
+                                            
+                                        </tr>
+                                    </tbody>
+                                   
+                                </table>                       
+                           
+                            
+                        
+    </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="profile-box add-post">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Payment Schedule</div>
+                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Pay Schedule" (click)="paymentSchedule(1,0)"><mat-icon>payment</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngIf="this.paySchedA_Flag==0">
+                       
+                                <div class="info-line">
+                                        <div class="title">Payment Schedule Currently Not Available!!</div>
+                                        
+                                    </div>
+                                   </div>
+                                   <table class="simple invoice-table" *ngIf="this.paySchedA_Flag!=0">
+                                    <thead>
+                                        <tr>
+                                               
+                                            <th>PAYMENT PHASES</th>
+                                           
+                                            <th class="text-right">PAYMENT DATE</th>
+                                            <th class="text-right">AMOUNT(Rs)</th>
+                                           
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let pay of paySched" (click)="paymentSchedule(2, pay.Pay_Schedule_ID)">
+                                              
+                                            <td>
+                                                <div class="title">{{pay.Payment_Phase}}</div>
+                                               <div class="detail">{{pay.Remarks}}</div>
+                                            </td>
+                                           
+                                            <td class="text-right">
+                                              <span>{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                    <span>{{pay.Amount}}</span>
+                                                  </td>
+                                                
+                                            
+                                        </tr>
+                                    </tbody>
+                                   
+                                </table>        
+                        
+    </div>
+            </div>
+            <mat-divider ></mat-divider>
+            <div class="profile-box add-post">
+               
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Key Deliverables</div>
+                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Key Deliverables"  (click)="addKeys(1)"><mat-icon>vpn_key</mat-icon></a></div>
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                   <div *ngIf="this.keysA_Flag==0">
+                   
+                            <div class="info-line">
+                                    <div class="title">Key Deliverables Currently Not Available!!</div>
+                                    
+                                </div>
+                               </div>
+                               
+                               <div class="info-line" *ngIf="this.keysA_Flag!=0">
+                                <li *ngFor="let key of keys" class="title">
+                                        {{key.Key_Name}}
+                                     </li>
+                           </div>
+                       
+                        
+                    
+</div>
+        </div>
+        <mat-divider ></mat-divider>
+        <div class="profile-box add-post">
+               
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Terms & Conditions</div>
+                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Terms & Conditions" (click)="addTerms(1)"><mat-icon>import_contacts</mat-icon></a></div>
+                </header>
+            
+                <div class="content" fxLayout="row wrap">
+                       
+               <div *ngIf="this.termsA_Flag==0">
+               
+                        <div class="info-line">
+                                <div class="title">Terms & Conditions Currently Not Available!!</div>
+                                
+                            </div>
+                           </div>
+                           <div class="info-line" *ngIf="this.termsA_Flag!=0">
+                                <li *ngFor="let term of terms" class="title">
+                                        {{term.Term_Name}}
+                                     </li>
+                           </div>
+                                             
+                    
+                
+</div>
+    </div>
+    
+            
+           
+       
+
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+           
+                 <div  fxLayout="column">
+                        <button mat-raised-button color="accent" aria-label="Finish Amendment"  (click)="finishAmendment(amendmentFormGroup.value)">Finish Amendment</button>
+                       
+
+                  </div>  
+                 
+                 
+              <div class="profile-box latest-activity" fxLayout="column">
+            </div>
+            
+         
+        <div class="profile-box latest-activity" fxLayout="column">
+    
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Design Upload</div>
+                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Upload Design" (click)="uploadDesign()" ><mat-icon>add_a_photo</mat-icon></a></div>
+                </header><div class="mb-14" fxLayout="row">
+                <span *ngIf="this.design_count==0">Designs currently not available</span></div>
+                <div class="content" fxLayout="row wrap" *ngIf="this.design_count!=0">
+                    <div class="mb-14" fxLayout="row" fxLayoutAlign="start start">
+                        <table>
+                            <tr>
+                                <td>
+                        <input type="text" placeholder="Design Uploaded  : " [disabled]></td>
+                        <td>
+            
+                        </td>
+                        <td>
+                            <input matInput type="text" formControlName="design" [value]="filename" [disabled]>
+                        </td>
+                        <td>
+            
+                        </td>
+                        <td>
+                                <button mat-raised-button class="add-assoc-button mat-accent-bg" (click)="downloadDesign()" aria-label="add customer" id="labEst">
+                                        Download
+                                        </button>  
+                        </td>
+                    </tr>
+                    </table>
+                        </div>
+                </div>
+    
+               
+            </div>
+        
+    </div>
+
+</div>
+

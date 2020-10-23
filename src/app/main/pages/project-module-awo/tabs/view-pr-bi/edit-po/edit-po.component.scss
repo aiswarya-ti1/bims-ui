@@ -1,0 +1,78 @@
+@import "src/@fuse/scss/fuse";
+
+.edit-po-dialog {
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+
+    @include media-breakpoint('gt-xs') {
+        width: 400px;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+       //background-color: black;
+    }
+}
+#lblAadhar, #lblAgreement{
+    box-sizing: content-box;
+    display: table-cell;
+    padding-left: 15%;
+    padding-top: 8%;
+    padding-right: 37%;
+    width: 103%;
+}
+
+
+.bottom-align{
+    margin-left: 3%;
+    margin-top: 120px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.label-container{
+    padding: 4px;
+}
+
+
+
+
+.profile-box {
+    margin-bottom: 16px;
+   // @include mat-elevation(2);
+
+    header {
+        padding: 16px;
+
+        .title {
+            font-size: 17px;
+        }
+
+        .more {
+            cursor: pointer;
+        }
+    }
+}
+table {
+    width: 100%;
+  }

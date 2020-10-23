@@ -1,0 +1,95 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Associate Registration</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                        
+                  <form [formGroup]="firstFormGroup" #formName = "ngForm" name="firstFormGroup" class="registration-form" novalidate>
+                    <ng-template matStepLabel>Associate Details</ng-template>
+                    <input type="text" formControlName="assoc_ID" hidden>
+                    <fieldset [disabled]="disabledValue" boarder="0">
+                                       <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                        <mat-form-field fxFlex="35">
+                         <input matInput (keypress)="omit_special_char($event)" placeholder="First Name" formControlName="FirstName">
+                         <mat-error *ngIf="firstFormGroupErrors.FirstName.required">
+                            FirstName is required
+                        </mat-error>
+                        </mat-form-field>
+                      <mat-form-field fxFlex="30">
+                          <input matInput (keypress)="omit_special_char($event)" placeholder="Middle Name" formControlName="MidName">
+                                                 </mat-form-field>
+                      
+                       <mat-form-field fxFlex="35">
+                          <input matInput (keypress)="omit_special_char($event)" placeholder="Last Name" formControlName="LastName">
+                          <mat-error *ngIf="firstFormGroupErrors.LastName.required">
+                            LastName is required
+                         </mat-error>
+                       </mat-form-field>
+                      </div>
+
+                              <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                                  <mat-form-field fxFlex="35">
+                                     <input matInput placeholder="Address Line 1" formControlName="Address1">
+                                     <mat-error *ngIf="firstFormGroupErrors.Address1.required">
+                                        Address is required
+                                     </mat-error>
+                                    </mat-form-field>
+                                  <mat-form-field fxFlex="35">
+                                      <input matInput placeholder="Address Line 2" formControlName="Address2">
+                                   </mat-form-field>
+                                  
+                                   <mat-form-field fxFlex="30">
+                                    <input matInput placeholder="City" formControlName="City">
+                                    <mat-error *ngIf="firstFormGroupErrors.City.required">
+                                        City is required
+                                    </mat-error> 
+                                   </mat-form-field>
+                                  </div>
+                                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                                  <mat-form-field fxFlex="35">
+                                       <input matInput placeholder="Contact Person" formControlName="Contact_Person">
+                                       <mat-error *ngIf="firstFormGroupErrors.Contact_Person.required">
+                                        Contact Person is required
+                                    </mat-error>
+                                      </mat-form-field>
+                                    <mat-form-field fxFlex="35">
+                                        <input matInput placeholder="Contact Number" formControlName="Contact_Number" pattern="[0-9]+">
+                                        <mat-error *ngIf="firstFormGroupErrors.Contact_Number.required">
+                                            Contact Number is required
+                                        </mat-error>
+                                     </mat-form-field>
+                                     <mat-form-field fxFlex="30">
+                                      <input matInput placeholder="Whatsapp Number" formControlName="Whatsapp_Number" pattern="[0-9]+">
+                                   </mat-form-field>
+                                     </div>
+                                       
+                                </fieldset>
+                                  <div></div>
+                                  <div align="right">
+                  
+                                      <button mat-raised-button color="accent" name="save1" [disabled]="!firstFormGroup.valid" (click)="addSupplier(firstFormGroup.value);dialogRef.close();">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      
+                                                                               
+                                  </div>    
+                    
+                  </form>
+                 
+                 
+                </mat-step>
+               
+                 
+                </mat-horizontal-stepper>
+              </div>

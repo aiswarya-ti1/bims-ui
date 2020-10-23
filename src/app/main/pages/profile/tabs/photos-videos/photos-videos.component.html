@@ -1,0 +1,20 @@
+<div id="photos-videos" class="p-24">
+    <div class="period">
+
+       <!-- <div class="period-title" *ngFor="let post of posts">
+            <span class="name">{{post.Date}}</span>
+            <span class="info">{{post.Message}}</span>
+        </div>-->
+
+        <div class="period-media" fxLayout="row wrap" *ngFor="let post of posts">
+            <div class="media"  *ngIf="post.File_Type === 1">
+                <img class="preview" src="http://bims/resources/assets/uploads/ProfileAttachments/{{post.Filename}}">
+                <div class="title">{{post.Date}}</div>
+            </div>
+            <div class="media"  *ngIf="post.File_Type === 2">
+                <iframe frameborder="0" [src]="getEmbedUrl(post.Filename)"></iframe>
+                <div class="title">{{post.Date}}</div>
+            </div>
+        </div>
+    </div>
+</div>

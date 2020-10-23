@@ -1,0 +1,49 @@
+@import "src/@fuse/scss/fuse";
+.invoice-table {
+     width: 100%;
+    margin-top: 50px;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+
+    thead {
+
+        tr {
+
+            th {
+                color: rgba(0, 0, 0, 0.87);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            }
+        }
+    }
+
+    tbody {
+
+        tr {
+
+            td {
+                color: rgba(0, 0, 0, 0.87);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            }
+        }
+    }
+
+    .title {
+        font-size: 17px;
+    }
+
+    .detail1 {
+        margin-top: 8px;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.54);
+        max-width: 360px;
+    }
+    .detail2 {
+        margin-top: 8px;
+        font-size: 11px;
+        color:chocolate;
+        max-width: 360px;
+    }
+    .mat-flat-button.mat-small {
+    min-width: 1%;
+}
+} 

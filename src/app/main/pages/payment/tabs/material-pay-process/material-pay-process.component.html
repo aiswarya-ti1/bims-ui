@@ -1,0 +1,176 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+      <div class="search-input-wrapper mx-24 m-md-0"
+               fxFlex="60" fxLayoutAlign="start center">
+             <strong> <label for="search" class="mr-8">
+                  <mat-icon class="secondary-text">search</mat-icon>
+              </label> </strong>
+              <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                  <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)">
+              </mat-form-field>
+          </div>
+      <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+      fxFlex="100" name="tableForm" [formGroup]="tableForm">
+      <input type="text" formControlName="loginID" hidden>    
+          <mat-table
+                     #table [dataSource]="dataSource"
+                     matSort
+                     [@animateStagger]="{value:'50'}"
+                     fusePerfectScrollbar [hidden]="table1">                   
+                    
+                     <ng-container cdkColumnDef="WorkID">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Work ID</mat-header-cell>
+                        <mat-cell *cdkCellDef="let pay">
+                             
+                           {{pay.Work_ID}}
+                          
+                        </mat-cell>
+                    </ng-container>
+                    
+              <ng-container cdkColumnDef="CustName">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Customer</mat-header-cell>
+                  <mat-cell *cdkCellDef="let pay">
+                        
+                      {{pay.Cust_FirstName}}
+                      {{pay.Cust_MidName}}
+                      {{pay.Cust_LastName}}
+                    
+                  </mat-cell>
+              </ng-container>
+              <ng-container cdkColumnDef="AssocName">
+                <mat-header-cell *cdkHeaderCellDef mat-sort-header>Associate</mat-header-cell>
+                <mat-cell *cdkCellDef="let pay">
+                      
+                    {{pay.Assoc_FirstName}}
+                    {{pay.Assoc_MiddleName}}
+                    {{pay.Assoc_LastName}}
+                  
+                </mat-cell>
+            </ng-container>
+    
+            <ng-container cdkColumnDef="billNo">
+                <mat-header-cell *cdkHeaderCellDef mat-sort-header>Bill No</mat-header-cell>
+                <mat-cell *cdkCellDef="let pay">
+                      
+                      {{pay.Bill_No}}
+                </mat-cell>
+            </ng-container>
+    
+           
+              <ng-container cdkColumnDef="RecAmt">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Bill Amount</mat-header-cell>
+                  <mat-cell *cdkCellDef="let pay">
+                        
+                        {{pay.Bill_Amount}}
+                  </mat-cell>
+              </ng-container>
+    
+              <ng-container cdkColumnDef="MFeePer">
+                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Management Fee %</mat-header-cell>
+                    <mat-cell *cdkCellDef="let pay">
+                            <span *ngIf="pay.MFee_Perc!=0">{{pay.MFee_Perc}}</span>
+                              
+                            <span *ngIf="pay.MFee_Perc==0"><button  type="button"
+                            mat-raised-button color="accent"
+                            (click)="mFeePerc(pay.PayHistory_ID, pay.Bill_Amount,2)"
+                           
+                            [disabled]="this.Role_ID!=13 || pay.PayStatus_ID!=1"
+                            
+                            aria-label="UPDATE">
+                        M-Fee%
+                    </button> </span>
+                        </mat-cell>
+                </ng-container>
+             
+    
+              
+              <ng-container cdkColumnDef="MangmtFee">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Management Fee</mat-header-cell>
+                  <mat-cell *cdkCellDef="let pay" fxHide fxShow.gt-xs>
+                    <span *ngIf="pay.PayStatus_ID==2">
+                        <a [routerLink]="" (click)="supplierPay(pay.PayHistory_ID,1)"> {{pay.Management_Fee}}</a>
+                     </span>
+                     <span *ngIf="pay.PayStatus_ID!=2">
+                             {{pay.Management_Fee}}
+                     </span>
+                      
+                  </mat-cell>
+              </ng-container>
+    
+              
+                <ng-container cdkColumnDef="AssocPayable">
+                          <mat-header-cell *cdkHeaderCellDef mat-sort-header>Supplier Payable</mat-header-cell>
+                          <mat-cell *cdkCellDef="let pay">
+                                <span *ngIf="pay.PayStatus_ID==2">
+                                        <a [routerLink]="" (click)="supplierPay(pay.PayHistory_ID,2)">{{pay.Supplier_Amount}}</a></span> 
+                                        <span *ngIf="pay.PayStatus_ID!=2">{{pay.Supplier_Amount}}</span>
+                             
+ 
+                              
+                          </mat-cell>
+                      </ng-container>
+
+                      
+                                
+                                  <ng-container cdkColumnDef="PaidAmt">
+                                    <mat-header-cell *cdkHeaderCellDef>Paid Amout</mat-header-cell>
+                                    <mat-cell *cdkCellDef="let pay">
+                                         {{pay.Paid_Supp_Amount}}
+                
+                                    </mat-cell>  
+                                          
+                                </ng-container>
+                                <ng-container cdkColumnDef="PaidDate">
+                                  <mat-header-cell *cdkHeaderCellDef>Paid Date</mat-header-cell>
+                                  <mat-cell *cdkCellDef="let pay">
+                                       {{pay.Paid_Date}}
+              
+                                  </mat-cell>  
+                                        
+                              </ng-container>
+                              <ng-container cdkColumnDef="Status">
+                                <mat-header-cell *cdkHeaderCellDef>Status</mat-header-cell>
+                                <mat-cell *cdkCellDef="let pay">
+                                     {{pay.Pay_StatusName}}
+            
+                                </mat-cell>  
+                                      
+                            </ng-container>
+                            <ng-container cdkColumnDef="Action">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                                    <mat-cell *cdkCellDef="let pay">
+                                        
+                                       <button  type="button"
+                                        mat-raised-button color="accent"
+                                        (click)="approveSuppPay(pay.PayHistory_ID)"
+                                       
+                                        [disabled]="this.Role_ID != 1 && pay.PayStatus_ID !=4"
+                                        
+                                        aria-label="UPDATE">
+                                    Approve
+                                </button>
+                                    </mat-cell>
+                                </ng-container>
+                                  
+                                      
+              
+            
+       
+              
+    
+              <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    
+              <mat-row *cdkRowDef="let pay; columns: displayedColumns;"
+                       class="PaymentSupplierDetails">
+                                 </mat-row>
+    
+          </mat-table>
+          <mat-paginator #paginator
+          
+          [pageIndex]="0"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+       
+    </form> 
+</div>
+

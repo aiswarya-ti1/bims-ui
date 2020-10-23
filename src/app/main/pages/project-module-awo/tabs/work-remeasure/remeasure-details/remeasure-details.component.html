@@ -1,0 +1,102 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Re-Measurable Details</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form  name="detailsForm" [formGroup]="detailsForm">
+
+              <input type="text" formControlName="LE_ID" hidden>
+              <input type="text" formControlName="T_ID" hidden>
+              <input type="text" formControlName="work_ID" hidden>
+              <input type="text" formControlName="item_ID" hidden>
+              <input type="text" formControlName="flag" hidden>
+              <input type="text" formControlName="type_ID" hidden>
+              <input type="text" formControlName="rate_Flag" hidden>
+              
+
+              <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-checkbox formControlName="chkRate" (change)="enableRate($event)">Click Here If Rate Change Applicable</mat-checkbox>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Item Name</mat-label>
+                        <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                          <input matInput placeholder="Item Name" formControlName="itemName">  
+                          </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Quantity</mat-label>
+                                <mat-icon matSuffix class="secondary-text">equalizer</mat-icon>
+                                  <input matInput placeholder="Quantity" formControlName="qty">  
+                                  </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Unit</mat-label>
+                                <mat-icon matSuffix class="secondary-text">ac_unit</mat-icon>
+                                    <input matInput placeholder="Unit" formControlName="unit">  
+                                      </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+                      <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Rate(Rs)</mat-label>
+                            <mat-icon matSuffix class="secondary-text">ac_unit</mat-icon>
+                                  <input matInput placeholder="Rate" formControlName="rate" disabled>  
+                                  </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+                      <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>No. of Labours"</mat-label>
+                            <mat-icon matSuffix class="secondary-text">supervisor_account</mat-icon>
+                                <input matInput placeholder="No. of Labours" formControlName="number" pattern="^\d+(?:\.\d{1,2})?$">  
+                                </mat-form-field>
+                      </div>
+                                
+                      <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>No.of Days</mat-label>
+                                <mat-icon matSuffix class="secondary-text">date_range</mat-icon>
+                                          <input matInput placeholder="No.of Days" formControlName="days"  pattern="^\d+(?:\.\d{1,2})?$">  
+                                          </mat-form-field>
+                              </div>
+                    
+                              <div fxLayout="row" fxLayoutAlign="start start">
+
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Comments</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                          <textarea matInput placeholder="Comments" formControlName="cmnts"></textarea>
+                         
+                       </mat-form-field>
+                      </div>
+                    </form>
+                    </div>
+                    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                      <button 
+                      mat-raised-button
+                      (click)="saveDetails(detailsForm.value)"
+                      class="save-button mat-accent"
+                      [disabled]="detailsForm.invalid"
+                      [hidden]="saveBtn"
+                      aria-label="SAVE">
+                  SAVE
+              </button>
+             </div>
+             </div>
+
+                     
+                 
+                      
+                     
+         

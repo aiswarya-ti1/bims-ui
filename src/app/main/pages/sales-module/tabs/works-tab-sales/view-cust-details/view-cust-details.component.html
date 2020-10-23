@@ -1,0 +1,15 @@
+<div class="box" *ngFor="let cust of customer">
+        <div class="title" style="color: darkblue; font-size: 15px;">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</div>
+        <br>
+
+        <div class="detail">{{cust.Address_line1}},</div>
+        <div class="detail">{{cust.Address_line2}},</div>
+        <div class="detail">{{cust.Loc_Name}}<span *ngIf="cust.landmark">,{{cust.landmark}}</span></div>
+        <div class="detail" *ngIf="cust.Address_postalcode">{{cust.Address_postalcode}}</div>
+        <div class="detail">{{cust.Contact_phone}},</div>
+        <div class="detail" *ngIf="cust.Address_email">{{cust.Address_email}}</div>
+
+
+       
+    </div>
+    

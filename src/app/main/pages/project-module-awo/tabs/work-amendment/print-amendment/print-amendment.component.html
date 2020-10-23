@@ -1,0 +1,322 @@
+<div id="invoice" class="modern page-layout blank" fxLayout="row" fusePerfectScrollbar>
+
+        <div class="invoice-container">
+
+                <!-- INVOICE -->
+                <div class="card">
+                     <div class="noprint" fxLayout="row" fxLayoutAlign="space-between start">
+                         <div class="col-md-6"><button mat-raised-button color="accent" [routerLink]="['/pages/project-management/',this.Work_ID]"><mat-icon>arrow_back</mat-icon>Back</button>
+                       &nbsp;
+                                <button mat-raised-button color="accent" (click)="printDoc()"><mat-icon>print</mat-icon>Print</button>
+                            </div>
+                        </div>
+        
+                    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+                       
+        
+                        <div class="ids" fxLayout="column">
+        
+                            <div fxLayout="row" class="seller" fxLayoutAlign="start center">
+        
+                                <div class="logo">
+                                    <img src="assets/images/logos/logoblue.png">
+                                </div>
+                               
+                                <table class="summary" fxLayoutAlign="right" >
+                                        <tr class="code text-right" *ngFor="let assoc of finalAssoc"><!-- *ngFor="let cust of custDetails"-->
+                                            <td class="label">Amendment {{this.AmendNo}}</td>
+                                            <td class="value">BID- {{assoc.Work_ID}}</td>
+                                        </tr>
+                    
+                                        <tr class="text-right"><!-- *ngFor="let assoc of finalAssoc"-->
+                                            <td class="label">Amendment Issue Date</td>
+                                            <td class="value" >{{this.Issue_Date | date:'dd/MM/yyyy'}}</td><!--*ngIf="assoc.Work_Attrb_ID==27"-->
+                                        </tr>
+                    
+                                        <tr *ngFor="let cust of custDetails" class="text-right"><!-- -->
+                                            <td class="label">Work Location</td>
+                                            <td class="value">{{cust.Loc_Name}}</td>
+                                        </tr>
+                    
+                                        <tr *ngFor="let assoc of finalAssoc" class="text-right"><!-- *ngFor="let assoc of finalAssoc"-->
+                                            <td class="label">Scope</td>
+                                            <td class="value">{{this.Work_Type}}</td>
+                                        </tr>
+                                    </table>
+        
+                                
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                               
+                                   <div class="info">
+                                        <div class="title">Customer</div>
+                                        <div *ngFor="let cust of custDetails">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</div>
+                                        <div></div>
+                                        <div class="title">Associate</div>
+                                        <div *ngFor="let assoc of finalAssoc">{{assoc.Assoc_FirstName}} {{assoc.Assoc_MiddleName}} {{assoc.Assoc_LastName}}</div>
+                                        </div>
+                                    
+                                </div>
+                                                          
+                        </div>
+        
+                       
+                    </div>
+                  
+                            <div class="title1">
+                                    Hereinafter refered to as CONTRACTOR for the Performance of Services as refered to in the SCOPE OF WORK in Accordance with the Terms & Conditions Stipulated herein. 
+                            </div>
+                            
+        
+                    <div class="content">
+                        <table class="simple invoice-table">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">UNIT</th>
+                                    <th class="text-right">RATE(Rs)</th>
+                                    <th class="text-right">TOTAL(Rs)</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr *ngFor="let item of items">
+                                            <td>
+                                                <div>
+                                                        <div class="title">{{item.LineItem_Name}}</div>
+                                                       
+                                                        <div class="detail">{{item.Comments}}</div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                <span *ngIf="item.Quantity">{{item.Quantity}}</span>
+                                              </td>
+                                              <td class="text-right">
+                                                      <span *ngIf="item.Quantity">{{item.Unit_Code}}</span>
+                                                    </td>
+                                                    <td class="text-right">
+                                                          <span *ngIf="item.Rate">{{item.Rate}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                              <span *ngIf="item.Value">{{item.Value}}</span>
+                                                            </td>
+  
+                                        </tr>
+                            </tbody>
+                        </table>
+        
+                        <table class="simple invoice-table-footer">
+                            <tbody >
+                                <tr class="subtotal">
+                                    <td>SUBTOTAL</td>
+                                    <td>Rs. {{this.AmdTotal}}</td>
+                                </tr>
+                                <tr class="subtotal">
+                                        <td>IN WORDS</td>
+                                        <td>Rupees {{this.words}}</td>
+                                    </tr>
+                               
+                            </tbody>
+                        </table></div>
+
+                        <div class="footer">
+                        <div fxLayout="row">
+                            
+                                <div class="note"> Key Deliverables :</div> </div>
+                                     
+                                <li *ngFor="let key of keys" class="small-note">
+                                        {{key.Key_Name}}
+                                     </li>  
+
+                                    
+                                     <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                       
+                                            <div class="note"> General Terms & Conditions :</div></div>
+                                          
+                                            <li *ngFor="let term of terms" class="small-note">
+                                                    {{term.Term_Name}}
+                                                 </li>  
+                                                
+                                                
+                                      
+            
+                                              
+                                                        <div class="note"> 1. Work Schedule</div>
+                                               
+
+                                               <table class="simple invoice-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-right">Work Stages</th>
+                                                            <th class="text-right">Start Date</th>
+                                                            <th class="text-right">Duration</th>
+                                                            <th class="text-right">EndDate</th>
+                                                          
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let work of works">
+                                                            <td>
+                                                                <div class="address">
+                                                                        {{work.Work_Stage}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                    {{work.Start_Date | date:'dd/MM/yyyy'}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                    {{work.Duration}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                    {{work.End_Date | date:'dd/MM/yyyy'}}
+                                                            </td>
+                                                           
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="note"> 2. Payment</div>
+                                               
+                                                <div class="small-note" *ngIf="this.Assoc_ID==226">Customer has to transfer the agreed contract value as per the payment schedule mentioned in the work order only to the escrow account of M/s Infrasynergics Private limited with Account details as mentioned below for making payments to contractors/associates & material vendors
+
+                                                        Account Name: Infrasynergics Private Limited
+                                                        
+                                                        Account Number:4805002100001029
+                                                        
+                                                        Bank: Punjab National bank
+                                                        
+                                                        Branch: Kolenchery
+                                                        
+                                                        IFSC:PUNB0480500
+                                                        
+                                                         
+                                                        
+                                                        Infrasynergics Private limited will collect all the material bills in the name of the customer and make payments directly to the vendor after verifying material specifications. All labour payments will be made directly to the contractor/associate after verifying work quality & stage based completion. The customer is not liable to pay any fee, commissions or any other payments other than the agreed contract value for the works mentioned in the work order.
+                                                     </div>
+                                                     <div class="small-note" *ngIf="this.Assoc_ID!=226">
+                                                        Customer has to transfer the agreed contract value as per the payment schedule mentioned in the work order only to the escrow account of M/s Infrasynergics Private limited with Account details as mentioned below for making payments to contractors/associates & material vendors
+        
+                                                        Account Name: Infrasynergics Private Limited
+                                                        
+                                                        Account Number:4805002100001029
+                                                        
+                                                        Bank: Punjab National bank
+                                                        
+                                                        Branch: Kolenchery
+                                                        
+                                                        IFSC:PUNB0480500
+                                                        
+                                                         
+                                                        
+                                                        All payments will be made directly to the contractor/associate after verifying work quality & stage based completion. The customer is not liable to pay any fee, commissions or any other payments other than the agreed contract value for the works mentioned in the work order.
+                                                     </div>
+                                             <table class="simple invoice-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-right">Payment Stages</th>
+                                                            <th class="text-right">Amount(Rs)</th>
+                                                            <th class="text-right">Payment Date</th>
+                                                           
+                                                          
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let pay of payments">
+                                                            <td>
+                                                                <div class="address">
+                                                                        {{pay.Payment_Phase}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                    {{pay.Amount}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                    {{pay.Payment_Date | date:'dd/MM/yyyy'}}
+                                                            </td>
+                                                           
+                                                           
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!---------------------------------------------->
+                                                <div class="title2" *ngFor="let assoc of finalAssoc">
+                                                    Other Terms & Conditions remains unchanged as per Work Order BID-{{assoc.Work_ID}}
+                                                </div>  
+                                              
+                                     
+                                                                            <!---------------------------------->
+
+                                                                          
+                                                                                    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+                                                                                            <div class="ids" fxLayout="column">
+        
+                                                                                                    <div fxLayout="row" class="seller" fxLayoutAlign="start center">
+                                                                                    <div class="divider"></div>
+                                                            
+                                                                                    <div class="detail" *ngFor="let cust of custDetails">
+                                                                                            <div class="title2">First Party</div>
+                                                                                        <div class="title">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</div>
+                                                                                        <div class="address">
+                                                                                            {{cust.Address_line1}} ,{{cust.Address_line2}}, {{cust.Loc_Name}}
+                                                                                        </div>
+                                                                                        <div *ngIf="cust.Contact_phone" class="phone">
+                                                                                            <span>Phone:</span>
+                                                                                            {{cust.Contact_phone}}
+                                                                                        </div>
+                                                                                       
+                                                                                    </div>
+                                                                                
+                                                            
+                                                                                
+                                                                                    <div class="divider"></div>
+                                                            
+                                                                                    <div class="detail"  *ngFor="let assoc of finalAssoc">
+                                                                                            <div class="title2">Second Party</div>
+                                                                                        <div class="title" >{{assoc.Assoc_FirstName}} {{assoc.Assoc_MiddleName}} {{assoc.Assoc_LastName}}</div>
+                                                                                        <div  class="address">
+                                                                                            {{assoc.Address_line1}}, {{assoc.Address_line2}}, {{assoc.Loc_Name}}
+                                                                                        </div>
+                                                                                        <div *ngIf="assoc.Contact_phone" class="phone"><!--*" -->
+                                                                                            <span>Phone:</span>
+                                                                                            {{assoc.Contact_phone}}
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                            
+                                                                                    
+                                                                                    <div class="divider"></div>
+                                                            
+                                                                                    <div class="detail">
+                                                                                            <div class="title2">Third Party</div>
+                                                                                        <div class="title">Infrasynergics Private Ltd.</div>
+                                                                                        <div class="address">
+                                                                                           IV/70-N, 2nd Floor, KMV Arcade, Kolenchery
+                                                                                        </div>
+                                                                                        <div class="phone">
+                                                                                            <span>Phone:</span>
+                                                                                            7025021113
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                </div>
+                                                                                </div></div>
+
+                                                                                <div fxLayout="row">
+                                                                                        <span class="secondLabel">Customer's Sign</span>&nbsp;&nbsp;&nbsp;
+                                                                                        <span class="secondLabel">Contractor's Sign</span>&nbsp;&nbsp;&nbsp;
+                                                                                        <span class="secondLabel">Inframall representative's Sign</span>
+                                                                                    </div>
+
+        
+                    
+                        
+                    
+                    </div>
+        
+        
+                </div>
+                <!-- / INVOICE -->
+        
+            
+
+</div>

@@ -1,0 +1,216 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24 h-80" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end">
+ 
+ <div class="logo my-12 m-sm-0"
+ fxLayout="row" fxLayoutAlign="start center">
+ <div>
+         <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="['/project-management/',this.Work_ID]">
+             <mat-icon style="color:white">arrow_back</mat-icon>
+         </button></div>
+
+<div class="logo-text h1" style="color:white">
+    Amendment {{this.AmendNo}} Details
+</div>
+</div>
+
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+                
+        <div class="profile-box add post">
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">Scope</header>
+            <div class="content" fxLayout="row wrap">   
+                    <table class="simple invoice-table">
+                           
+                            <tbody>
+                                <tr *ngFor="let item1 of items">
+                                      
+                                    <td>
+                                        <div class="title"><span style="font-weight: bold;" >{{item1.LineItem_Name}}</span></div>
+                                        <div class="detail">{{item1.Comments}}</div>
+                                        <div class="detail"><span *ngIf="item1.Quantity" style="color: darkblue;">{{item1.Quantity}} {{item1.Unit_Code}}</span></div>
+                                    </td>
+                                   
+                                    
+                                              <td class="text-right">
+                                                  <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="item1.Value">Rs.{{item1.Value}}</span>
+                                                </div>
+                                                <div class="title" style="color: darkgreen;"> <span *ngIf="item1.Rate">Rs.{{item1.Rate}} per {{item1.Unit_Code}}</span></div>
+                                                    
+                                                  </td>
+                                                 
+                                </tr>
+                            </tbody>
+                        </table>  
+                            <table class="simple invoice-table-footer">
+                                    <tbody>
+                                        <tr class="subtotal">
+                                            <td>TOTAL</td>
+                                            <td>Rs.{{this.Total}}</td>
+                                        </tr>
+                                        <tr class="subtotal">
+                                                <td>IN WORDS</td>
+                                                <td>{{this.words_total}}</td>
+                                            </tr>
+                                       
+                                    </tbody>
+                                </table>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="profile-box add-post">
+           
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Work Schedule</div>
+                        
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                  
+                               <table class="simple invoice-table">
+                                <thead>
+                                    <tr>
+                                           
+                                        <th>WORK PHASES</th>
+                                       
+                                        <th class="text-right">START DATE</th>
+                                        <th class="text-right">DURATION</th>
+                                        <th class="text-right">END DATE</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let work of workSched">
+                                          
+                                        <td>
+                                            <div class="title">{{work.Work_Stage}}</div>
+                                           <div class="detail">{{work.Remarks}}</div>
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                          <span>{{work.Start_Date | date:'dd/MM/yyyy'}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                                <span>{{work.Duration}}</span>
+                                              </td>
+                                              <td class="text-right">
+                                                    <span>{{work.End_Date | date:'dd/MM/yyyy'}}</span>
+                                                  </td>
+                                                
+                                        
+                                    </tr>
+                                </tbody>
+                               
+                            </table>                       
+                       
+                        
+                    
+</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="profile-box add-post">
+           
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Payment Schedule</div>
+                       
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                     
+                               <table class="simple invoice-table">
+                                <thead>
+                                    <tr>
+                                           
+                                        <th>PAYMENT PHASES</th>
+                                       
+                                        <th class="text-right">PAYMENT DATE</th>
+                                        <th class="text-right">AMOUNT(Rs)</th>
+                                       
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pay of paySched">
+                                          
+                                        <td>
+                                            <div class="title">{{pay.Payment_Phase}}</div>
+                                           <div class="detail">{{pay.Remarks}}</div>
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                          <span>{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                                <span>{{pay.Amount}}</span>
+                                              </td>
+                                            
+                                        
+                                    </tr>
+                                </tbody>
+                               
+                            </table>        
+                    
+</div>
+        </div>
+        <mat-divider ></mat-divider>
+        <div class="profile-box add-post">
+           
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Key Deliverables</div>
+                   
+                </header>
+            
+                <div class="content" fxLayout="row wrap">
+                       
+               <div>
+               
+                        
+                           
+                           <div class="info-line">
+                            <li *ngFor="let key of keys" class="title">
+                                    {{key.Key_Name}}
+                                 </li>
+                       </div>
+                   
+                    
+                
+</div>
+    </div>
+    <mat-divider ></mat-divider>
+    <div class="profile-box add-post">
+           
+        <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Terms & Conditions</div>
+                
+            </header>
+        
+            <div class="content" fxLayout="row wrap">
+                   
+           <div>
+           
+                       </div>
+                       <div class="info-line">
+                            <li *ngFor="let term of terms" class="title">
+                                    {{term.Term_Name}}
+                                 </li>
+                       </div>
+                                         
+                
+            
+</div>
+</div>
+
+      
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

@@ -1,0 +1,80 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Purchase Request</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+              fxFlex="1 0 auto" name="viewPRForm" [formGroup]="viewPRForm" fusePerfectScrollbar>
+
+              <input type="text" formControlName="work" id="work" hidden>
+
+             
+                
+                            <div class="h4" align="center" *ngFor="let item of items">
+                                <table>
+                                   <tr>
+                                        <td>Purchase Req No</td>
+                                        <td>:</td>
+                                        <td>{{item.PR_ID}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td>Item Name</td>
+                                            <td>:</td>
+                                            <td>{{item.Item_Name}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td>Quantity/Unit</td>
+                                            <td>:</td>
+                                            <td>{{item.Quantity}} {{item.Unit_Code}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td>Purchase Order Created</td>
+                                            <td>:</td>
+                                            <td *ngIf="item.PO_ID==1">YES</td>
+                                            <td *ngIf="item.PO_ID==0">NO</td>
+                                    </tr>
+                                    <tr>
+                                            <td>Purchase Order ID</td>
+                                            <td>:</td>
+                                            <td *ngIf="item.PO_ID==1">{{item.PO_ID}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td>Goods Recieved</td>
+                                            <td>:</td>
+                                            <td *ngIf="item.Goods_Flag==1">YES</td>
+                                            <td *ngIf="item.Goods_Flag==0">NO</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Item Value</td>
+                                        <td>:</td>
+                                        <td *ngIf="item.Goods_Flag==1">{{item.Amount}}</td>
+                                        
+                                </tr>
+
+                                </table>
+                                
+                              </div>
+                   
+
+                   
+                  
+                     
+                      
+                  
+
+                  
+                  <div class="card-divider"></div>
+              
+             
+      </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,93 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Associate Selection</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+  
+        <form  name="detailsForm" [formGroup]="detailsForm">
+                
+                   
+                    
+              
+                    <input type="text" formControlName="workID" hidden>
+                    <input type="text" formControlName="segID" hidden>
+                    <input type="text" formControlName="servID" hidden>
+                    <input type="text" formControlName="typeID" hidden>
+                    <div class="example-container mat-elevation-z8">
+                      <div *ngIf="this.assocExists==0">
+                        Associates Not Available!!  
+                      </div>
+                        <table mat-table #table [dataSource]="dataSource"*ngIf="this.assocExists==1">
+                      
+                          <!-- Checkbox Column -->
+                          <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                            
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)">
+                              </mat-checkbox>
+                            </td>
+                          </ng-container>
+                      
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Name</th>
+                            <td mat-cell *matCellDef="let assocLists"><p class="truncate"> {{assocLists.Assoc_FirstName}}
+                                {{assocLists.Assoc_MiddleName}}{{assocLists.Assoc_LastName}} </p></td>
+                          </ng-container>
+                      
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="location">
+                            <th mat-header-cell *matHeaderCellDef> Location </th>
+                            <td mat-cell *matCellDef="let assocLists"> {{assocLists.Loc_Name}} </td>
+                          </ng-container>
+                      
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="rating">
+                            <th mat-header-cell *matHeaderCellDef> Rating </th>
+                            <td mat-cell *matCellDef="let assocLists"> 
+                                <span id="stars" class="stars" [innerHtml]="viewRating(assocLists.Rating)">
+                                  
+                                </span>
+                                </td>
+                          </ng-container>
+                      
+                          
+                      
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                   (click)="selection.toggle(row)">
+                          </tr>
+                        </table>
+                      </div>
+                      
+                   
+                   
+                        </form>
+                    
+                  
+                
+
+</div>
+  
+    
+  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+  
+        <button
+          mat-raised-button color="accent" (click)="saveAssocList(selection.selected, detailsForm.value)" >Done</button>
+      
+  
+        
+    </div>
+  </div>
+  

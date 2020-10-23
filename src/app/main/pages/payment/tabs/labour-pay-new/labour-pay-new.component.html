@@ -1,0 +1,305 @@
+ <div id="timeline" class="p-24" fxLayout="row wrap">       
+        <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+                <!-- <mat-form-field>
+                        <input matInput  placeholder="Search" [(ngModel)]="searchText">
+                      </mat-form-field>  -->
+                     
+                 
+      
+            <div class="profile-box add-post">
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="title">Associate Payments</div>
+                                <div class="more secondary-text"><a class="pl-12" mat-button (click)="openFilter()">
+                                                <mat-icon>more_vert</mat-icon>
+                                        </a></div>
+                        </header>
+                  <div class="content"  *ngFor="let pay of payment | paymentFilter:workID:custName:assocName:Init:Auth:App:MFee:AFee:Paid">
+                                <!--<table class="simple invoice-table">
+                                        <tr>
+                                                
+                        
+                          <div fxLayout="row" *ngFor="let cust of customers">
+                                 <span *ngIf="cust.Customer_ID == pay.Customer_ID">
+                                        <span class="work">[{{pay.Work_ID}}] </span>&nbsp;
+                                        <div class="work"  matTooltip="{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}},{{cust.Address_line1}}, {{cust.Address_line2}}, {{cust.Contact_phone}}"> {{pay.Cust_FirstName}} {{pay.Cust_MidName}} {{pay.Cust_LastName}}</div>
+                                    </span>
+                              
+                          </div></tr>
+                          <tr (click)="addPaymentDetails(pay.PayStatus_ID,pay.InitPay_ID, pay.ReqAmount, 1)">
+                          <div fxLayout="row" fxLayoutAlign="space-between center" id="firstClick">
+                                <div fxLayout="row">
+                                   
+                                  <span class="assoc" matTooltip="{{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}}, {{pay.Address_line1}} {{pay.Address_line2}},{{pay.Contact_phone}}">{{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}}</span> &nbsp;&nbsp;
+        <span class="detail"> Requested <span style="font-weight: bold;color: darkgreen;">Rs. {{pay.ReqAmount}}</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.ReqDate}}</span><span *ngIf="pay.Trans_Type"> ({{pay.Trans_Type}}) </span></span>
+        
+                                </div>
+        <div fxLayout="row">
+                <div fxLayout="column"fxLayoutAlign="space-between center">
+                              
+                        <span class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.AssocPay_Flag==0"><span class="amount" > Rs.{{pay.AssocPay}}</span> payable. </span>
+                        <span class="detail" *ngIf="pay.AssocPay_Flag==1 && pay.AssocPay!=0"><span class="amount" > Rs.{{pay.AssocPay}}</span> payable. </span>
+                        <span class="detail" *ngIf="pay.AssocPay_Flag==1 && pay.AssocPay==0">Associate Payable NILL</span>
+                        <span class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.MFee_Flag==0">MFee is <span class="amount"> Rs.{{pay.MFee}}</span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></span>
+                        <span class="detail" *ngIf="pay.MFee_Flag==1 && pay.MFee!=0">MFee is <span class="amount"> Rs.{{pay.MFee}}</span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></span>
+                        <span class="detail" *ngIf="pay.MFee_Flag==1 && pay.MFee==0">MFee is NILL <span class="mfee"> [{{pay.MFee_Perc}}%]</span></span>
+                        <span class="detail" *ngIf="pay.PayStatus_ID==2 && pay.AssocPay_Flag==0"><span class="amount" > <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,2)"> Rs. {{pay.AssocPay}}</a></span> payable. </span>
+                        <span class="detail" *ngIf="pay.PayStatus_ID==2 && pay.MFee_Flag==0">MFee is <span class="amount"> <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,1)"> Rs.{{pay.MFee}}</a></span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></span>
+                        <span class="detail" *ngIf="pay.PayStatus_ID==3 && pay.AssocPay_Flag==0"><span class="amount" > <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,2)"> Rs. {{pay.AssocPay}}</a></span> payable. </span>
+                        <span class="detail" *ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==0">MFee is <span class="amount"> <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,1)"> Rs.{{pay.MFee}}</a></span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></span>
+
+                        
+
+                        
+                </div>
+                <div fxLayout="column">
+                                
+                                <span class="detail1" *ngIf="pay.PayStatus_ID==3 && pay.AssocPay_Flag==1 && pay.AssocPay!=0"> Paid on <span style="font-weight: bold;color: darkgreen;">{{pay.AssocPay_Date}} </span></span>
+                                
+                                <span class="detail1"*ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==1 && pay.MFee!=0" > Recieved on  <span style="font-weight: bold;color: darkgreen;">{{pay.M_PaidDate}} </span></span>
+                        </div>
+                </div>
+                          </div></tr>
+                          <tr *ngIf="pay.Comments">
+                                  <span class="detail">{{pay.Comments}}</span>
+                          </tr>
+                          <tr>
+                          <div fxLayout="row">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button"  *ngIf="pay.PayStatus_ID>=1" class="btn btn-secondary btn-sm" >Initialized</button>
+                                                        <button type="button" *ngIf="pay.PayStatus_ID==4 || pay.PayStatus_ID==2 ||pay.PayStatus_ID==3" class="btn btn-primary btn-sm">Authorized</button>
+                                                        <button type="button" *ngIf="pay.PayStatus_ID==2 || pay.PayStatus_ID==3" class="btn btn-warning btn-sm">Approved</button>
+                                                        <button type="button" *ngIf="pay.MFee_Flag==1 && pay.PayStatus_ID!=3 && pay.MFee!=0"class="btn btn-success btn-sm">MFeePaid</button>
+                                                        <button type="button" *ngIf="pay.AssocPay_Flag==1 && pay.PayStatus_ID!=3 && pay.AssocPay!=0"class="btn btn-success btn-sm">AssocFeePaid</button>
+                                                        <button type="button" *ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==1 && pay.AssocPay_Flag==1"class="btn btn-success btn-sm">Paid</button>
+                                                       </div>
+                                                       
+                                                                                       
+                          </div></tr>
+                          <mat-divider></mat-divider>
+                        
+                        </table>-->
+                        <table class="simple invoice-table">
+                            <tr  (click)="addPaymentDetails(pay.PayStatus_ID,pay.InitPay_ID, pay.ReqAmount, 1)">
+                                    
+                               <td>
+              <div fxLayout="row" *ngFor="let cust of customers">
+                
+                     <span *ngIf="cust.Customer_ID == pay.Customer_ID">
+                            <span class="work">[{{pay.Work_ID}}] </span>&nbsp;
+                            <span class="work"  matTooltip="{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}},{{cust.Address_line1}}, {{cust.Address_line2}}, {{cust.Contact_phone}}"> {{pay.Cust_FirstName}} {{pay.Cust_MidName}} {{pay.Cust_LastName}}</span>
+                           <div>To : <span class="assoc" matTooltip="{{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}}, {{pay.Address_line1}} {{pay.Address_line2}},{{pay.Contact_phone}}"> {{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}} <span *ngIf="pay.Trans_Type"> ({{pay.Trans_Type}}) </span></span></div> 
+ <div class="detail" style="font-weight: bold;color: darkgreen;">Rs. {{pay.ReqAmount}} on <span style="font-weight: bold;color: darkgreen;">{{pay.ReqDate}}</span></div>
+ <div class="detail" *ngIf="pay.Comments">{{pay.Comments}}</div>
+ <div *ngIf="pay.PayStatus_ID!=3" style="color: darkred; font-weight: bold;">{{pay.Pay_StatusName}}</div>
+ <div *ngIf="pay.PayStatus_ID==2  && pay.MFee_Flag==1 && pay.Trans_ID" style="color: darkred; font-weight: bold;">MFee Paid</div>
+ <div *ngIf="pay.PayStatus_ID==2 && pay.AssocPay_Flag==1 && pay.Assoc_Trans_ID" style="color: darkred; font-weight: bold;">AssocFee Paid</div>
+                        </span>
+                            </div></td>
+                            <td class="text-right">
+                            <div class="title" *ngIf="pay.PayStatus_ID!=1">Payment Details</div>
+                            <div class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.AssocPay_Flag==0 && pay.AssocPay!=0">Associate Payment  <span class="amount" > Rs.{{pay.AssocPay}}</span> </div>
+                            <div class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.AssocPay_Flag==0 && pay.AssocPay==0">Associate Payable NILL </div>
+           
+            <div class="detail" *ngIf="pay.AssocPay_Flag==1 && pay.AssocPay==0 ">Associate Payable NILL</div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.MFee_Flag==0 && pay.MFee!=0">MFee is <span class="amount"> Rs.{{pay.MFee}}</span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==4 &&  pay.MFee_Flag==0 && pay.MFee==0">MFee is NILL </div>
+            
+            <div class="detail" *ngIf="pay.MFee_Flag==1 && pay.MFee==0 && pay.MFee_Flag==1">MFee is NILL <span class="mfee"> [{{pay.MFee_Perc}}%]</span></div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==2 && pay.AssocPay_Flag==0"><span class="amount" >Associate Payment <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,2)"> Rs. {{pay.AssocPay}}</a></span> </div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==2 && pay.MFee_Flag==0">MFee  <span class="amount"> <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,1)"> Rs.{{pay.MFee}}</a></span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></div>
+
+            <div class="detail" *ngIf="pay.PayStatus_ID==2 && pay.AssocPay_Flag==1 && pay.AssocPay!=0">Associate Payment <span class="amount" >{{pay.Paid_AssocPay}} </span> on <span class="detail"> {{pay.AssocPay_Date}}</span> </div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==2 && pay.MFee_Flag==1 && pay.MFee !=0">MFee  <span class="amount"> Rs.{{pay.MFee}}</span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span></div>
+
+
+            <div class="detail" *ngIf="pay.PayStatus_ID==3 && pay.AssocPay_Flag==0">Associate Payment <span class="amount" > <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,2)">  Rs. {{pay.AssocPay}}</a></span> <span *ngIf="pay.Assoc_Trans_Type"> [{{pay.Assoc_Trans_Type}}]</span> 
+            <div class="detail">{{pay.Paid_AssocPay}} on {{pay.AssocPay_Date}}</div> </div>
+            <div class="detail" *ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==0">MFee  <span class="amount"> <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,1)"> Rs.{{pay.MFee}}</a></span> <span class="mfee"> [{{pay.MFee_Perc}}%]</span><span *ngIf="pay.Trans_Type"> [{{pay.Trans_Type}}]</span>
+            <div class="detail">{{pay.Paid_MFee}} on {{pay.M_PaidDate}}</div></div>
+           <!--<div class="detail" *ngIf="pay.PayStatus_ID==3 && pay.AssocPay_Flag==1 && pay.AssocPay!=0">Associate Payment [{{pay.Assoc_Trans_Type}}] ({{pay.Assoc_Trans_ID}})<div><span class="amount" > Rs.{{pay.AssocPay}}</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.AssocPay_Date}} </span></div></div>
+                    
+                    <div class="detail" *ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==1 && pay.MFee!=0" > MFee Recieved [{{pay.Trans_Type}}] ({{pay.Trans_ID}})<div> <span class="amount" > Rs.{{pay.Paid_MFee}}</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.M_PaidDate}} </span>
+                    </div>
+                </div>-->
+                   
+                            </td>
+                  
+             <!-->-->
+              
+                  
+            
+
+            
+
+            
+    
+    <!--<div fxLayout="column">
+                    
+                    <span class="detail1" *ngIf="pay.PayStatus_ID==3 && pay.AssocPay_Flag==1 && pay.AssocPay!=0"> Paid on <span style="font-weight: bold;color: darkgreen;">{{pay.AssocPay_Date}} </span></span>
+                    
+                    <span class="detail1"*ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==1 && pay.MFee!=0" > Recieved on  <span style="font-weight: bold;color: darkgreen;">{{pay.M_PaidDate}} </span></span>
+            </div>-->
+  </tr>
+             
+              <!--<tr>
+              <div fxLayout="row">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button"  *ngIf="pay.PayStatus_ID>=1" class="btn btn-secondary btn-sm" >Initialized</button>
+                                            <button type="button" *ngIf="pay.PayStatus_ID==4 || pay.PayStatus_ID==2 ||pay.PayStatus_ID==3" class="btn btn-primary btn-sm">Authorized</button>
+                                            <button type="button" *ngIf="pay.PayStatus_ID==2 || pay.PayStatus_ID==3" class="btn btn-warning btn-sm">Approved</button>
+                                            <button type="button" *ngIf="pay.MFee_Flag==1 && pay.PayStatus_ID!=3 && pay.MFee!=0"class="btn btn-success btn-sm">MFeePaid</button>
+                                            <button type="button" *ngIf="pay.AssocPay_Flag==1 && pay.PayStatus_ID!=3 && pay.AssocPay!=0"class="btn btn-success btn-sm">AssocFeePaid</button>
+                                            <button type="button" *ngIf="pay.PayStatus_ID==3 && pay.MFee_Flag==1 && pay.AssocPay_Flag==1"class="btn btn-success btn-sm">Paid</button>
+                                           </div>
+                                           
+                                                                           
+              </div></tr>-->
+              
+            
+            </table>
+
+                              
+                  </div>  
+                    
+                    
+            </div>
+            
+        </div>
+          <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35" >
+        <div class="profile-box latest-activity sticky-top" fxLayout="column" *ngIf="show">
+
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Filter</div>
+                    
+                </header>
+               
+                <div class="content" fxLayout="row wrap">
+                       
+
+
+                                <input type="text" name="typeID" hidden ngDefaultControl>
+                    
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Work ID</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+                                        <!--<mat-select name="workID"  [(ngModel)]="workID">
+                                            <mat-option *ngFor="let work of WorkID" [value]="work.Work_ID">{{work.Work_ID}}</mat-option>
+                    
+                                        </mat-select>-->
+                                        <input type="text" matInput name="workID"  [(ngModel)]="workID" fxFlex>
+                                    </mat-form-field>
+                                     <!-- <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+                        <input matInput placeholder="Work ID" aria-label="State" [matAutocomplete]="auto" [formControl]="workID">
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option *ngFor="let work of WorkID | async" [value]="state.name">
+                            <img class="example-option-img" aria-hidden [src]="work.Work_ID" height="25">
+                            <span>{{work.Work_ID}}</span> |
+                            
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field> -->
+                    
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Customer</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                       <!--<mat-select name="custName" [(ngModel)]="custName">
+                                            <mat-option *ngFor="let cust of customers" [value]="cust.Customer_ID" class="text-truncate" ngDefaultControl>
+                                                {{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</mat-option>
+                    
+                                        </mat-select>-->
+                                        <input type="text" matInput name="custName" [(ngModel)]="custName" fxFlex>
+                    
+                                    </mat-form-field>
+                    
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field appearance="outline" fxFlex>
+                                    <mat-label>Associate</mat-label>
+                                    <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                    <!--<mat-select name="assocName" [(ngModel)]="assocName">
+                                        <mat-option *ngFor="let assoc of assocs" [value]="assoc.Assoc_ID" class="text-truncate" [(ngModel)]="assocName" ngDefaultControl>
+                                            {{assoc.Assoc_FirstName}} {{assoc.Assoc_MiddleName}} {{assoc.Assoc_LastName}}</mat-option>
+                    
+                                    </mat-select>-->
+                                    <input type="text" matInput name="assocName" [(ngModel)]="assocName" fxFlex>
+                                </mat-form-field>
+                    
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <label class="example-margin">Status:</label>
+                            <table>
+                                <tr>
+                                    <td>
+                            <mat-checkbox name="init" [(ngModel)]="Init" ngDefaultControl>Initialized</mat-checkbox> </td>
+                           <td> <mat-checkbox name="auth" [(ngModel)]="Auth" ngDefaultControl>Authorized</mat-checkbox>&nbsp;
+                           </td></tr>
+                          
+                               <tr>
+                                   <td>
+                                    <mat-checkbox name="approve" ngDefaultControl [(ngModel)]="App">Approved</mat-checkbox>
+                                   </td>
+                                   <td>
+                                    <mat-checkbox name="approve" ngDefaultControl [(ngModel)]="Paid">Paid</mat-checkbox>
+                                   </td>
+                               </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox name="mpaid" ngDefaultControl [(ngModel)]="MFee">MFee Paid</mat-checkbox>
+                            </td>
+                            <td>
+                                <mat-checkbox name="apaid" ngDefaultControl [(ngModel)]="AFee">Paid to Associate</mat-checkbox>
+                            </td>
+                        </tr>
+                        
+                   
+                    </table>
+                    </div>
+                    </div>
+                    <div align="center">
+                        <button 
+                        mat-raised-button color="accent" 
+                        
+                        (click)="this.workID=null; custName=null; assocName=null;Init=null;Auth=null;App=null;MFee=null;Paid=null;
+                        AFee=null;"
+                        >
+                    CLEAR
+                </button>
+                    
+                </div>
+        </div>
+        </div>
+ </div>
+<!-- <div id="timeline" class="p-24" fxLayout="row wrap">
+        <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+                <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+
+                <div class="profile-box add-post">
+                        <table mat-table [dataSource]="dataSource_List">
+
+                            
+                                <ng-container matColumnDef="ID">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                        <td mat-cell *matCellDef="let row"> {{row.Work_ID}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Pay">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pay</th>
+                                        <td mat-cell *matCellDef="let row"> {{row.Cust_FirstName}} </td>
+                                </ng-container>
+
+                             
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns2;" class="InitiatePayments">
+                                </tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+        </div>
+</div> -->

@@ -1,0 +1,140 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Material Details</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form class="mat-white-bg" name="detailsForm" [formGroup]="detailsForm">
+
+              <input type="text" formControlName="LE_ID" hidden>
+              <input type="text" formControlName="work_ID" hidden>
+              <input type="text" formControlName="flag" hidden>
+              
+              <div fxLayout="row" fxLayoutAlign="start end">
+                <button mat-button color="accent" (click)="viewRates()">Old Rates</button>
+</div>
+             
+                 
+                <div class="example-container mat-elevation-z8" *ngIf="this.openTable==1">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                      
+                      <ng-container matColumnDef="WorkID">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Work ID</th>
+                        <td mat-cell *matCellDef="let row"> 
+                            <div style="color: teal;">{{row.Assoc_FirstName}} {{row.Assoc_LastName}}</div>
+                        <div style="font-size: x-small; color: tomato;">Work ID : {{row.Work_ID}}</div>
+                     </td>
+                        
+                      </ng-container>
+                  
+                     
+                      <ng-container matColumnDef="Rate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
+                        <td mat-cell *matCellDef="let row">Rs. {{row.Rate}}</td>
+                        
+                      </ng-container>
+                      
+                      
+                      
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="TenderDetails"></tr>
+                      
+                    </table>
+                    <div>
+                        <button mat-button color="accent" (click)="closeTable()">Close</button>
+                    </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Item Name</mat-label>
+                        <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                          <textarea matInput formControlName="itemName">  </textarea>
+                          </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Quantity</mat-label>
+                                <mat-icon matSuffix class="secondary-text">equalizer</mat-icon>
+                                  <input matInput formControlName="qty" >  
+                                  </mat-form-field>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start start">
+
+                                        <mat-form-field appearance="outline" fxFlex>
+                                            <mat-label>Unit</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">ac_unit</mat-icon>
+                                  
+                                      <input matInput formControlName="unit">  
+                                      </mat-form-field></div>
+                                       <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Rate</mat-label>
+                                <mat-icon matSuffix class="secondary-text">attach_money</mat-icon>
+                                <input matInput  formControlName="rate">  
+                                </mat-form-field></div>
+                                <div fxLayout="row" fxLayoutAlign="start start">
+
+                                        <mat-form-field appearance="outline" fxFlex>
+                                            <mat-label>No.of Days</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">date_range</mat-icon>
+                                
+                                  
+                                          <input matInput formControlName="days">  
+                                          </mat-form-field>
+                              </div>
+                                     
+                      <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>No. of Labours</mat-label>
+                                <mat-icon matSuffix class="secondary-text">supervisor_account</mat-icon>
+                                <input matInput  formControlName="number">  
+                                </mat-form-field></div>
+                                
+                    
+                              <div fxLayout="row" fxLayoutAlign="start start">
+
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Comments</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                          <textarea matInput rows="6" formControlName="cmnts"></textarea>
+                         
+                       </mat-form-field>
+                      </div></form>
+                      <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                      <button 
+                      mat-raised-button
+                      (click)="saveDetails(detailsForm.value); dialogRef.close();"
+                      class="save-button mat-accent"
+                      [disabled]="detailsForm.invalid"
+                      [hidden]="saveBtn"
+                      aria-label="SAVE">
+                  SAVE
+              </button> &nbsp;&nbsp;&nbsp;
+             <button 
+              mat-raised-button
+              (click)="removeLineItem(); dialogRef.close();"
+              class="save-button mat-accent"
+              
+              [hidden]="updateBtn"
+              aria-label="DELETE">
+         DELETE
+        </button></div>
+
+                     
+                   
+
+         
+
+      
+
+
+ 

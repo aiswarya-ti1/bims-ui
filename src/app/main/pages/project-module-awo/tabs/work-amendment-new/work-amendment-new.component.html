@@ -1,0 +1,102 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+            <form name="amendmentForm" [formGroup]="amendmentFormGroup" hidden>
+                    <input type="text" formControlName="work_ID" hidden>
+                    <input type="text" formControlName="work_Flag" hidden>
+                    <input type="text" formControlName="pay_Flag" hidden>
+                    <input type="text" formControlName="key_Flag" hidden>
+                    <input type="text" formControlName="terms_Flag" hidden>
+                    <input type="text" formControlName="est_Flag" hidden>
+                    <input type="text" formControlName="amend_Flag" hidden>
+                    <input type="text" formControlName="totalEst" hidden>
+               </form>
+               <div *ngFor="let dummy of ' '.repeat(this.Amend_No).split(''), let x = index">
+                   
+                   <div class="profile-box" fxLayout="column">    
+                            <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="title">Amendment {{x+1}} Summary</div>
+                                    <div class="more secondary-text">
+                                        <a class="pl-12" mat-button  aria-label="Print Amendment"  (click)="printAmend(x+1)" ><mat-icon>pageview</mat-icon></a>
+                                    </div>
+                                </header>
+                               
+                    </div>
+                    
+               
+            
+            </div>
+             <div *ngFor="let amend of amends">
+                   
+                   <div class="profile-box" fxLayout="column">    
+                            <header class="accent"  fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="title">Amendment {{amend['Amend_Flag']}} Summary</div>
+                                    <div class="more secondary-text">
+                                        <a class="pl-12" mat-button  aria-label="Edit Amendment"  (click)="editAmend(amend['Amend_Flag'])" ><mat-icon>edit</mat-icon></a> 
+                                    </div>
+                                </header>
+                               
+                    </div>
+                    
+               
+            
+            </div>
+               
+               
+        
+
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+           
+                 <div  fxLayout="column">
+                        <button mat-raised-button color="accent" aria-label="Finish Amendment"  (click)="addNewAmendment()">Add New Amendment</button>
+                       
+
+                  </div>  
+                 
+                 
+              <div class="profile-box latest-activity" fxLayout="column">
+            </div>
+            
+         
+        <div class="profile-box latest-activity" fxLayout="column">
+    
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Design Upload</div>
+                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Upload Design" (click)="uploadDesign()" ><mat-icon>add_a_photo</mat-icon></a></div>
+                </header><div class="mb-14" fxLayout="row">
+                <span *ngIf="this.design_count==0">Designs currently not available</span></div>
+                <div class="content" fxLayout="row wrap" *ngIf="this.design_count!=0">
+                    <div class="mb-14" fxLayout="row" fxLayoutAlign="start start">
+                        <table>
+                            <tr>
+                                <td>
+                        <input type="text" placeholder="Design Uploaded  : " [disabled]></td>
+                        <td>
+            
+                        </td>
+                        <td>
+                            <input matInput type="text" formControlName="design" [value]="filename" [disabled]>
+                        </td>
+                        <td>
+            
+                        </td>
+                        <td>
+                                <button mat-raised-button class="add-assoc-button mat-accent-bg" (click)="downloadDesign()" aria-label="add customer" id="labEst">
+                                        Download
+                                        </button>  
+                        </td>
+                    </tr>
+                    </table>
+                        </div>
+                </div>
+    
+               
+            </div>
+        
+    </div>
+
+</div>
+

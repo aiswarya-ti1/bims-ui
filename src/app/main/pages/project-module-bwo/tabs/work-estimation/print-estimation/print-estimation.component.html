@@ -1,0 +1,151 @@
+<div id="invoice" class="modern page-layout blank" fxLayout="row" fusePerfectScrollbar>
+
+        <div class="invoice-container">
+
+                <!-- INVOICE -->
+                <div class="card" id="contentToPDF">
+                        <div class="noprint" fxLayout="row" fxLayoutAlign="space-between start">
+                                <div class="col-md-6"><button mat-raised-button color="accent" [routerLink]="['/project-bwo/',this.Work_ID]"><mat-icon>arrow_back</mat-icon>Back</button>
+                              &nbsp;
+                                       <button mat-raised-button color="accent" (click)="printDoc()"><mat-icon>print</mat-icon>Print</button>
+                                       &nbsp;
+                                       <button mat-raised-button color="accent" (click)="emailDoc()"><mat-icon>print</mat-icon>Send Email</button>
+                                        &nbsp;
+                                       <button mat-raised-button color="accent" (click)="downloadDoc()"><mat-icon>print</mat-icon>Download as PDF</button>
+                                   </div>
+                               </div>
+       
+                    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+        
+                        <div class="ids" fxLayout="column">
+        
+                            <div fxLayout="row" class="seller" fxLayoutAlign="start center">
+        
+                                <div class="logo">
+                                    <img src="assets/images/logos/logoblue.png">
+                                </div>
+                               
+                                <table class="summary">
+                                        <tr class="code" *ngFor="let work of works"><!-- *ngFor="let cust of custDetails"-->
+                                            <td class="label">Estimation</td>
+                                            <td class="value">EST- {{work.Work_ID}}</td>
+                                        </tr>
+                    
+                                       
+                    
+                                        <tr *ngFor="let cust of custDetails"><!-- -->
+                                            <td class="label">Work Location</td>
+                                            <td class="value">{{cust.Loc_Name}}</td>
+                                        </tr>
+                    
+                                        <tr *ngFor="let work of works"><!-- *ngFor="let assoc of finalAssoc"-->
+                                            <td class="label">Scope</td>
+                                            <td class="value">{{work.Work_Type}}</td>
+                                        </tr>
+                                    </table>
+        
+                                
+                            </div>
+        
+                            <div fxLayout="row" class="client" fxLayoutAlign="start center">
+                                    <div class="divider"></div>
+        
+                                    <div class="detail" *ngFor="let cust of custDetails">
+                                            <div class="title2">First Party</div>
+                                        <div class="title">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</div>
+                                        <div class="address">
+                                            {{cust.Address_line1}} ,{{cust.Address_line2}}, {{cust.Loc_Name}}
+                                        </div>
+                                        <div *ngIf="cust.Contact_phone" class="phone">
+                                            <span>Phone:</span>
+                                            {{cust.Contact_phone}}
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                
+                            </div>
+                        </div>
+        
+                       
+                    </div>
+                  
+                                                        
+        
+                    <div class="content">
+                        <table class="simple invoice-table">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">UNIT</th>
+                                   
+                                   
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of items">
+
+                                    <tr *ngIf="item.Quantity" >
+                                            <td>
+                                                <div>
+                                                        <div class="title">{{item.LineItem_Name}}</div>
+                                                       
+                                                        <div class="detail">{{item.Comments}}</div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                
+                                                    {{item.Quantity}}
+                                            </td>
+                                            <td class="text-right">
+                                                    
+                                                {{item.Unit_Code}}
+                                            
+                                            </td>
+                                           <!-- <td class="text-right" *ngIf="item.Rate">
+                                                    {{item.Rate}}
+                                            </td>
+                                            <td class="text-right" *ngIf="item.Value">
+                                                    {{item.Value}}
+                                            </td>-->
+  
+                                        </tr>
+                                        <tr *ngIf="!item.Quantity">
+                                                <td>
+                                                        <div>
+                                                                <div class="title">{{item.LineItem_Name}}</div>
+                                                               
+                                                                <div class="detail-qty">{{item.Comments}}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <div></div>
+                                                    </td>
+                                                    <td class="text-right">
+                                                            <div></div>
+                                                        </td>
+
+                                        </tr>
+                            </tbody>
+                        </table>
+        
+                       </div>
+
+                        
+                                                                 
+
+                                                                              
+
+        
+                    
+                        
+                    
+                    </div>
+        
+                   
+                </div>
+                <!-- / INVOICE -->
+        
+            
+
+</div>

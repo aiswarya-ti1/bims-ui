@@ -1,0 +1,105 @@
+<div id="timeline" class="p-24" fxLayout="row wrap"> 
+    
+   
+      <input type="text" formControlName="loginID" hidden>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource1">
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="WorkID"  sticky>
+            <th mat-header-cell *matHeaderCellDef> Work ID </th>
+            <td mat-cell *matCellDef="let pay"> {{pay.Work_ID}} </td>
+          </ng-container>
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="CustName">
+            <th mat-header-cell *matHeaderCellDef> Customer </th>
+            <td mat-cell *matCellDef="let pay">    
+                {{pay.Cust_FirstName}}
+                {{pay.Cust_MidName}}
+                {{pay.Cust_LastName}} </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="AssocName">
+            <th mat-header-cell *matHeaderCellDef> Assoc Name </th>
+            <td mat-cell *matCellDef="let pay">  {{pay.Assoc_FirstName}}
+                {{pay.Assoc_MiddleName}}
+                {{pay.Assoc_LastName}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="RecAmt">
+            <th mat-header-cell *matHeaderCellDef> Req.Amount </th>
+            <td mat-cell *matCellDef="let pay">  {{pay.ReqAmount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="MFeePerc">
+            <th mat-header-cell *matHeaderCellDef> MFee % </th>
+            <td mat-cell *matCellDef="let pay">   <span *ngIf="pay.PayStatus_ID !=1">{{pay.MFee_Perc}}</span>
+                      
+                <span *ngIf="pay.PayStatus_ID ==1  &&(this.Role_ID==13 ||this.Role_ID==1||this.Role_ID==9)"><button  type="button"
+                mat-raised-button color="accent"
+                (click)="mFeePerc(pay.InitPay_ID, pay.ReqAmount, 1)"
+               
+                [disabled]="this.Role_ID==12"
+                
+                aria-label="UPDATE">
+            M-Fee%
+        </button> </span> </td>
+          </ng-container>
+          <ng-container matColumnDef="MangmtFee">
+            <th mat-header-cell *matHeaderCellDef> Mangmt Fee </th>
+            <td mat-cell *matCellDef="let pay">  <span *ngIf="pay.PayStatus_ID==2">
+                <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,1)"> {{pay.MFee}}</a>
+             </span>
+             <span *ngIf="pay.PayStatus_ID!=2 || pay.MFee_Perc==0">
+                      {{pay.MFee}}
+             </span> </td>
+          </ng-container>
+          <ng-container matColumnDef="AssocPayable">
+            <th mat-header-cell *matHeaderCellDef> Assoc Payable </th>
+            <td mat-cell *matCellDef="let pay">   <span *ngIf="pay.PayStatus_ID==2">
+                <a [routerLink]="" (click)="payTransaction(pay.InitPay_ID,2)">  {{pay.AssocPay}}</a></span> 
+                <span *ngIf="pay.PayStatus_ID!=2"> {{pay.AssocPay}}</span></td>
+          </ng-container>
+          <ng-container matColumnDef="PaidMFee">
+            <th mat-header-cell *matHeaderCellDef> Paid MFee </th>
+            <td mat-cell *matCellDef="let pay">   {{pay.Paid_MFee}} </td>
+          </ng-container>
+          <ng-container matColumnDef="PaidAssocAmt">
+            <th mat-header-cell *matHeaderCellDef>Paid Amount </th>
+            <td mat-cell *matCellDef="let pay">  {{pay.Paid_AssocPay}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef>Status </th>
+            <td mat-cell *matCellDef="let pay">{{pay.Pay_StatusName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="PaidDate">
+            <th mat-header-cell *matHeaderCellDef>PaidDate </th>
+            <td mat-cell *matCellDef="let pay">  {{pay.AssocPay_Date}} </td>
+          </ng-container>
+      
+          <!-- Star Column -->
+          <ng-container matColumnDef="Action" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let pay">
+             
+        <button mat-mini-fab aria-label="Approve" color="accent"
+        (click)="approvePay(pay.InitPay_ID)"
+       
+        [disabled]="this.Role_ID != 1 || pay.PayStatus_ID !=4">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let pay; columns: displayedColumns1;"   class="InitiatePayments"></tr>
+        </table>
+      </div>
+    
+
+
+</div>
+

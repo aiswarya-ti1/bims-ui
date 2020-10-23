@@ -1,0 +1,140 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+      <div class="profile-box add-post">
+             
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="accent">
+            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+              Search Associate
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+      
+         
+
+            <form [formGroup]="contactForm">
+                
+              <div fxLayout="row" fxLayoutAlign="start start">
+                  
+                  <mat-form-field  appearance="outline" fxFlex="50">
+                      <mat-label>Select Segment</mat-label>
+                      <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                      <mat-select formControlName="segName"  (selectionChange)="onServiceChange($event)">
+                        <mat-option *ngFor="let seg of segment" [value]="seg.Segment_ID">{{seg.Segment_Name}}</mat-option>
+                      </mat-select>
+                   
+                                </mat-form-field>
+            
+                  <mat-form-field appearance="outline" fxFlex="50">
+                      <mat-label>Select Service</mat-label>
+                      <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                      <mat-select formControlName="service">
+                        <mat-option *ngFor="let cat of category" [value]="cat.Service_ID">{{cat.Service_Name}}</mat-option>
+                        
+                        </mat-select>
+                  </mat-form-field>
+              </div>
+               <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field class="example-full-width">
+                  <!--<input matInput
+                         placeholder="Select Associate"
+                         aria-label="State"
+                         [matAutocomplete]="auto"
+                         formControlName="assoc">
+                  <mat-autocomplete #auto="matAutocomplete" >
+                    <mat-option *ngFor="let assoc of assocs" [value]="assoc.Assoc_ID">
+                      {{assoc.Assoc_FirstName}} {{assoc.Assoc_MidName}} {{ assoc.Assoc_LastName}}
+                     
+                    </mat-option>
+                  </mat-autocomplete>-->
+                  <mat-label>Select Associate</mat-label>
+                      <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                      <mat-select formControlName="assoc">
+                        <mat-option *ngFor="let assoc of assocs"[value]="assoc.Assoc_ID">
+                          {{assoc.Assoc_FirstName}} {{assoc.Assoc_MidName}} {{ assoc.Assoc_LastName}}
+                         
+                        </mat-option>
+                        
+                        </mat-select>
+
+                </mat-form-field>
+               </div>
+  
+              
+         
+                            
+                             <div  class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                                <button 
+                                mat-raised-button
+                                (click)=clearFilter()
+                                class="save-button mat-accent"
+                                
+                                
+                                aria-label="UPDATE">
+                            Clear Filter
+                        </button> &nbsp;
+
+                                <button 
+                                        mat-raised-button
+                                        (click)=searchItems(contactForm.value)
+                                        class="save-button mat-accent"
+                                        
+                                        
+                                        aria-label="UPDATE">
+                                   Search
+                                </button> 
+                              
+                          
+                                
+                            </div>
+
+                       </form>
+        </mat-expansion-panel>
+       
+      </mat-accordion>
+    </div>
+    </div></div>
+    <div class="example-container mat-elevation-z8" *ngIf="this.openTable==1">
+    <table mat-table [dataSource]="dataSource" matSort>
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Associate</th>
+        <td mat-cell *matCellDef="let assoc"> 
+        <div>{{assoc.Assoc_FirstName}} {{assoc.Assoc_MidName}} {{assoc.Assoc_LastName}}</div>
+         <div style="font-size: x-small;">{{assoc.Segment_Name}} - {{assoc.Service_Name}}</div>
+     </td>
+        
+      </ng-container>
+  
+     
+      <ng-container matColumnDef="loc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+        <td mat-cell *matCellDef="let assoc"> {{assoc.Loc_Name}}</td>
+        
+      </ng-container>
+      
+      <ng-container matColumnDef="contact">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact </th>
+        <td mat-cell *matCellDef="let assoc">{{assoc.Contact_phone}}
+          </td>
+        
+      </ng-container>
+       <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+        <td mat-cell *matCellDef="let assoc">{{assoc.Status_Code}}
+          </td>
+        
+      </ng-container>
+      
+     
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let assoc; columns: displayedColumns;"class="Associate"></tr>
+      
+    </table>
+    </div>
+    
+
+        

@@ -1,0 +1,31 @@
+<div class="mat-elevation-z8">
+    <table class="simple invoice-table" *ngIf="this.Item_Count!=0">
+     
+      <tbody>
+          <tr *ngFor="let work of details" (click)="addDate(work.Work_Schedule_ID)" >
+                
+              <td>
+                  <div class="title">{{work.Work_Stage}}</div>
+                  <div class="detail1">{{work.Remarks}}</div>
+                  
+                      <div class="detail2">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                      <div class="detail2">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                      <div class="detail2">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                  
+              </td>
+             
+              <td class="text-right">
+                  <div class="title" *ngIf="work.ActualStart_Date">Started on <span style="color: deeppink; ">{{work.ActualStart_Date | date:'dd/MM/yyyy'}}</span></div>
+                  <div class="title" *ngIf="work.ActualEnd_Date">Ended on <span style="color: green;">{{work.ActualEnd_Date | date:'dd/MM/yyyy'}}</span></div>
+                 
+                
+             
+              
+              </td>
+             
+              
+          </tr>
+      </tbody>
+  </table> 
+  </div>
+

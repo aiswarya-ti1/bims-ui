@@ -1,0 +1,288 @@
+@import "src/@fuse/scss/fuse";
+
+edit-amendment {
+    .header {
+
+        .profile-image {
+            margin-right: 24px;
+
+            @include media-breakpoint('sm') {
+                margin: 0 0 16px 0;
+            }
+        }
+
+        .name {
+            font-size: 34px;
+            color: #FFFFFF;
+
+            @include media-breakpoint('sm') {
+                margin-bottom: 32px;
+            }
+        }
+
+        .actions {
+
+            button {
+                text-transform: none;
+                padding: 0 16px;
+                margin: 0 0 0 8px;
+            }
+        }
+    }
+    .content {
+           max-width: 1200px;
+        mat-divider {
+            border-top-width: 1px;
+            border-top-style: solid;
+            margin: 32px 0;
+        }
+
+.profile-box {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    @include mat-elevation(2);
+
+    header {
+        padding: 16px;
+
+        .title {
+            font-size: 17px;
+        }
+
+        .more {
+            cursor: pointer;
+        }
+    }
+
+    .content {
+        padding: 16px;
+    }
+
+    footer {
+        padding: 8px;
+        border-top: 1px solid;
+    }
+
+    &.info-box {
+
+        .info-line {
+            margin-bottom: 24px;
+
+            .title {
+                font-size: 15px;
+                font-weight: 600;
+                padding-bottom: 4px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+
+.add-post {
+            margin-bottom: 0;
+            border-radius: 4px;
+            overflow: hidden;
+            @include mat-elevation(2);
+
+            textarea {
+                display: flex;
+                flex: 1 0 auto;
+                font-size: 13px;
+                width: 100%;
+                height: 140px;
+                border: none;
+                padding: 16px;
+                resize: vertical;
+            }
+
+            footer {
+                padding: 8px 12px 8px 8px;
+                border-top: 1px solid;
+            }
+           .content {
+            .info-line {
+                margin-bottom: 24px;
+
+                .title {
+                    font-size: 15px;
+                    font-weight: 600;
+                    padding-bottom: 4px;
+                }
+            }
+            .invoice-table-footer {
+                margin: 32px 0 96px 0;
+                table {
+                    width: 100%;
+                  }
+
+                tr {
+
+                    td {
+                        text-align: right;
+                        font-size: 17px;
+                        font-weight: 500;
+                        color: rgba(0, 0, 0, 0.54);
+                        border-bottom: none;
+                        padding: 8px 8px;
+
+                        &:first-child {
+                            text-align: left;
+                        }
+                    }
+
+                    &.discount {
+
+                        td {
+                            padding-bottom: 25px;
+                        }
+                    }
+
+                    &.total {
+
+                        td {
+                            padding: 25px 8px;
+                            border-top: 1px solid rgba(0, 0, 0, 0.12);
+                            font-size: 25px;
+                            font-weight: 300;
+                            color: rgba(0, 0, 0, 1);
+                        }
+                    }
+                }
+            }
+            .invoice-table1 {
+                margin-top: 10px;
+                font-size: 13px;
+                color: rgba(0, 0, 0, 0.87);
+    
+                thead {
+    
+                    tr {
+    
+                        th {
+                            color: rgba(0, 0, 0, 0.87);
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+                    }
+                }
+    
+                tbody {
+    
+                    tr {
+    
+                        td {
+                            color: rgba(0, 0, 0, 0.87);
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+                    }
+                }
+    
+                .title {
+                    font-size: 12px;
+                }
+    
+                .detail {
+                    margin-top: 6px;
+                    font-size: 12px;
+                    color: rgba(0, 0, 0, 0.54);
+                    max-width: 160px;
+                }
+            }  
+
+           
+            .invoice-table {
+                
+                margin-top: 10px;
+                font-size: 13px;
+                color: rgba(0, 0, 0, 0.87);
+    
+                thead {
+    
+                    tr {
+    
+                        th {
+                            color: darkslategray;
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+                    }
+                }
+    
+                tbody {
+    
+                    tr {
+    
+                        td {
+                            color: rgba(0, 0, 0, 0.87);
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+                    }
+                }
+    
+                .title {
+                    font-size: 12px;
+                }
+    
+                .detail {
+                    margin-top: 6px;
+                    font-size: 12px;
+                    color: rgba(0, 0, 0, 0.54);
+                    max-width: 130px;
+                }
+
+            }
+        }
+            
+        }
+
+
+        .simple-pagination {
+            margin: 32px 0;
+        }
+    }
+    .timeline-sidebar {
+        padding-left: 32px;
+
+        @include media-breakpoint('lt-md') {
+            padding: 32px 0 0 0;
+        }
+
+        .latest-activity {
+
+            .content {
+                .info-line {
+                    margin-bottom: 24px;
+    
+                    .title {
+                        font-size: 15px;
+                        font-weight: 600;
+                        padding-bottom: 4px;
+                    }
+                }
+
+                .activities {
+
+                    .activity {
+                        padding: 16px 0;
+
+                        .avatar {
+                            margin-right: 16px;
+                        }
+
+                        .username {
+                            font-weight: 600;
+                        }
+
+                        .message {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

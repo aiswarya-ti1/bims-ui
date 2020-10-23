@@ -1,0 +1,43 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end">
+        
+
+<div class="logo-text h1" style="color:white">
+    Sales Module
+</div>
+
+
+      
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center" [@animate]="{value:'*',params:{delay:'200ms'}}">
+            <button mat-raised-button color="accent" aria-label="Add New Customer" (click)="addCustomer()">New Customer</button>
+           
+        </div>
+    </div>
+
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <mat-tab-group dynamicHeight="true">
+
+            
+
+            <mat-tab label="Leads">
+                <leads-tab-sales></leads-tab-sales>    
+                </mat-tab>
+                <mat-tab label="Works">
+                    <works-tab-sales></works-tab-sales>
+                </mat-tab>
+                   
+            
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

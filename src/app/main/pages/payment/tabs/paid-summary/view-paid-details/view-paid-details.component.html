@@ -1,0 +1,105 @@
+<div class="box">
+   <div *ngFor="let pay of payment">
+    
+       
+          
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title"  style=" font-weight: bold;">Work ID : {{pay.Work_ID}} </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" style="font-weight: bold;">Customer : {{pay.Cust_FirstName}} {{pay.Cust_MidName}} {{pay.Cust_LastName}} </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" style=" font-weight: bold;">Associate : {{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}}</div>
+    </div>
+    <div  class="blank_row">
+      
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" style="color: darkred; font-weight: bold;">Requested Details</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail"  style="color: darkred;">------------------</div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" >Amount: Rs. {{pay.ReqAmount}} </div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Date  : {{pay.ReqDate}}</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Type  : {{pay.Type}}</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail" style=" color: darkblue;">Comments  : {{pay.Comments}}</div>
+      
+      </div>  
+      <div class="blank_row">
+      
+      </div>
+    
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" style="color: darkred; font-weight: bold;" >Associate Payment Details</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail" style="color: darkred;">---------------------------</div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" >Amount: Rs.{{pay.AssocPay}} </div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Date  :{{pay.AssocPay_Date}} </div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Type  : {{pay.Assoc_Trans_Type}}</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail" >Transaction ID  : {{pay.Assoc_Trans_ID}}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <div class="detail"style="color: darkblue" >Comments : {{pay.Assoc_Comments}}</div>
+        </div>
+   
+   <div class="blank_row">
+      
+    </div>
+   <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" style="color: darkred; font-weight: bold;" >MFee Details</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail" style="color: darkred;">---------------------------</div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="title" >Amount:  Rs.{{pay.Paid_MFee}}[{{pay.MFee_Perc}}%]</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Date  :{{pay.M_PaidDate}} </div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail">Type  : {{pay.Trans_Type}}</div></div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+      <div class="detail" >Transaction ID  : {{pay.Trans_ID}}</div>
+      
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <div class="detail" style="color: darkblue" >Comments : {{pay.MFee_Comments}}</div>
+        </div>
+    </div>
+    </div>
+   
+
+                     <!--<span class="title">[{{pay.Work_ID}}] </span>&nbsp;
+                      <span class="title" style="color: darkblue; font-weight: bold;"> {{pay.Cust_FirstName}} {{pay.Cust_MidName}} {{pay.Cust_LastName}}</span></div>
+                      <div>
+                        <span>Requested <span class="detail" style="font-weight: bold;color: darkgreen;">Rs. {{pay.ReqAmount}} on <span style="font-weight: bold;color: darkgreen;">{{pay.ReqDate}}</span></span></span>
+                        <span> for <span class="detail" > {{pay.Assoc_FirstName}} {{pay.Assoc_MiddleName}} {{pay.Assoc_LastName}} <span *ngIf="pay.Trans_Type"> ({{pay.Trans_Type}}) </span></span></span> 
+                      </div>
+                     
+                     
+
+<div class="detail" *ngIf="pay.Comments">{{pay.Comments}}</div>
+
+                  
+                      
+                  
+      <div class="detail" >Associate Payment [{{pay.Assoc_Trans_Type}}] ({{pay.Assoc_Trans_ID}})<span class="amount" > Rs.{{pay.AssocPay}}</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.AssocPay_Date}} </span></div>
+              
+              <div class="detail"> MFee Recieved [{{pay.Trans_Type}}] ({{pay.Trans_ID}})<span class="amount" > Rs.{{pay.Paid_MFee}}[{{pay.MFee_Perc}}%]</span> on <span style="font-weight: bold;color: darkgreen;">{{pay.M_PaidDate}} </span>
+              </div>
+             
+            </div></div>-->
+       
+    
+    

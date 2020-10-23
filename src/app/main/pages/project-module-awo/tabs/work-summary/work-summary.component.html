@@ -1,0 +1,129 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+        <div class="profile-box add-post">
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Recieved Payments List</div>
+               
+            </header>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                        <th>Payment Phase</th>
+                        <th>Amend Flag</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let pay of payments">
+<span *ngIf="pay.Split_Amount==0">
+                            <td>
+                                <div class="title">{{pay.Payment_Phase}}</div>
+                                <div class="detail">{{pay.Remarks}}</div>
+
+                            </td>
+                            <td>
+                                <div class="title" *ngIf="pay.Amend_Flag==0">WO</div>
+                                <div class="title" *ngIf="pay.Amend_Flag!=0">Amend {{pay.Amend_Flag}}</div>
+                                
+                            </td>
+                            <td>
+<div style="color: deeppink;font-weight: bold;">Rs.{{pay.Split_Amount}}</div>
+<div class="detail">({{pay.Type}})</div>
+<div style="color: darkblue;font-size: x-small;">{{pay.Split_Comment}}</div>
+                            </td>
+
+                            <td>
+
+                               <div style="color: darkgreen;font-weight: bold;">{{pay.Date  | date:'dd/MM/yyyy'}}
+                                       
+
+
+                                </div>
+
+                            </td>
+
+                        </span>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+            </div>
+
+
+        </div>
+        
+
+
+
+    </div>
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+
+
+
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Payment Summary</div>
+
+            </header>
+            <div class="content" fxLayout="row wrap">
+
+                <div class="content">
+                    <div class="info-line">
+                        <div class="title">Work Order Total(Before Re-Measure)</div>
+                        <div class="info">{{this.TotalWO}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Re-Measured Total</div>
+                        <div class="info">{{this.GrandTotal}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Recieved Amount</div>
+                        <div class="info">{{this.TotalRecAmount}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Recieved Amount(Split Receipts)</div>
+                        <div class="info">{{this.TotalSplitAmount}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Initiated Amount</div>
+                        <div class="info">{{this.InitTotal}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Amount Paid To Associate</div>
+                        <div class="info">{{this.AssocFee}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">MFee Received</div>
+                        <div class="info">{{this.MFee}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Paid Amount(Mfee + AssocFee)</div>
+                        <div class="info">{{this.PaidTotal}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Balance from Customer</div>
+                        <div class="info">{{this.BalCust}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Account Balance</div>
+                        <div class="info">{{this.AcBal}}</div>
+                    </div>
+
+                    
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

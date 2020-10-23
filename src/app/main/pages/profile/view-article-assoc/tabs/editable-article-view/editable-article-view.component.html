@@ -1,0 +1,74 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+       
+
+        <div class="timeline-item" *ngFor="let article of articles">
+
+            <header fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                    <img class="avatar" src="assets/images/avatars/profile.jpg">
+
+                    <div fxLayout="column">
+                        <div class="title">
+                            <span class="username">{{article.Assoc_FirstName}} {{article.Assoc_MiddleName}} {{article.Assoc_LastName}}</span>
+                            
+                            <span > shared an article with you</span>
+                        </div>
+                        <div class="time">{{article.Article_Time}}</div>
+                    </div>
+                </div>
+
+               
+            </header>
+            <div class="content">
+                <div *ngIf="article.Article_Post" class="message">
+                    {{article.Article_Title}}
+                </div>
+                <div *ngIf="article.Article_Post" class="message"><!--*ngIf="post.message"-->
+                   {{article.Article_Post | limitTo: 150}}<a [routerLink]="['/view-article1/',article.Article_ID]" routerLinkActive="active">  Read More...</a>
+                </div>
+
+                <div class="media" *ngIf="article.File_Type === 1"  ><!--*ngIf="post.media" -->
+                    <img src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}">
+                    
+                        <!---->
+                   <div *ngIf="article.File_Type === 2">
+                    <!--<video controls (click)="toggleVideo()" id="videoPlayer">
+                        <source src="http://bims/resources/assets/uploads/ProfileAttachments/{{post.Filename}}" type="video/mp4" />
+                        Browser not supported
+                    </video>-->
+                    <iframe src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}"></iframe>
+                   </div>
+                </div>
+
+               <!-- <div *ngIf="post.article" fxLayout="column" class="article">
+                    <div class="media">
+                        <img [src]="post.article.media.preview">
+                    </div>
+                    <div class="title">{{post.article.title}}</div>
+                    <div class="subtitle">{{post.article.subtitle}}</div>
+                    <div class="excerpt">{{post.article.excerpt}}</div>
+                </div>-->
+
+               
+            </div>
+<div align="center">
+            <button mat-raised-button
+            color="accent"
+            (click)="editArticle(article.Article_ID)"
+            class="save-button"
+            [hidden]="article.Approval_Status==1"
+            aria-label="EDIT">
+        EDIT
+    </button></div>
+
+            
+        </div>
+    </div>
+
+    
+
+</div>
+

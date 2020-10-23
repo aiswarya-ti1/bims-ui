@@ -1,0 +1,69 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Site Analysis</span>
+            <button mat-icon-button (click)="dialogRef_Site.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="analysisForm">
+                <input type="text" formControlName="work" hidden> 
+                <input type="text" formControlName="typeID" hidden> 
+                <div fxLayout="row" fxLayoutAlign="start start"  *ngIf="this.type==1">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Expected Site Analysis Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="expAnalysisDate" #currentDate name="analysisDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start"  *ngIf="this.type==2">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Actual Site Analysis Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="actualAnalysisDate" #currentDate name="analysisDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start"  *ngIf="this.type==3">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Expected Site Visit Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="expAssocVisitDate" #currentDate name="analysisDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start"  *ngIf="this.type==4">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Actual Site Visit Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="actualAssocVisitDate" #currentDate name="analysisDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+          
+                             
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button
+                mat-button
+                class="save-button"
+                (click)="updateWork(analysisForm.value)"
+                [disabled]="analysisForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button><!-- matDialogRef.close();-->
+
+    </div>
+</div>

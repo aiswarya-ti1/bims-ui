@@ -1,0 +1,49 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+        <div class="profile-box add-post">
+
+            <div class="form" fxFlex>
+                    <form [formGroup]="messageForm" >
+
+                        <mat-accordion class="example-headers-align" multi  *ngFor="let seg of segments" >
+                            <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                 {{seg.Segment_Name}}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                  Select Services
+                                  <mat-icon>account_balance</mat-icon>
+                                </mat-panel-description>
+                              </mat-expansion-panel-header>
+                      
+                              <form name="civilForm" [formGroup]="civil" *ngFor="let service of services">
+                                  
+                                <div class="primary-200-fg line-height-2 check" *ngIf="service.Segment_ID===seg.Segment_ID">
+                                    <mat-checkbox  value="{{service.Service_ID}}" [checked]="false" (change) ="onCheckboxChange($event)">{{service.Service_Name}}</mat-checkbox>
+                                    
+                                    </div>
+                                    </form>
+                                   
+                            </mat-expansion-panel>
+                          
+                          
+          
+                            
+                          </mat-accordion>
+                          <div align="center">
+
+                          
+                          <button type="button" mat-raised-button (click)="saveCivil()">SAVE</button></div>
+                          
+                          <!-- Copyright 2019 Google Inc. All Rights Reserved.
+                              Use of this source code is governed by an MIT-style license that
+                              can be found in the LICENSE file at http://angular.io/license -->
+
+                      </form>
+                      </div>
+                      </div>
+                      </div>
+                      </div>

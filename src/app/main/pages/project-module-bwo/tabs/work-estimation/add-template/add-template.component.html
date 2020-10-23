@@ -1,0 +1,90 @@
+<div class="dialog-content-wrapper">
+        <mat-toolbar class="mat-accent m-0">
+            <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">Select Work</span>
+                <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    
+        <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+            <!--<div align="right">
+                <button mat-raised-button color="accent" aria-label="Example icon-button with a heart icon" (click)="editPriority()">
+                    Reset Priority
+                  </button>
+            </div>-->
+            <div *ngIf="this.clickFlag==0">
+            <!--<div class="search-input-wrapper mx-24 m-md-0"
+            fxFlex="60" fxLayoutAlign="start center">
+          <strong> <label for="search" class="mr-8">
+               <mat-icon class="secondary-text">search</mat-icon>
+           </label> </strong>
+           <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+               <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)" #optionSearch>
+           </mat-form-field>
+       </div>-->
+            <form [formGroup]="priorityFormGroup" name="priorityFormGroup">
+                <table mat-table #table [dataSource]="dataSource">
+                      
+           
+                    <ng-container matColumnDef="ID">
+                      <th mat-header-cell *matHeaderCellDef>Work ID
+                     
+                      </th>
+                      <td mat-cell *matCellDef="let row" ><div style="font-size: x-small; color: darkblue;">{{row.Work_ID}}</div> 
+                        <div style="font-size: 11pt;"><span>{{row.Cust_FirstName}} {{row.Cust_MidName}} {{row.Cust_LastName}}</span>
+                            </div>
+                    </td>
+                    </ng-container>
+                
+                   
+                    <ng-container matColumnDef="Cust">
+                      <th mat-header-cell *matHeaderCellDef> Details</th>
+                      <td mat-cell *matCellDef="let row" ><div>{{row.WorkDetail}}</div>
+                        <div style="color: darkred;">{{row.Work_Type}}</div>
+                          </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; "(click)="getTemplate(row.Work_ID)"
+                    >
+            </tr>
+            </table>
+                    </form>
+                </div>
+                <div *ngIf="this.clickFlag==1">
+                    <div>
+                        <span style="float: left;"> <button mat-raised-button color="accent" aria-label="Example icon-button with a heart icon" (click)="back()">
+                            Back
+                          </button></span>
+                            <span style="float: right; margin-right: 30px;"><button *ngIf="this.Item_Count!=0" mat-raised-button color="accent" aria-label="Example icon-button with a heart icon" (click)="addTemplate()">
+                                Add Template
+                              </button></span>
+                              <div *ngIf="loading" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    
+                    <div *ngIf="this.Item_Count==0">Currently no items available!!</div>    
+                    <table class="simple invoice-table" *ngIf="this.Item_Count!=0">
+                        
+                        <tbody>
+                            <tr *ngFor="let item of items">
+                                  
+                                <td>
+                                    <div class="title">{{item.LineItem_Name}}</div>
+                                    <div class="detail">{{item.Comments}}</div>
+                                </td>
+                               
+                                <td class="text-right">
+                                  <span *ngIf="item.Quantity"><span style="color: deeppink; font-weight: bold;">{{item.Quantity}} </span> <span style="color: darkgreen;">{{item.Unit_Code}}</span> </span>
+                                </td>
+                              
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+                
+
+      
+    </div>
+    </div>
+    

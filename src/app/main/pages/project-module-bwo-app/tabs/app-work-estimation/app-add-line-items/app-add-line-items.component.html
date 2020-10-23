@@ -1,0 +1,161 @@
+<div class="dialog-content-wrapper">
+        <mat-toolbar class="mat-accent m-0">
+            <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">Select Line Items</span>
+                <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    
+        <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+    
+            <div class="horizontal-stepper-wrapper">
+    
+                    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                            <mat-step [stepControl]="firstFormGroup">
+                            
+                                <ng-template matStepLabel>Select Line Items</ng-template>
+                                <div class="search-input-wrapper mx-24 m-md-0"
+                                fxFlex="60" fxLayoutAlign="start center">
+                              <strong> <label for="search" class="mr-8">
+                                   <mat-icon class="secondary-text">search</mat-icon>
+                               </label> </strong>
+                               <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                                   <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)" #optionSearch>
+                               </mat-form-field>
+                           </div>
+                           <form [formGroup]="firstFormGroup" class="form">
+                               <!-- <input type="text" formControlName="workID" hidden>-->
+                               
+                               <!-- <fieldset class="box" fusePerfectScrollbar>
+                                    <mat-selection-list #items class="mat-list" formControlName="itemlist" (selectionChange)="onSelection($event, items.selectedOptions.selected)"
+                                    [disableRipple]="true" fusePerfectScrollbar>
+                                        <mat-list-option *ngFor="let option of options"
+                                          [value]="option.LineItem_ID">
+                                          {{option.LineItem_Name | titlecase}}
+                                        </mat-list-option>
+                                      </mat-selection-list>
+                                    </fieldset>-->
+<fieldset class="box" fusePerfectScrollbar>
+    <div *ngIf="this.itemCount==0">
+        <span>
+            No Item Found !!!
+        </span>
+    </div>
+                                    <table mat-table #table [dataSource]="dataSource" *ngIf="this.itemCount!=0">
+                      
+                                        <!-- Checkbox Column -->
+                                        <ng-container matColumnDef="select">
+                                          <th mat-header-cell *matHeaderCellDef>
+                                           <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                          [checked]="selection.hasValue() && isAllSelected()"
+                                                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                            </mat-checkbox>-->
+                                          </th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <mat-checkbox (click)="$event.stopPropagation()"
+                                                          (change)="$event ? selection.toggle(row) : null"
+                                                          [checked]="selection.isSelected(row)">
+                                            </mat-checkbox>
+                                          </td>
+                                        </ng-container>
+                                    
+                                        <!-- Position Column -->
+                                        <ng-container matColumnDef="LineItems">
+                                          <th mat-header-cell *matHeaderCellDef></th>
+                                          <td mat-cell *matCellDef="let row" matTooltip={{row.LineItem_Name}}>{{row.LineItem_Name | titlecase}}</td>
+                                        </ng-container>
+                                    
+                                        <!-- Name Column -->
+                                       
+                                    
+                                        
+                                    
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                 (click)="selection.toggle(row)">
+                                        </tr>
+                                      </table></fieldset>
+                                    </form>
+                                <div align="right">
+                                        <button mat-raised-button color="accent"  (click)="saveLineItem(selection.selected); dialogRef.close();" >Done</button>&nbsp;&nbsp;&nbsp;
+                                    <!--<button mat-raised-button color="accent"  (click)="saveLineItem()" matStepperNext >Next</button>-->
+                                <!-- collectdata(this.firstFormGroup.controls['itemlist'].value)"-->
+                                       
+                                  
+                                </div>
+                              
+                            </mat-step>
+                            <mat-step [stepControl]="secondFormGroup">
+                             
+                                <ng-template matStepLabel>Add Custom Line Items</ng-template>
+                                <form [formGroup]="secondFormGroup" class="form">
+                                        <input type="text" formControlName="servID" hidden>
+                                        <input type="text" formControlName="workID" hidden>
+                                        <input type="text" formControlName="typeID" hidden>
+                                        <input type="text" formControlName="newFlag" hidden>
+                                       
+                                                <div fxLayout="row" fxLayoutAlign="start start">
+
+                                                        <mat-form-field appearance="outline" fxFlex>
+                                                            <mat-label>Select Service</mat-label>
+                                                            <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                                                        <mat-select formControlName="services">
+                                                                <mat-option *ngFor="let service of services" [value]="service.Service_ID" >{{service.Service_Name}}</mat-option>
+                                                                </mat-select>  
+                                                                </mat-form-field>     
+                                                                
+                                                    </div> 
+                                                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                                                            <mat-form-field appearance="outline" fxFlex>
+                                                                <mat-label>Line Item Name</mat-label>
+                                                                <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                                    <input matInput  formControlName="custItemName">
+                                                    
+                                                 </mat-form-field> &nbsp;&nbsp;
+                                                
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                                            <mat-form-field appearance="outline" fxFlex>
+                                                <mat-label>Unit</mat-label>
+                                                <mat-icon matSuffix class="secondary-text">ac_unit</mat-icon>
+                                            <mat-select  formControlName="unit">
+                                                    <mat-option *ngFor="let unit of units" [value]="unit.Unit_ID" >{{unit.Unit_Code}}</mat-option>
+                                                    </mat-select>  
+                                                    </mat-form-field>     
+                                                    
+                                        </div> 
+                                    
+                                        <div fxLayout="row" fxLayoutAlign="start start">
+
+                                                <mat-form-field appearance="outline" fxFlex>
+                                                    <mat-label>Description</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">description</mat-icon>
+                                                <textarea matInput  formControlName="desc"></textarea>
+                                               
+                                             </mat-form-field>
+                                             </div>
+                                            
+                                            </form>
+                                        <div align="right">
+                                                <button mat-raised-button color="accent" [disabled]="secondFormGroup.invalid" (click)="saveCustLineItem(secondFormGroup.value);clear();">Save</button>&nbsp;&nbsp;&nbsp;
+                                                
+                                        </div>
+            
+                               
+                            
+                                
+                                  
+                            </mat-step>
+                            </mat-horizontal-stepper>
+    
+            </div>
+    
+        </div>
+    
+      
+    </div>
+    

@@ -1,0 +1,261 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+        <div class="profile-box add-post">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header class="accent">
+                        <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                            Pay Schedule - Work Order
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+
+                    </mat-expansion-panel-header>
+                    <div class="content">
+                        <table class="simple invoice-table">
+
+
+                            <tr *ngFor="let pay of payDetails">
+                                <span *ngIf="pay.Amend_Flag==0">
+                                    <td>
+                                        <div class="title">{{pay.Payment_Phase}}</div>
+                                        <div class="detail">{{pay.Remarks}}</div>
+                                        <div class="detail1">Exp. <span
+                                                style="color: deeppink;font-weight: bold;">Rs.{{pay.Amount}}</span> on
+                                            <span
+                                                style="color: darkgreen;font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                        </div>
+                                        <!--<div class="detail2"><button mat-button color="primary" (click)="addSplitPay(pay.Pay_Schedule_ID)">Add Split Payments</button></div>-->
+                                    </td>
+
+                                    <td class="text-right"  (click)="addPayment(pay.Pay_Schedule_ID)">
+
+                                        <div class="title" *ngFor="let pays of payments">
+                                            <span *ngIf="pay.Pay_Schedule_ID == pays.Pay_ID ">
+                                                <span
+                                                    style="color: deeppink;font-weight: bold;">Rs.{{pays.Split_Amount}}</span>
+                                                on
+                                                <span
+                                                    style="color: darkgreen;font-weight: bold;">{{pays.Date  | date:'dd/MM/yyyy'}}</span><span class="detail" *ngIf="pays.Type">({{pays.Type}})</span>
+                                                <div class="detail" *ngIf="pays.Split_Comment">{{pays.Split_Comment}}</div>
+                                            </span>
+                                           
+
+
+                                        </div>
+
+                                    </td>
+                                </span>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="text-right"> <button mat-raised-button color="accent"
+                                            (click)="viewPaySummary(0)">View Summary</button>&nbsp;
+                                        <!--<button mat-raised-button color="accent" (click)="closePaySched(0)">Close</button>-->
+                                        &nbsp; <button mat-raised-button color="accent"
+                                            (click)="printPaySched(0)">Print</button></div>
+                                </td>
+
+                            </tr>
+
+
+
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let dummy of ' '.repeat(this.Amend_No).split(''), let x = index">
+            <div class="profile-box add-post">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header class="accent">
+                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                Pay Schedule - Amendment {{x+1}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+
+                            </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+                        <div class="content">
+                            <table class="simple invoice-table">
+
+
+                                <tr *ngFor="let pay of payDetails"   (click)="addPayment(pay.Pay_Schedule_ID)">
+                                    <span *ngIf="pay.Amend_Flag== x+1 && pay.FinishAmend_Flag==1">
+                                        <td>
+                                            <div class="title">{{pay.Payment_Phase}}</div>
+                                            <div class="detail">{{pay.Remarks}}</div>
+                                            <div class="detail1">Exp. <span
+                                                    style="color: deeppink;font-weight: bold;">Rs.{{pay.Amount}}</span>
+                                                on <span
+                                                    style="color: darkgreen;font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                            </div>
+                                           <!--<div class="detail2"><button mat-button color="primary" (click)="addSplitPay(pay.Pay_Schedule_ID)">Add Split Payments</button></div> -->
+                                        </td>
+
+                                        <td class="text-right">
+
+                                            <div class="title" *ngFor="let pays of payments"> <span *ngIf="pay.Pay_Schedule_ID == pays.Pay_ID">
+                                                  <span
+                                                    style="color: deeppink;font-weight: bold;">Rs.{{pays.Split_Amount}}</span>
+                                                on
+                                                <span
+                                                    style="color: darkgreen;font-weight: bold;">{{pays.Date  | date:'dd/MM/yyyy'}}</span><span class="detail" *ngIf="pays.Type">({{pays.Type}})</span>
+                                                    <div class="detail" *ngIf="pays.Split_Comment">{{pays.Split_Comment}}</div>
+                                            </span>
+                                           
+                                            </div>
+                                           
+
+                                        </td>
+                                    </span>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                        <div class="text-right">
+                                            <button mat-raised-button color="accent" (click)="viewPaySummary(x+1)">View
+                                                Summary</button>&nbsp;
+
+                                            &nbsp; <button mat-raised-button color="accent"
+                                                (click)="printPaySched(x+1)">Print</button></div>
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+
+        <div  fxLayout="column">
+            <button mat-raised-button color="accent" aria-label="Receipts"  (click)="paymentReceipt()">Receipt</button>
+           
+
+      </div>  
+      <div class="profile-box latest-activity" fxLayout="column"></div>
+
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Recieved Payment Summary</div>
+
+            </header>
+            <div class="content" fxLayout="row wrap">
+
+                <div class="content">
+                     <div class="info-line">
+                        <div class="title">Total Received Amount</div>
+                        <div class="info">{{this.RecAmt}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title">Main WO </div>
+                        <div class="info">{{this.Total0}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total1">
+                        <div class="title">Amendment 1</div>
+                        <div class="info">{{this.Total1}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total2">
+                        <div class="title">Amendment 2</div>
+                        <div class="info">{{this.Total2}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total3">
+                        <div class="title">Amendment 3</div>
+                        <div class="info">{{this.Total3}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total4">
+                        <div class="title">Amendment 4</div>
+                        <div class="info">{{this.Total4}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total5">
+                        <div class="title">Amendment 5</div>
+                        <div class="info">{{this.Total5}}</div>
+                    </div>
+
+                    <div class="info-line" *ngIf="this.Total6">
+                        <div class="title">Amendment 6</div>
+                        <div class="info">{{this.Total6}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total7">
+                        <div class="title">Amendment 7</div>
+                        <div class="info">{{this.Total7}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total8">
+                        <div class="title">Amendment 8</div>
+                        <div class="info">{{this.Total8}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total9">
+                        <div class="title">Amendment 9</div>
+                        <div class="info">{{this.Total9}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.Total10">
+                        <div class="title">Amendment 10</div>
+                        <div class="info">{{this.Total10}}</div>
+                    </div>
+                   
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Recieved Payments Per Date</div>
+
+            </header>
+            <div class="content" fxLayout="row wrap">
+
+                <div class="content">
+
+                    <table class="simple invoice-table">
+                        <thead>
+                                        <tr>
+                                               
+                                            <th>DATE</th>
+                                           
+                                            <th class="text-right">AMOUNT(Rs)</th>
+                                           
+                                           
+                                           
+                                        </tr>
+                                    </thead>
+                        <tbody>
+                            <tr *ngFor="let rec of RecAmounts">
+                                
+                                    <td>
+                                        <div class="title">{{rec.Rec_Date}}</div>
+                                        <div style="color: darkblue; font-size: x-small;">{{rec.Receipt_Comment}}</div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="title">{{rec.Rec_Amount}}<span style="color: darkblue; font-size: x-small;">({{rec.Type}})</span></div> 
+                                    </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>

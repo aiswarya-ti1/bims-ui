@@ -1,0 +1,337 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+            <div class="profile-box add-post">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Work Schedule</div>
+                            <div class="more secondary-text">
+                                <a class="pl-12" mat-button  aria-label="Add Work Schedule" *ngIf="this.woSignUp_Flag==0  && (this.Role_ID==10  || this.Role_ID==9 ||this.Role_ID==1 ||this.workStatus!=11)" (click)="workSchedule(0,0)"><mat-icon>schedule</mat-icon></a>
+                                <a style="cursor: pointer" (click)="exportexcel()">
+                                    <mat-icon> cloud_download</mat-icon>
+                                  </a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngIf="this.workSched_Flag==0">
+                       
+                                <div class="info-line">
+                                        <div class="title">Work Schedule Currently Not Available!!</div>
+                                        
+                                    </div>
+                                   </div>
+                                   <table class="simple invoice-table" *ngIf="this.workSched_Flag!=0" id="excel-table">
+                                   
+                                    <tbody>
+                                        <tr *ngFor="let work of workSched"  (click)="workSchedule(2, work.Work_Schedule_ID)">
+                                              
+                                            <td>
+                                                <div class="title">{{work.Work_Stage}}</div>
+                                               <div class="detail">{{work.Remarks}}</div>
+                                            </td>
+                                           
+                                            <td class="text-right">
+                                                <div class="title" *ngIf="work.Start_Date">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                <div class="title" *ngIf="work.End_Date">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                <div class="title" *ngIf="work.Duration">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                                              <span></span>
+                                            </td>
+                                           
+                                                    
+                                            
+                                        </tr>
+                                    </tbody>
+                                   
+                                </table>                       
+                           
+                            
+                        
+    </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="profile-box add-post">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Payment Schedule</div>
+                            <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Pay Schedule" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==10  || this.Role_ID==9 ||this.Role_ID==1 || this.workStatus!=11)" (click)="paymentSchedule(0,0)"><mat-icon>payment</mat-icon></a></div>
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngIf="this.paySched_Flag==0">
+                       
+                                <div class="info-line">
+                                        <div class="title">Payment Schedule Currently Not Available!!</div>
+                                        
+                                    </div>
+                                   </div>
+                                   <table class="simple invoice-table" *ngIf="this.paySched_Flag!=0">
+                                   <!-- <thead>
+                                        <tr>
+                                               
+                                            <th>PAYMENT PHASES</th>
+                                           
+                                            <th class="text-right">PAYMENT DATE</th>
+                                            
+                                           
+                                           
+                                        </tr>
+                                    </thead>-->
+                                    <tbody>
+                                        <tr *ngFor="let pay of paySched" (click)="paymentSchedule(2, pay.Pay_Schedule_ID)">
+                                              
+                                            <td>
+                                                <div class="title">{{pay.Payment_Phase}}</div>
+                                               <div class="detail">{{pay.Remarks}}</div>
+                                            </td>
+                                           
+                                            <td class="text-right">
+                                              <span style="color: deeppink; font-weight: bold;" *ngIf="pay.Amount">Rs.{{pay.Amount}}</span> 
+                                              <span style="color:rgba(0, 0, 0, 0.87) " *ngIf="pay.Payment_Date"> on </span> 
+                                              <span style="color: darkgreen; font-weight: bold;">{{pay.Payment_Date | date:'dd/MM/yyyy'}}</span>
+                                            </td>
+                                            
+                                                
+                                            
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr><td>
+                                    <div class="title">
+                                        Sub Total : <span style="color: deeppink">Rs.{{this.SubTotal}}</span> 
+                                    </div>
+                                <div class="title">
+                                                    Pending Total : <span style="color: darkgreen">Rs.{{this.PendingTotal}}
+                                                        </span>
+                                                </div></td>
+                                   </tr>
+                                    
+                                    </tbody>
+                                </table>                       
+                           
+                                   
+                           
+                        
+                            
+                        
+    </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="profile-box add-post">
+               
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Key Deliverables</div>
+                        <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Key Deliverables" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==10  || this.Role_ID==9 ||this.Role_ID==1 ||this.workStatus!=11)" (click)="addKeys(0)"><mat-icon>vpn_key</mat-icon></a></div>
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">
+                           
+                   <div *ngIf="this.keys_Flag==0">
+                   
+                            <div class="info-line">
+                                    <div class="title">Key Deliverables Currently Not Available!!</div>
+                                    
+                                </div>
+                               </div>
+                               
+                               <div class="info-line" *ngIf="this.keys_Flag!=0">
+                                <li *ngFor="let key of keys">
+                                        <span  class="title">{{key.Key_Name}}</span>
+                                        <span><a class="pl-12" mat-button  aria-label="Delete Keys"  (click)="delKeys(key.Key_ID)"><mat-icon>delete</mat-icon></a></span>
+                                     </li>
+                           </div>
+                       
+                        
+                    
+</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="profile-box add-post">
+               
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Terms & Conditions</div>
+                    <div class="more secondary-text"><a class="pl-12" mat-button  aria-label="Add Terms & Conditions" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==13 ||this.Role_ID==1 ||this.Role_ID==10 ||this.Role_ID==9 || this.workStatus!=11)" (click)="addTerms(0)"><mat-icon>import_contacts</mat-icon></a></div>
+                </header>
+            
+                <div class="content" fxLayout="row wrap">
+                       
+               <div *ngIf="this.terms_Flag==0">
+               
+                        <div class="info-line">
+                                <div class="title">Terms & Conditions Currently Not Available!!</div>
+                                
+                            </div>
+                           </div>
+                           <div class="info-line" *ngIf="this.terms_Flag!=0">
+                                <li *ngFor="let term of terms">
+                                       <span  class="title"> {{term.Term_Name}}</span>
+                                       <span><a class="pl-12" mat-button  aria-label="Delete Terms"  (click)="delTerms(term.Term_ID)"><mat-icon>delete</mat-icon></a></span>
+                                     </li>
+                           </div>
+                                             
+                    
+                
+</div>
+    </div>
+    <mat-divider></mat-divider>
+            <div class="profile-box add-post"  *ngIf="this.InitWO_Flag==1">
+               
+                    <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div class="title">Final Quote</div>
+                            
+                        </header>
+                    
+                        <div class="content" fxLayout="row wrap">
+                               
+                       <div *ngFor="let assocF of assoc_F">
+                       
+                                <div class="info-line">
+                                        <div class="title">Associate</div>
+                                        <div class="info">{{assocF.Assoc_FirstName}} {{assocF.Assoc_MiddleName}} {{assocF.Assoc_LastName}}</div>
+                                    </div>
+                                    <div class="info-line">
+                                            <div class="title">Contact</div>
+                                            <div class="info">{{assocF.Contact_phone}}</div>
+                                        </div></div>
+                        <table class="simple invoice-table">
+                                <thead>
+                                    <tr>
+                                           
+                                        <th>LINE ITEMS</th>
+                                       
+                                       
+                                        <th class="text-right">VALUE</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tenderF of tenderFinal">
+                                          
+                                        <td>
+                                            <div class="title">{{tenderF.LineItem_Name}}</div>
+                                            <div class="detail"><span *ngIf="tenderF.Quantity" style="color: darkblue">{{tenderF.Quantity}} {{tenderF.Unit_Code}}</span></div>
+                                           
+                                        </td>
+                                       
+                                      
+                                        <td class="text-right">
+                                                <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="tenderF.Value">Rs.{{tenderF.Value}}</span>
+                                              </div>
+                                              <div class="title" style="color: darkgreen;"> <span *ngIf="tenderF.Rate">Rs.{{tenderF.Rate}} per {{tenderF.Unit_Code}}</span></div>
+                                                  
+                                                </td>
+                                        
+                                    </tr>
+                                </tbody>
+                               
+                            </table>  
+                            <table class="simple invoice-table-footer">
+                                    <tbody *ngFor="let assocF of assoc_F">
+                                        <tr class="subtotal">
+                                            <td>TOTAL</td>
+                                            <td>Rs.{{assocF.TotalQuote}}</td>
+                                        </tr>
+                                        <tr class="subtotal">
+                                                <td>IN WORDS</td>
+                                                <td>{{this.words}}</td>
+                                            </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            
+                        
+    </div>
+            </div>
+            
+           
+       
+
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+           
+                 <div  fxLayout="column">
+                        <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==0 && (this.Role_ID==13 ||this.Role_ID==1||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="finishWO()">Finish Work Order</button>
+                       
+
+                  </div>  
+                  <div class="profile-box latest-activity" fxLayout="column">
+                </div>
+                 
+                  <div  fxLayout="column">
+                    <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==1  && (this.Role_ID==13 || this.Role_ID==1 ||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="printWO()">Print Work Order</button>
+                   
+
+              </div> 
+              <div class="profile-box latest-activity" fxLayout="column">
+            </div>
+              <div  fxLayout="column">
+                <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.woSignUp_Flag==1 && (this.Role_ID==13 || this.Role_ID==1 ||this.Role_ID==10||this.Role_ID==9 ||this.workStatus!=11)" (click)="woSignedUp()">WO Signed Up</button>
+               
+
+          </div>
+           <div class="profile-box latest-activity" fxLayout="column" *ngIf="this.Temp_ID_Flag==1" >
+            </div>
+              <div  fxLayout="column">
+                <button mat-raised-button color="accent" aria-label="Finish WO" *ngIf="this.Temp_ID_Flag==1" (click)="addTempSchedules()">Add Template Schedules</button>
+               
+
+          </div> 
+          <div class="profile-box latest-activity" fxLayout="column">
+        </div>
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Uploaded Designs</div>
+                
+            </header><div class="mb-14" fxLayout="row">
+            <span *ngIf="this.design_count==0">Designs currently not available</span></div>
+            <div class="content" fxLayout="row wrap" *ngIf="this.design_count!=0">
+                <div class="mb-14" fxLayout="row" fxLayoutAlign="start start">
+                    <table>
+                        <tr>
+                            <td>
+                    <input type="text" placeholder="Design Uploaded  : " [disabled]></td>
+                    <td>
+        
+                    </td>
+                    <td>
+                        <input matInput type="text" formControlName="design" [value]="filename" [disabled]>
+                    </td>
+                    <td>
+        
+                    </td>
+                    <td>
+                            <button mat-raised-button class="add-assoc-button mat-accent-bg" (click)="downloadDesign()" aria-label="add customer" id="labEst">
+                                    Download
+                                    </button>  
+                    </td>
+                </tr>
+                </table>
+                    </div>
+            </div>
+
+           
+        </div>
+        <div class="profile-box latest-activity" fxLayout="column">
+
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Payment Terms</div>
+                    
+                </header>
+              
+                <div class="content" fxLayout="row wrap">
+                        <div class="info-line">
+                                <div class="title">Payment Terms</div>
+                                <div class="info">{{this.payTerms}}</div>
+                            </div>
+                </div>
+    
+               
+            </div>
+    </div>
+
+</div>
+

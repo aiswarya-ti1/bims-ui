@@ -1,0 +1,61 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+       
+            <div class="profile-box add-post"   *ngIf=" this.amend1Exists==1">
+                <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">Amendment 1 - Scope</div>
+                        
+                    </header>
+                
+                    <div class="content" fxLayout="row wrap">               
+                <table class="simple invoice-table">
+                       
+                        <tbody>
+                            <tr *ngFor="let item1 of items1">
+                                  
+                                <td>
+                                    <div class="title"><span style="font-weight: bold;" >{{item1.LineItem_Name}}</span></div>
+                                    <div class="detail">{{item1.Comments}}</div>
+                                    <div class="detail"><span *ngIf="item1.Quantity" style="color: darkblue;">{{item1.Quantity}} {{item1.Unit_Code}}</span></div>
+                                </td>
+                               
+                                
+                                          <td class="text-right">
+                                              <div class="title" style="color: deeppink;font-size: 20;font-weight: bold;"><span *ngIf="item1.Value">Rs.{{item1.Value}}</span>
+                                            </div>
+                                            <div class="title" style="color: darkgreen;"> <span *ngIf="item1.Rate">Rs.{{item1.Rate}} per {{item1.Unit_Code}}</span></div>
+                                                
+                                              </td>
+                                             
+                            </tr>
+                        </tbody>
+                    </table>  
+                        <table class="simple invoice-table-footer">
+                                <tbody>
+                                    <tr class="subtotal">
+                                        <td>TOTAL</td>
+                                        <td>Rs.{{this.AmdTotal1}}</td>
+                                    </tr>
+                                    <tr class="subtotal">
+                                            <td>IN WORDS</td>
+                                            <td>{{this.a_words1}}</td>
+                                        </tr>
+                                   
+                                </tbody>
+                            </table>
+                        
+                    
+</div>
+        </div> 
+           
+
+        </div>
+
+     
+
+
+    
+</div>
+

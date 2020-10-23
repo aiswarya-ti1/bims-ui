@@ -1,0 +1,55 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Service</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="contactForm">
+                
+            <div fxLayout="row" fxLayoutAlign="start start">
+                
+                <mat-form-field  appearance="outline" fxFlex>
+                    <mat-label>Select Segment</mat-label>
+                    <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                <mat-select formControlName="segName">
+                    <mat-option *ngFor="let seg of segments" [value]="seg.Seg_ID">{{seg.Seg_Name}}</mat-option>
+                    
+                    </mat-select>
+                        
+                              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Group Name</mat-label>
+                    <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                    <input name="name" formControlName="service" matInput required>
+                </mat-form-field>
+            </div>
+
+            
+        </form>
+
+    </div>
+    
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button
+                mat-button color="accent"
+                class="save-button"
+                (click)="addService(contactForm.value);matDialogRef.close();"
+                [disabled]="contactForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button><!-- matDialogRef.close();-->
+
+    </div>
+</div>

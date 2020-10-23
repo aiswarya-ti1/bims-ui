@@ -1,0 +1,200 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+
+        <div class="profile-box info-box general" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let detail of details">
+                
+               <!-- <div class="title pr-24" fxLayout="row" fxLayoutAlign="start center"><span>General Information</span>
+                    <a class="pl-12" mat-button routerLink=".">Edit</a>
+                </div>-->
+                
+                <div class="title">General Information</div>
+                <div class="more secondary-text" *ngIf="detail.Assoc_Status===4"> <a class="pl-12" mat-button (click)="editDetails(1)"><mat-icon>edit</mat-icon></a></div>
+            </header>
+
+            <div class="content" *ngFor="let detail of details">
+                <div class="info-line" *ngIf="detail.Type==='Individual'" >
+                    <div class="title">Gender</div>
+                    <div class="info">{{detail.Gender}}</div>
+                </div>
+
+                <div class="info-line"  *ngIf="detail.Birthday || detail.Type==='Individual'">
+                    <div class="title">Birthday</div>
+                    <div class="info">{{detail.Birthday}}</div>
+                </div>
+                <div class="info-line" *ngIf="detail.Type==='Organization'">
+                    <div class="title">Organization Name</div>
+                    <div class="info">{{detail.OrganizationName}}</div>
+                </div>
+                <div class="info-line"  *ngIf="detail.Grade">
+                    <div class="title">Grade</div>
+                    <div class="info">{{detail.Grade}}</div>
+                </div>
+                <div class="info-line"*ngIf="detail.License">
+                    <div class="title">License No.</div>
+                    <div class="info">{{detail.License}}</div>
+                </div>
+                <div class="info-line" *ngIf="detail.GST">
+                    <div class="title">GST No.</div>
+                    <div class="info">{{detail.GST}}</div>
+                </div>
+                <div class="info-line" *ngIf="detail.Qualification">
+                    <div class="title">Qualification</div>
+                    <div class="info">{{detail.Qualification}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Experience</div>
+                    <div class="info">{{detail.Experiece}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Projects Completed</div>
+                    <div class="info">{{detail.No_Projects}}</div>
+                </div>
+                <div class="info-line" *ngIf="detail.StdRate">
+                        <div class="title">Standard Rate/Unit</div>
+                        <div class="info">{{detail.StdRate}}</div>
+                    </div>
+
+                <div class="info-line">
+                    <div class="title">Location</div>
+                    <div class="info location" fxLayout="row" fxLayoutAlign="start center">
+                         <!--*ngFor="let location of about.general.locations">-->
+                        <span>{{detail.Loc_Name}}</span>
+                        <!--<mat-icon class="s-16 ml-4">location_on</mat-icon>-->
+                    </div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">About Me</div>
+                    <div class="info">{{detail.Descr}}</div>
+                </div>
+            </div>
+            
+
+        </div>
+
+      <!--  <div class="profile-box info-box work" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="title">Work</div>
+                    <div class="more secondary-text"> <a class="pl-12" mat-button (click)="editDetails(2)"><mat-icon>edit</mat-icon></a></div>
+
+               
+            </header>
+
+            <div class="content"  [hidden]="workDiv">
+                <div class="info-line">
+                    <div class="title">Occupation</div>
+                    <div class="info">Engineer</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Skills</div>
+                    <div class="info">Estimation, Plan & design</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Jobs</div>
+                    <table class="info jobs">
+                        <tr class="job">
+                            <td class="company">Company Name 1</td>
+                            <td class="date">10-05-2012</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="profile-box info-box contact" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let detail of details">
+                    <div class="title">Contact</div>
+                    <div class="more secondary-text" *ngIf="detail.Assoc_Status===4"> <a class="pl-12" mat-button (click)="editDetails(3)"><mat-icon>edit</mat-icon></a></div>
+            </header>
+
+            <div class="content"  *ngFor="let detail of details" >
+                <div class="info-line" *ngIf="detail.Address_line1">
+                    <div class="title">Address</div>
+                    <div class="info">{{detail.Address_line1}}, {{detail.Address_line2}}, {{detail.Address_town}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Tel.</div>
+                    <div class="info"><!--*ngFor="let tel of about.contact.tel"-->
+                        <span>{{detail.Contact_phone}}</span>
+                    </div>
+                </div>
+                <div class="info-line" *ngIf="detail.Address_url">
+                    <div class="title">Website</div>
+                    <div class="info"><!-- *ngFor="let website of about.contact.websites"-->
+                        <span>{{detail.Address_url}}</span>
+                    </div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Emails</div>
+                    <div class="info"><!-- *ngFor="let email of about.contact.emails"-->
+                        <span>{{detail.Address_email}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--<div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="35">
+
+        <div class="profile-box friends" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Friends</div>
+                <div class="more secondary-text">
+                    <span>See 454 more...</span>
+                </div>
+            </header>
+
+            <div class="content" fxLayout="row wrap">
+                <div class="friend" fxFlex="20" *ngFor="let friend of about.friends">
+                    <img [src]="friend.avatar">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="profile-box groups" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Joined Groups</div>
+                <div class="more secondary-text">
+                    <span>See 6 more...</span>
+                </div>
+            </header>
+
+            <div class="content">
+
+                <div class="group" *ngFor="let group of about.groups" fxLayout="row"
+                     fxLayoutAlign="space-between center">
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                        <div class="logo">{{group.name.substring(0,1)}}</div>
+
+                        <div>
+                            <div class="name">{{group.name}}</div>
+                            <div class="category">{{group.category}}</div>
+                            <div class="members">{{group.members}} people</div>
+                        </div>
+                    </div>
+
+                    <button mat-icon-button aria-label="More">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>-->
+
+
+</div>

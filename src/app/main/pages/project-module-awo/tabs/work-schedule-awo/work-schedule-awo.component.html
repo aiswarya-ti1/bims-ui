@@ -1,0 +1,102 @@
+
+<div id="timeline" class="p-24" fxLayout="row wrap">       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+                <div class="profile-box add-post"> 
+                                <mat-accordion>
+                                                <mat-expansion-panel>
+                                                  <mat-expansion-panel-header class="accent">
+                                                    <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                                                Work Schedule - Work Order 
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                               
+                                                    </mat-panel-description>
+                                                    
+                                                  </mat-expansion-panel-header>
+                                              <div class="content">
+                                                  <table class="simple invoice-table">
+                                       
+                                        
+                                                                <tr *ngFor="let work of details" (click)="addDate(work.Work_Schedule_ID)" >
+                                                                                <span  *ngIf="work.Amend_Flag==0">
+                                                                                        <td>
+                                                                                                <div class="title">{{work.Work_Stage}}</div>
+                                                                                                <div class="detail1">{{work.Remarks}}</div>
+                                                                                                
+                                                                                                    <div class="detail2">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                    <div class="detail2">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                    <div class="detail2">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                                                                                                
+                                                                                            </td>
+                                                                                           
+                                                                                            <td class="text-right">
+                                                                                                <div class="title" *ngIf="work.ActualStart_Date">Started on <span style="color: deeppink; ">{{work.ActualStart_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                <div class="title" *ngIf="work.ActualEnd_Date">Ended on <span style="color: green;">{{work.ActualEnd_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                               
+                                                                                     
+                                                                                            </td>
+                                                                                    </span> 
+                                                                                  
+                                                                         </tr>
+                                                          
+                                                                 
+                                                             
+                                                        </table> 
+                                                </div>
+                                        </mat-expansion-panel>
+                                </mat-accordion>
+        
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div *ngFor="let dummy of ' '.repeat(this.Amend_No).split(''), let x = index">
+                                        <div class="profile-box add-post"> 
+                                                        <mat-accordion>
+                                                                        <mat-expansion-panel>
+                                                                          <mat-expansion-panel-header class="accent">
+                                                                            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+                                                                              Work Schedule - Amendment {{x+1}}
+                                                                            </mat-panel-title>
+                                                                            <mat-panel-description>
+                                                                                       
+                                                                            </mat-panel-description>
+                                                                            
+                                                                          </mat-expansion-panel-header>
+                                                                      <div class="content">
+                                                                          <table class="simple invoice-table">
+                                                               
+                                                                                        <tr *ngFor="let work of details" (click)="addDate(work.Work_Schedule_ID)" >
+                                                                                                        <span  *ngIf="work.Amend_Flag==1 && work.FinishAmend_Flag==1">
+                                                                                                                <td>
+                                                                                                                   
+                                                                                                                        <div class="title">{{work.Work_Stage}}</div>
+                                                                                                                        <div class="detail1">{{work.Remarks}}</div>
+                                                                                                                        
+                                                                                                                            <div class="detail2">Starts on <span style="color: deeppink; font-weight: bold;">{{work.Start_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                                            <div class="detail2">Ends by <span style="color: green; font-weight: bold;">{{work.End_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                                            <div class="detail2">Duration <span style="color: indigo;font-weight: bold;">{{work.Duration}} Days</span></div>
+                                                                                                                        
+                                                                                                                    </td>
+                                                                                                                   
+                                                                                                                    <td class="text-right">
+                                                                                                                        <div class="title" *ngIf="work.ActualStart_Date">Started on <span style="color: deeppink; ">{{work.ActualStart_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                                        <div class="title" *ngIf="work.ActualEnd_Date">Ended on <span style="color: green;">{{work.ActualEnd_Date | date:'dd/MM/yyyy'}}</span></div>
+                                                                                                                       
+                                                                                                             
+                                                                                                                    </td>
+                                                                                                            </span> 
+                                                                                                </tr>
+                                                                                </table> 
+                                                                        </div>
+                                                                </mat-expansion-panel>
+                                                        </mat-accordion>
+                                                </div>
+                                                <mat-divider></mat-divider>
+                                        </div>  
+                                        </div>
+                                        </div>
+      
+           
+           
+            
+  
+  

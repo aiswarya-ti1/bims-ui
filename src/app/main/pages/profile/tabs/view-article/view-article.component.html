@@ -1,0 +1,108 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+        
+
+        
+
+
+        <div class="timeline-item" *ngFor="let article of articles"><!-- -->
+
+            <header fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                    <img class="avatar" src="assets/images/avatars/profile.jpg">
+
+                   <div fxLayout="column">
+                        <div class="title">
+                            <span class="username">{{article.Assoc_FirstName}} {{article.Assoc_MiddleName}} {{article.Assoc_LastName}}</span>
+                            <span> posted an Article</span>
+                         
+                            <span *ngIf="article.File_Type === '2'">shared a video with you</span>
+                            
+                        </div>
+                        <div class="time">{{article.Article_Time}}</div>
+                    </div>
+                </div>
+
+                <button mat-icon-button aria-label="More">
+                    <mat-icon>more_vert</mat-icon>
+                 </button>
+            </header>
+
+            <div class="content">
+                <div *ngIf="article.Article_Post" class="message">
+                    {{article.Article_Title}}
+                </div>
+                <div *ngIf="article.Article_Post" class="message"><!--*ngIf="post.message"-->
+                   {{article.Article_Post}} 
+                </div>
+
+                <div class="media" *ngIf="article.File_Type === 1"  ><!--*ngIf="post.media" -->
+                    <img src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}">
+                    </div>
+                    
+                        <!---->
+                   <div *ngIf="article.File_Type === 2">
+                    <!--<video controls (click)="toggleVideo()" id="videoPlayer">
+                        <source src="http://bims/resources/assets/uploads/ProfileAttachments/{{post.Filename}}" type="video/mp4" />
+                        Browser not supported
+                    </video>-->
+                    <div class="media">
+                        <iframe frameborder="0" [src]="getEmbedUrl(article.Filename)" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+               <!-- <div *ngIf="post.article" fxLayout="column" class="article">
+                    <div class="media">
+                        <img [src]="post.article.media.preview">
+                    </div>
+                    <div class="title">{{post.article.title}}</div>
+                    <div class="subtitle">{{post.article.subtitle}}</div>
+                    <div class="excerpt">{{post.article.excerpt}}</div>
+                </div>-->
+
+               
+            <!--<footer class="" fxLayout="column" fxLayoutAlign="start start">
+                <div class="comment-count" *ngIf="post.comments" fxLayout="row" fxLayoutAlign="start center">
+                    
+                   50 comments
+                    <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
+                </div>
+
+                <div class="comment" fxLayout="row" fxFlexFill *ngFor="let comment of post.comments">
+                    <img src="assets/images/avatars/james.jpg" class="avatar"/>
+
+                    <div fxLayout="column" fxFlex>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="username">Aiswarya</span>
+                            <span class="time">10 minutes ago</span>
+                        </div>
+                        <div class="message">
+                            That’s a wonderful place. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et eleifend ligula. Fusce posuere in sapien ac facilisis. Etiam sit amet justo non felis ornare feugiat.
+                        </div>
+                        <div class="actions" fxLayout="row" fxLayoutAlign="space-between center">
+                            <a href="#" class="reply-button">Reply</a>
+                            <mat-icon fxFlex class="report-button s-16">flag</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reply" fxLayout="row" fxFlexFill>
+                    <img src="assets/images/avatars/profile.jpg" class="avatar"/>
+
+                    <form fxFlex>
+                        <textarea placeholder="Add a comment..."></textarea>
+                        <button mat-raised-button color="accent" class="post-comment-button" aria-label="Post Comment">
+                            Post Comment
+                        </button>
+                    </form>
+                </div>
+            </footer>-->
+        </div>
+    </div>
+
+    
+
+</div>
+

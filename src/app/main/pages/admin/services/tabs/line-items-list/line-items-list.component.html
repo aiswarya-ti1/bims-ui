@@ -1,0 +1,112 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+      <div class="profile-box add-post">
+        <button mat-fab class="add-event-button mat-accent" (click)="addNewItem()" aria-label="Add lead"
+    [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+<mat-icon>add</mat-icon>
+</button>       
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="accent">
+            <mat-panel-title class="title" style="color: white; font-weight: bold;">
+              Search Line Items
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+      
+         
+
+            <form [formGroup]="contactForm">
+                
+              <div fxLayout="row" fxLayoutAlign="start start">
+                  
+                  <mat-form-field  appearance="outline" fxFlex>
+                      <mat-label>Select Segment</mat-label>
+                      <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                      <mat-select formControlName="segName"  (selectionChange)="onServiceChange($event)">
+                        <mat-option *ngFor="let seg of segment" [value]="seg.Segment_ID">{{seg.Segment_Name}}</mat-option>
+                      </mat-select>
+                   
+                                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Select Service</mat-label>
+                      <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                      <mat-select formControlName="service">
+                        <mat-option *ngFor="let cat of category" [value]="cat.Service_ID">{{cat.Service_Name}}</mat-option>
+                        
+                        </mat-select>
+                  </mat-form-field>
+              </div>
+  
+              
+         
+                            
+                             <div  class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                                <button 
+                                mat-raised-button
+                                (click)=clearFilter()
+                                class="save-button mat-accent"
+                                
+                                
+                                aria-label="UPDATE">
+                            Clear Filter
+                        </button> &nbsp;
+
+                                <button 
+                                        mat-raised-button
+                                        (click)=searchItems(contactForm.value)
+                                        class="save-button mat-accent"
+                                        
+                                        
+                                        aria-label="UPDATE">
+                                   Search
+                                </button> 
+                              
+                          
+                                
+                            </div>
+
+                       </form>
+        </mat-expansion-panel>
+       
+      </mat-accordion>
+    </div>
+    </div></div>
+    <div class="example-container mat-elevation-z8" *ngIf="this.openTable==1">
+    <table mat-table [dataSource]="dataSource" matSort>
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Line Item </th>
+        <td mat-cell *matCellDef="let item"> 
+        <div >{{item.LineItem_Name}}</div>
+      <div style="font-size: x-small;">{{item.Unit_Name}}</div></td>
+        
+      </ng-container>
+  
+     
+      <ng-container matColumnDef="seg">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Segment </th>
+        <td mat-cell *matCellDef="let item"> {{item.Segment_Name}}</td>
+        
+      </ng-container>
+      
+      <ng-container matColumnDef="service">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Service </th>
+        <td mat-cell *matCellDef="let item">{{item.Service_Name}}
+          </td>
+        
+      </ng-container>
+      
+     
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let item; columns: displayedColumns;" class="LabLineItems"></tr>
+      
+    </table>
+    </div>
+    
+
+        

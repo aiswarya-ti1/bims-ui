@@ -1,0 +1,138 @@
+<div class="dialog-content-wrapper">
+        <mat-toolbar class="mat-accent m-0">
+            <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">Set Priority</span>
+                <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    
+        <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+          <div align="right">
+              <button mat-raised-button color="accent" aria-label="Example icon-button with a heart icon" (click)="editPriority()">
+                  Reset Priority
+                </button>
+          </div>
+          <form [formGroup]="priorityFormGroup" name="priorityFormGroup">
+          <!--<table mat-table #table [dataSource]="dataSource" *ngIf="this.itemCount!=0">
+                      
+           
+            <ng-container matColumnDef="Priority">
+              <th mat-header-cell *matHeaderCellDef>Priority
+             
+              </th>
+              <td mat-cell *matCellDef="let row; let i=index">
+               {{ i + 1 }}
+               <input type="text" formControlName="index" [value]="i+1" hidden>
+              </td>
+            </ng-container>
+        
+           
+            <ng-container matColumnDef="LineItems">
+              <th mat-header-cell *matHeaderCellDef> Line Item</th>
+              <td mat-cell *matCellDef="let row" >
+               
+                <mat-select (change)="changeItem($event.value)" formControlName="leid">
+                  <mat-option *ngFor="let item of items" [value]="item.LE_ID" [disabled]="item.Priority_Flag==1"  matTooltip={{item.LineItem_Name}}>{{item.LineItem_Name | titlecase}} ({{item.Quantity}} {{item.Unit_Code}})</mat-option>
+                  </mat-select>
+              </td>
+            </ng-container>
+          <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let row ; let i=index"> <button mat-icon-button color="primary" [disabled]="priorityFormGroup.invalid" (click)="savePriority(i+1,priorityFormGroup.value)">
+                <mat-icon>save</mat-icon>
+              </button>&nbsp; </td>
+
+            </ng-container>
+
+        
+        
+        
+            
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; "
+                    >
+            </tr>
+          </table>-->
+          <table class="invoice-table">
+            
+              <tr>
+                <th class="title">Line Item
+
+                </th>
+                <th class="text-right">Priority</th>
+                <th></th>
+              </tr>
+            
+           
+                                    
+            <tr *ngFor="let item of items">
+             
+                <td>
+                  <div *ngIf= "item.Priority_Flag==1">
+                <input type="text" formControlName="leid" [value]="item.LE_ID" hidden>
+                <span class="title" style="color: red;">{{item.LineItem_Name | titlecase}}                       
+                </span>
+                <span class="detail" style="color: red;">({{item.Quantity}} {{item.Unit_Code}})</span></div>
+                <div *ngIf= "item.Priority_Flag==0">
+                  <input type="text" formControlName="leid" [value]="item.LE_ID" hidden>
+                  <span class="title">{{item.LineItem_Name | titlecase}}                       
+                  </span>
+                  <span class="detail">({{item.Quantity}} {{item.Unit_Code}})</span></div> </td>
+                <td class="text-right">
+                  <div *ngIf= "item.Priority_Flag==0">
+                  <mat-select  formControlName="index" #ind>
+                    <mat-option *ngFor="let prior of priorities" [value]="prior">{{prior}}</mat-option>
+                    </mat-select>
+                    </div>
+                    <div *ngIf= "item.Priority_Flag==1" style="color: red;">
+                      {{item.Priority}}
+                        </div>
+                  </td>
+                  <td> <button mat-icon-button color="primary" [disabled]="priorityFormGroup.invalid" *ngIf="item.Priority_Flag==0" (click)="savePriority(priorityFormGroup.controls.index.value, item.LE_ID)">
+                    <mat-icon>save</mat-icon>
+                  </button>&nbsp; </td>
+                
+              <!--<div *ngIf= "item.Priority_Flag==1">
+                <td  style="color: red;">
+                  <input type="text" formControlName="leid" [value]="item.LE_ID" hidden>
+                  <span class="title">{{item.LineItem_Name | titlecase}}                       
+                  </span>
+                  <span class="detail">({{item.Quantity}} {{item.Unit_Code}})</span> </td>
+                  <td class="text-right" style="color: red;">
+                   
+                    {{item.Priority}}
+                    </td>
+
+                  </div>-->
+                </tr>
+                <!--<span *ngIf="item.Priority_Flag==1">
+                  
+                    <td>
+                
+                        {{item.LineItem_Name | titlecase}} ({{item.Quantity}} {{item.Unit_Code}})
+                      </td>
+                      <td>
+                        {{item.Priority}}
+                      </td>
+                      <td>
+
+                      </td>
+                </span>-->
+              
+                   
+                     
+               
+        
+            
+           
+          </table>
+        </form>
+    
+            </div>
+    
+        </div>
+    
+  

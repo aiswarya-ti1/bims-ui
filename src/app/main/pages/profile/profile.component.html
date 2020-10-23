@@ -1,0 +1,37 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Timeline"*ngIf="this.Category!=='5'">
+                <profile-timeline></profile-timeline>
+            </mat-tab>
+
+            <mat-tab label="Work Details" *ngIf="this.Category==='5'">
+                    <profile-timeline></profile-timeline>
+                </mat-tab>
+            <mat-tab label="About">
+                <profile-about></profile-about>
+            </mat-tab>
+
+            <mat-tab label="Photos & Videos">
+                <profile-photos-videos></profile-photos-videos>
+            </mat-tab>
+           <mat-tab label="Services" *ngIf="this.Category==='5'">
+                <app-services></app-services>
+            </mat-tab>
+            
+            
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

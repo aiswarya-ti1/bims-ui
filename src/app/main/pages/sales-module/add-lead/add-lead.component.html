@@ -1,0 +1,162 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Lead</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="leadForm">
+                <input type="text" formControlName="lead_ID" hidden> 
+                <input type="text" formControlName="today" hidden>
+                <input type="text" formControlName="maxDate" hidden>
+                <input type="text" formControlName="typeFlag" hidden>
+                <input type="text" formControlName="assignTo" hidden>
+                <input type="text" formControlName="type" hidden>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Customer Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                            <mat-select formControlName="custName" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let cust of customers" [value]="cust.Customer_ID" class="text-truncate">{{cust.Cust_FirstName}} {{cust.Cust_MidName}} {{cust.Cust_LastName}}</mat-option>
+                                
+                                </mat-select>
+                                    
+                                          </mat-form-field>
+                    </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Address</mat-label>
+                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                    <input matInput formControlName="address">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Contact Number</mat-label>
+                        <mat-icon matSuffix class="secondary-text">local_phone</mat-icon>
+                        <input matInput formControlName="contact">
+                    </mat-form-field>
+                </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Location</mat-label>
+                    <mat-icon matSuffix class="secondary-text">place</mat-icon>
+                    <input matInput formControlName="loc">
+                </mat-form-field>
+            </div>
+
+           
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Email</mat-label>
+                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+            </div>
+           
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Address Line1</mat-label>
+                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
+                    <input matInput formControlName="sAddr1" required> 
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Address Line2</mat-label>
+                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                    <input matInput formControlName="sAddr2" required> 
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Location</mat-label>
+                    <mat-icon matSuffix class="secondary-text">place</mat-icon>
+                    <mat-select formControlName="sloc" matInput required>
+                            <mat-option *ngFor="let loc of location" [value]="loc.Loc_ID">{{loc.Loc_Name}}</mat-option>
+                            </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Land Mark</mat-label>
+                        <mat-icon matSuffix class="secondary-text">landscape</mat-icon>
+                        <input name="jobTitle" formControlName="mark" matInput required>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>PIN Code</mat-label>
+                            <mat-icon matSuffix class="secondary-text">person_pin_circle</mat-icon>
+                            <input formControlName="pin" matInput required  pattern="[0-9]+">
+                        </mat-form-field>
+                    </div>
+            
+               
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Lead Source</mat-label>
+                                <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                <mat-select formControlName="source" matInput required>
+                                        <mat-option *ngFor="let srs of source" [value]="srs.Source_ID">{{srs.Sources_Name}}</mat-option>
+                                        </mat-select>
+                            </mat-form-field>
+                        </div>  
+                          
+                            
+                                
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Project Details</mat-label>
+                            <mat-icon matSuffix class="secondary-text">details</mat-icon>
+                            <textarea matInput formControlName="projDetails" required></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Project Specification</mat-label>
+                                <mat-icon matSuffix class="secondary-text">explore</mat-icon>
+                                <textarea matInput formControlName="projSpec" required></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field appearance="outline" fxFlex>
+                                    <mat-label>Comments</mat-label>
+                                    <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                                    <textarea matInput formControlName="comments"></textarea>
+                                </mat-form-field>
+                            </div>
+                             
+
+        </form>
+
+    </div>
+    <div *ngIf="loading" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button
+                mat-button color="accent"
+                class="save-button"
+                (click)="addLead(leadForm.value);matDialogRef.close();"
+                [disabled]="leadForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button><!-- matDialogRef.close();-->
+
+    </div>
+</div>

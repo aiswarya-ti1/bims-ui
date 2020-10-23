@@ -1,0 +1,39 @@
+<div class="mat-elevation-z8">
+  <table class="simple invoice-table" *ngIf="this.Item_Count!=0">
+    <thead>
+        <tr>
+               
+            <th>
+              <div class="title">PAYMENT STAGES</div>
+                <div class="detail1">REMARKS</div>
+                <div class="detail2">EXP. AMOUNT & DATE</div>
+            </th>
+           
+            <th class="text-right">
+                <div class="detail1">REC.AMOUNT & DATE</div>
+               
+            </th>
+          
+           
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pay of payDetails" (click)="addPayment(pay.Pay_Schedule_ID)" >
+              
+            <td>
+                <div class="title">{{pay.Payment_Phase}}</div>
+                <div class="detail1">{{pay.Remarks}}</div>
+                <div class="detail2"> {{pay.Amount}} on {{pay.Payment_Date | date:'dd/MM/yyyy'}}</div>
+            </td>
+           
+            <td class="text-right">
+              
+             <div class="detail2"  *ngFor="let pays of payments"> <span *ngIf="pay.Pay_Schedule_ID == pays.PaySched_ID">{{pays.Actual_Amount}} on {{pays.Actual_Date}}</span></div>
+            
+            </td>
+           
+            
+        </tr>
+    </tbody>
+</table> 
+</div>

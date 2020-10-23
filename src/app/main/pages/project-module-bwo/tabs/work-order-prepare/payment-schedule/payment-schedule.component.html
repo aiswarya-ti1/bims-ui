@@ -1,0 +1,112 @@
+<div class="dialog-content-wrapper">
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">Payment Schedule</span>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+    
+           
+        </mat-toolbar>
+    
+        <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+  
+        <form name="paymentForm" [formGroup]="paymentForm">
+  
+                
+                <input type="text" formControlName="work_ID" hidden>
+                <input type="text" formControlName="type_ID" hidden>
+                <input type="text" formControlName="sched_ID" hidden>
+                <input type="text" formControlName="amend_ID" hidden>
+                <div fxLayout="row" fxLayoutAlign="start end">
+                                <button mat-button color="accent" (click)="viewSched()">Work Schedule</button> &nbsp;
+                                <span style="color: darkblue; font-weight: bold;"> Total : {{this.WOTotal}}</span>
+                </div>
+  
+                <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Payment Stage</mat-label>
+                                <mat-icon matSuffix class="secondary-text">payment</mat-icon>
+                        <textarea matInput formControlName="payStage"></textarea>
+                       
+                     </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field  appearance="outline" fxFlex>
+                                        <mat-label>Amount</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">attach_money</mat-icon>
+                                <input matInput formControlName="amount"  pattern="[0-9]+">  
+                                </mat-form-field> 
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field  appearance="outline" fxFlex>
+                                        <mat-label>Payment Date</mat-label>
+                                       
+                        <input matInput [matDatepicker]="picker1" formControlName="payDate" #currentDate name="payDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field> 
+                        </div>
+                       
+                      
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field  appearance="outline" fxFlex>
+                                        <mat-label>Comments</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">comment</mat-icon>
+                            <textarea matInput  formControlName="cmnts"></textarea>
+                           
+                         </mat-form-field>
+                        </div>
+  
+           
+  
+           
+  
+        </form>
+  
+    </div>
+  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+  
+        <button *ngIf="this.TypeID==0 || this.TypeID==1"
+                mat-raised-button
+                (click)="saveDetails(paymentForm.value); clear();"
+                class="save-button mat-accent"
+                [disabled]="paymentForm.invalid"
+                [hidden]="saveBtn"
+                aria-label="SAVE"><!-- -->
+            SAVE
+        </button> 
+        <button *ngIf="this.TypeID==2"
+                mat-raised-button
+                (click)="editPaySchDetails(paymentForm.value);matDialogRef.close();"
+                class="save-button mat-accent"
+                [disabled]="paymentForm.invalid"
+                [hidden]="saveBtn"
+                aria-label="SAVE">
+            EDIT
+        </button> &nbsp;&nbsp;
+        <button *ngIf="this.TypeID==2"
+                mat-raised-button
+                (click)="deletePaySch(paymentForm.value);matDialogRef.close()"
+                class="save-button mat-accent"
+                
+                [hidden]="saveBtn"
+                aria-label="SAVE">
+            DELETE
+        </button>
+      <!-- <button 
+        mat-raised-button
+        (click)="removeLineItem(); dialogRef.close();"
+        class="save-button mat-accent"
+        
+        [hidden]="updateBtn"
+        aria-label="DELETE">
+   DELETE
+  </button>-->
+  
+        
+    </div>
+  </div>
+  

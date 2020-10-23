@@ -1,0 +1,156 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Work</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="workForm">
+            <input matInput formControlName="typeID" hidden>
+            <input matInput formControlName="lead_ID" hidden>
+            <input matInput formControlName="type" hidden>
+                
+                <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Lead_ID==0">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Select Lead</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <mat-select formControlName="lead" (ngModelChange)="onChange($event)">
+                                <mat-option *ngFor="let lead of leads" [value]="lead.Lead_ID" class="text-truncate">{{lead.Cust_FirstName}}</mat-option>
+                                
+                                </mat-select>
+                                    
+                                          </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="this.Lead_ID!=0">
+                        <mat-form-field  appearance="outline" fxFlex>
+                                <mat-label>Lead</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                
+                                
+                                    <input type="text" matInput formControlName="lead_Name" [disabled]>
+                                        
+                                          </mat-form-field>
+                                    
+                                          
+                    </div>
+
+           
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Select Category</mat-label>
+                    <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                    <mat-select formControlName="category">
+                        <mat-option  [value]="'NewHome'">New</mat-option>
+                        
+                        <mat-option  [value]="'Repair'">Repair & Maintenance</mat-option>
+                         <mat-option  [value]="'Renovation'">Renovation</mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field  appearance="outline" fxFlex>
+                        <mat-label>Select Segment</mat-label>
+                        <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                        <mat-select #items placeholder="Select Segment" formControlName="ser" (ngModelChange)="onServiceChange($event)"matInput required><!---->
+                            <mat-option *ngFor="let seg of segment" [value]="seg.Segment_ID">{{seg.Segment_Name}}</mat-option>
+                          </mat-select>
+                            
+                                  </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field  appearance="outline" fxFlex>
+                        <mat-label>Select Services</mat-label>
+                        <mat-icon matSuffix class="secondary-text">build</mat-icon>
+                        <mat-select placeholder="Select Service" formControlName="seg" multiple matInput required>
+                            <mat-option *ngFor="let cat of category" [value]="cat.Service_ID">{{cat.Service_Name}}</mat-option>
+                          </mat-select>
+                            
+                                  </mat-form-field>
+            </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Work Type</mat-label>
+            <mat-icon matSuffix class="secondary-text">category</mat-icon>
+            <mat-select formControlName="worktype" matInput required><!---->
+                <mat-option [value]="'Labor Only'">
+                    Labor Only
+                </mat-option>
+                <mat-option [value]="'Material Only'">
+                    Material Only
+                </mat-option>
+                <mat-option [value]="'Labour With Material'">
+                    Labour With Material
+                       </mat-option>
+                 <mat-option [value]="'NA'">
+                           Not Applicable
+                               </mat-option>
+                                       
+              </mat-select>
+        </mat-form-field>
+    </div>
+<div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Exp.Site Analysis Date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="expAnalysisDate" #currentDate name="analysisDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+           
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Work Details</mat-label>
+                    <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                    <textarea matInput formControlName="workDetails"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Work Specification</mat-label>
+                    <mat-icon matSuffix class="secondary-text">work_outline</mat-icon>
+                    <textarea matInput formControlName="workSpec"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Comments</mat-label>
+                    <mat-icon matSuffix class="secondary-text">add_comment</mat-icon>
+                    <textarea matInput formControlName="workcomments"></textarea>
+                </mat-form-field>
+            </div>
+           
+            
+               
+
+        </form>
+
+    </div>
+    <div *ngIf="loading" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button
+                mat-button color="accent"
+                class="save-button mat-accent"
+                (click)="addWork(workForm.value);matDialogRef.close();"
+                [disabled]="workForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button><!-- -->
+
+    </div>
+</div>

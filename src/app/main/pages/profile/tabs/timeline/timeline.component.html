@@ -1,0 +1,288 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+        <div class="profile-box add-post">
+
+            <div class="form" fxFlex>
+                    <form [formGroup]="messageForm">
+
+                <textarea placeholder="Write something.."  formControlName="message"></textarea>
+                </form>
+
+                <footer fxLayout="row" fxLayoutAlign="space-between center">
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                        <input hidden type="file" #fileInput accept=".png, .jpg" (change)="handleFileInput($event.target.files, '1')" multiple/>
+                        <button mat-icon-button aria-label="Add photo" matTooltip="Add Photo" (click)="fileInput.click()">
+                            <mat-icon>photo</mat-icon>
+                        </button>
+                        <input hidden type="file" #fileInput1 accept=".mp4, .avi, .mwv, .flv"  (change)="handleFileInput($event.target.files, '2')"/>
+                        <button mat-icon-button aria-label="Add Video" matTooltip="Add Video" (click)="fileInput1.click()">
+                            <mat-icon>music_video</mat-icon>
+                        </button>
+                        <!--<input hidden type="file" #fileInput2 accept=".txt, .doc"  (change)="handleFileInput($event.target.files)"/>
+                        <button mat-icon-button aria-label="Add Article" matTooltip="Add Article" (click)="fileInput2.click()">
+                            <mat-icon>date_range</mat-icon>
+                        </button>-->
+
+                    </div>
+
+                    <button mat-raised-button color="accent" class="post-button" aria-label="POST" [disabled]="messageForm.invalid" (click)="uploadFileToActivity(messageForm.value)">POST</button>
+
+                </footer>
+
+            </div>
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="timeline-item" *ngFor="let post of posts">
+
+            <header fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                    <img class="avatar" src="assets/images/avatars/profile.jpg">
+
+                   <div fxLayout="column">
+                        <div class="title">
+                            <span class="username">{{post. Assoc_FirstName}} {{post.Assoc_MiddleName}} {{post.Assoc_LastName}}</span>
+                            <span *ngIf="post.File_Type === '1'">posted on timeline</span>
+                         
+                            <span *ngIf="post.File_Type === '2'">shared a video with you</span>
+                            
+                        </div>
+                        <div class="time">{{post.DateTime}}</div>
+                    </div>
+                </div>
+
+                <button mat-icon-button aria-label="More">
+                    <mat-icon>more_vert</mat-icon>
+                 </button>
+            </header>
+
+            <div class="content">
+                <div *ngIf="post.Message" class="message">
+                   {{post.Message}}
+                </div>
+
+                <div class="media" *ngIf="post.File_Type === 1"  >
+                    <img src="http://bims/resources/assets/uploads/ProfileAttachments/{{post.Filename}}"></div>
+                    
+                      
+                   <div *ngIf="post.File_Type === 2">
+                   <div class="media">
+                    <iframe frameborder="0" [src]="getEmbedUrl(post.Filename)" allowfullscreen></iframe>
+                </div>
+                   </div>
+                
+
+               
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <button mat-button class="like-button" (click)="deletePost(post.Post_ID)">
+                        <span fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="s-16">delete</mat-icon>
+                            <span>Delete</span>&nbsp;<span></span>
+                        </span>
+                    </button>
+                    <button mat-button class="share-button" (click)="sharePost(post.Post_ID)" disabled>
+                        <span fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="s-16">share</mat-icon>
+                            <span>Share</span>&nbsp;<span></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+           
+        </div>
+
+
+        <div class="timeline-item" *ngFor="let article of articles"><!-- -->
+
+            <header fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                    <img class="avatar" src="assets/images/avatars/profile.jpg">
+
+                   <div fxLayout="column">
+                        <div class="title">
+                            <span class="username">{{article.Assoc_FirstName}} {{article.Assoc_MiddleName}} {{article.Assoc_LastName}}</span>
+                            <span> posted an Article</span>
+                         
+                            <span *ngIf="article.File_Type === '2'">shared a video with you</span>
+                            
+                        </div>
+                        <div class="time">{{article.Article_Time}}</div>
+                    </div>
+                </div>
+
+                <button mat-icon-button aria-label="More">
+                    <mat-icon>more_vert</mat-icon>
+                 </button>
+            </header>
+
+            <div class="content">
+                <div *ngIf="article.Article_Post" class="message">
+                    {{article.Article_Title}}
+                </div>
+                <div *ngIf="article.Article_Post" class="message"><!--*ngIf="post.message"-->
+                   {{article.Article_Post | limitTo: 150}}<a [routerLink]="['/view-article1',article.Article_ID]" routerLinkActive="active">  Read More...</a>
+                </div>
+
+                <div class="media" *ngIf="article.File_Type === 1"  ><!--*ngIf="post.media" -->
+                    <img src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}">
+                </div>
+                    
+                        <!---->
+                   <div *ngIf="article.File_Type === 2">
+                    <!--<video controls (click)="toggleVideo()" id="videoPlayer">
+                        <source src="http://bims/resources/assets/uploads/ProfileAttachments/{{post.Filename}}" type="video/mp4" />
+                        Browser not supported
+                    </video>-->
+                    <div class="media">
+                        <iframe frameborder="0" [src]="getEmbedUrl(article.Filename)" allowfullscreen></iframe>
+                    </div>
+                   
+                </div>
+
+               <!-- <div *ngIf="post.article" fxLayout="column" class="article">
+                    <div class="media">
+                        <img [src]="post.article.media.preview">
+                    </div>
+                    <div class="title">{{post.article.title}}</div>
+                    <div class="subtitle">{{post.article.subtitle}}</div>
+                    <div class="excerpt">{{post.article.excerpt}}</div>
+                </div>-->
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <button mat-button class="like-button" (click)="deleteArticle(article.Article_ID)">
+                        <span fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="s-16">delete</mat-icon>
+                            <span>Delete</span>&nbsp;<span></span>
+                        </span>
+                    </button>
+                    <button mat-button class="share-button" (click)="sharePost(post.Post_ID)" disabled>
+                        <span fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="s-16">share</mat-icon>
+                            <span>Share</span>&nbsp;<span></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!--<footer class="" fxLayout="column" fxLayoutAlign="start start">
+                <div class="comment-count" *ngIf="post.comments" fxLayout="row" fxLayoutAlign="start center">
+                    
+                   50 comments
+                    <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
+                </div>
+
+                <div class="comment" fxLayout="row" fxFlexFill *ngFor="let comment of post.comments">
+                    <img src="assets/images/avatars/james.jpg" class="avatar"/>
+
+                    <div fxLayout="column" fxFlex>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="username">Aiswarya</span>
+                            <span class="time">10 minutes ago</span>
+                        </div>
+                        <div class="message">
+                            That’s a wonderful place. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et eleifend ligula. Fusce posuere in sapien ac facilisis. Etiam sit amet justo non felis ornare feugiat.
+                        </div>
+                        <div class="actions" fxLayout="row" fxLayoutAlign="space-between center">
+                            <a href="#" class="reply-button">Reply</a>
+                            <mat-icon fxFlex class="report-button s-16">flag</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reply" fxLayout="row" fxFlexFill>
+                    <img src="assets/images/avatars/profile.jpg" class="avatar"/>
+
+                    <form fxFlex>
+                        <textarea placeholder="Add a comment..."></textarea>
+                        <button mat-raised-button color="accent" class="post-comment-button" aria-label="Post Comment">
+                            Post Comment
+                        </button>
+                    </form>
+                </div>
+            </footer>-->
+        </div>
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+        <div [hidden]="hiddenDiv">
+      <div  fxLayout="column">
+            <button mat-raised-button color="accent" class="post-button" aria-label="CREATE ARTICLE" (click)="createArticle()">CREATE ARTICLE</button>
+      </div>  </div>
+      <div class="profile-box latest-activity" fxLayout="column">
+      </div>
+       <div class="profile-box latest-activity" fxLayout="column">
+<div [hidden]="statusDiv">
+        <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title">Certification Status</div>
+            <div class="more secondary-text"></div>
+        </header>
+
+        <div class="content" fxLayout="row wrap">
+            <div class="activities">
+                <div class="activity" fxLayout="row" >
+                    <!-- *ngFor="let activity of timeline.activities">-->
+                  
+
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                           <!-- <span class="username">Civil</span>
+                            <span class="message"> Verified</span>-->
+                            <div class="username">Civil</div>
+            <div class="more secondary-text">Verified</div>
+
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <!--<span class="username">Plumbing</span>
+                            <span class="message"> Verified</span>-->
+                            <div class="username">Plumbing</div>
+                            <div class="more secondary-text">Verified</div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <!--<span class="username">Electrical</span>
+                            <span class="message"><mat-icon>verified_user</mat-icon>Certified</span>-->
+                            <div class="username">Electrical</div>
+                            <div class="more secondary-text">Certified</div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Latest Activity</div>
+                <div class="more secondary-text">See All</div>
+            </header>
+
+            <div class="content" fxLayout="row wrap">
+                <div class="activities">
+                    <div class="activity" fxLayout="row" fxLayoutAlign="start start" *ngFor="let activity of activities">
+                        <!-- *ngFor="let activity of timeline.activities">-->
+                        <img src="assets/images/avatars/profile.jpg" class="avatar"/>
+
+                        <div fxLayout="column">
+                            <div>
+                                <span class="username">{{activity.Assoc_FirstName}} {{activity.Assoc_LastName}} </span>
+                                <span class="message"> {{activity.Activity_Message}}</span>
+                            </div>
+                            <span class="time secondary-text">{{activity.Activity_DateTime}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

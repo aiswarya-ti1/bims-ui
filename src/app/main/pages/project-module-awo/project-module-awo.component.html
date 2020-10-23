@@ -1,0 +1,81 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end"  *ngIf="this.Work_Status==14">
+ 
+ <div class="logo my-12 m-sm-0"
+ fxLayout="row" fxLayoutAlign="start center">
+ <div>
+         <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/project'">
+             <mat-icon style="color:white">arrow_back</mat-icon>
+         </button></div>
+
+<div class="logo-text h1" style="color:white">
+    Project Management
+</div>
+</div>
+
+      
+      <div class="actions" fxLayout="row" fxLayoutAlign="end center"  [@animate]="{value:'*',params:{delay:'200ms'}}">
+           <button mat-raised-button color="accent" aria-label="Follow"  (click)="startWork()">Start Work</button>
+          
+        </div> 
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+<p align="right" style="color: darkblue;">{{this.Work_ID}} &nbsp;{{this.CustName}}</p>
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Work Order">
+                <work-order></work-order>
+            </mat-tab>
+            <mat-tab label="Work Schedule" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                <work-schedule-awo></work-schedule-awo>
+            </mat-tab>
+            <mat-tab label="Payment Schedule" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                <pay-schedule-awo></pay-schedule-awo>
+            </mat-tab>
+          
+            <mat-tab label="Work Amendment" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                <work-amendment-new></work-amendment-new>
+            </mat-tab>
+            <!--<mat-tab label="Work Amendment New" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                    <work-amendment-new></work-amendment-new>
+                </mat-tab>-->
+            <mat-tab label="Re-Measure" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                <work-remeasure></work-remeasure>
+            </mat-tab>
+            <mat-tab label="Initiate Payment" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                    <payment-initiation></payment-initiation>
+                </mat-tab>
+                 <mat-tab label="Payment Summary" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                    <work-summary></work-summary>
+                </mat-tab>
+                <mat-tab label="Generate PR" *ngIf="(this.Work_Status==7 || this.Work_Status==8) && (this.work_type=='MatLabour' || this.work_type=='Labour With Material')">
+                    <generate-pr-pma></generate-pr-pma>
+                </mat-tab>
+                <mat-tab label="View PR" *ngIf="(this.Work_Status==7 || this.Work_Status==8) && (this.work_type=='MatLabour' || this.work_type=='Labour With Material')">
+                    <view-pr-bi></view-pr-bi>
+                </mat-tab>
+                <mat-tab label="Generate PO" *ngIf="(this.Work_Status==7 || this.Work_Status==8) && (this.work_type=='MatLabour' || this.work_type=='Labour With Material')">
+                    <generate-po-bi></generate-po-bi>
+                </mat-tab>
+                <mat-tab label="Goods Receipt" *ngIf="(this.Work_Status==7 || this.Work_Status==8) && (this.work_type=='MatLabour' || this.work_type=='Labour With Material')">
+                    <goods-reciept-pma></goods-reciept-pma>
+                </mat-tab>
+                <mat-tab label="Completion" *ngIf="this.Work_Status==7 || this.Work_Status==8">
+                    <work-completion></work-completion>
+                </mat-tab>
+
+          
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

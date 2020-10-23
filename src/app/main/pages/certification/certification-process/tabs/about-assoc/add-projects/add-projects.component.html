@@ -1,0 +1,98 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Add Rates</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form  [formGroup]="addProjectForm">
+
+              <input type="text"  formControlName="custID" hidden>
+              <input type="text"  formControlName="typeID" hidden>
+              <input type="text"  formControlName="assocID" hidden>
+             
+            
+              <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field  appearance="outline" fxFlex>
+                            <mat-label>Customer Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                    <input matInput formControlName="custName">
+                        
+                          </mat-form-field>
+        
+                         </div>
+                         <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field  appearance="outline" fxFlex>
+                                    <mat-label>Contact No.</mat-label>
+                                    <mat-icon matSuffix class="secondary-text">local_phone</mat-icon>
+                            <input  matInput formControlName="Contact">
+                                
+                                  </mat-form-field>
+                
+                                 </div>
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>Address Line 1</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">home</mat-icon>
+                                    <input  matInput formControlName="Addr1">
+                                        
+                                          </mat-form-field>
+                        
+                                         </div>
+                                         <div fxLayout="row" fxLayoutAlign="start start">
+                                            <mat-form-field  appearance="outline" fxFlex>
+                                                    <mat-label>Address Line 2</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                                            <input  matInput formControlName="Addr2">
+                                                
+                                                  </mat-form-field>
+                                
+                                                 </div>
+                                 <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field  appearance="outline" fxFlex>
+                                            <mat-label>Location</mat-label>
+                                            <mat-icon matSuffix class="secondary-text">add_location</mat-icon>
+                                            <input  matInput formControlName="Location">
+                                            <!--<mat-select placeholder="Location" formControlName="">
+                                                <mat-option *ngFor="let loc of location" [value]="loc.Loc_ID">{{loc.Loc_Name}}</mat-option>
+                                                </mat-select>-->
+                                        
+                                          </mat-form-field>
+                        
+                                         </div>
+                                         <div fxLayout="row" fxLayoutAlign="start start">
+                                            <mat-form-field  appearance="outline" fxFlex>
+                                                    <mat-label>Work Details</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">work_outline</mat-icon>
+                                                    <textarea matInput formControlName="WorkDetails">
+                                                    </textarea>
+                                                
+                                                  </mat-form-field>
+                                
+                                                 </div>
+                                        
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+      <button 
+              mat-raised-button
+              (click)=addProjects(addProjectForm.value);dialogRef.close();
+              class="save-button mat-accent"
+              [disabled]="addProjectForm.invalid"
+              
+              aria-label="UPDATE">
+          SAVE
+      </button> 
+    
+
+      
+  </div>
+</div>

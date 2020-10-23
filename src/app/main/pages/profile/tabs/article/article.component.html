@@ -1,0 +1,78 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="mat-accent m-0">
+      <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Create /Edit Article</span>
+          <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+
+      
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 pb-0 m-0">
+
+      <form [formGroup]="articleForm">
+            <input name="name" formControlName="ArticleID" matInput>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Title</mat-label>
+                  <input name="name" formControlName="title" matInput required >
+              </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline" fxFlex>
+                  <mat-label>Post</mat-label>
+                 
+                  <textarea name="lastName" formControlName="post" matInput required></textarea>
+                           </mat-form-field>
+          </div>
+        <!--<div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex  *ngIf="article.Filename">
+                <mat-label>Image/Video</mat-label>
+               
+                <img   height="150" width="150" formControlName="image" src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}">
+                         </mat-form-field>
+        </div>-->
+          
+         
+
+    </form>
+    <footer fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <input hidden type="file" #fileInput accept=".png, .jpg" (change)="handleFileInput($event.target.files, '1')" multiple/>
+            <button mat-icon-button aria-label="Add photo" matTooltip="Add Photo" (click)="fileInput.click()">
+                <mat-icon>photo</mat-icon>
+            </button>
+            <input hidden type="file" #fileInput1 accept=".mp4, .avi, .mwv, .flv"  (change)="handleFileInput($event.target.files, '2')"/>
+            <button mat-icon-button aria-label="Add Video" matTooltip="Add Video" (click)="fileInput1.click()">
+                <mat-icon>music_video</mat-icon>
+            </button>
+            <!--<input hidden type="file" #fileInput2 accept=".txt, .doc"  (change)="handleFileInput($event.target.files)"/>
+            <button mat-icon-button aria-label="Add Article" matTooltip="Add Article" (click)="fileInput2.click()">
+                <mat-icon>date_range</mat-icon>
+            </button>-->
+
+        </div>
+        </footer>
+
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+
+            <button 
+              mat-button
+              class="save-button mat-accent"
+              (click)="uploadFileToActivity(articleForm.value); matDialogRef.close();"
+              
+              aria-label="SAVE"><!--[disabled]="editProfile.invalid"-->
+          SAVE
+      </button>
+
+  </div>
+</div>

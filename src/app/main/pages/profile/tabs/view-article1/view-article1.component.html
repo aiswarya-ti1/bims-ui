@@ -1,0 +1,73 @@
+<div class="page-layout carded fullwidth">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="row" *ngIf="this.User_ID!==38">
+                        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="['/profile']">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <h2 class="m-0">Article Details</h2></div>
+                        <div fxLayout="row" *ngIf="this.User_ID===38">
+                                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="['/admin/associate-type-list/7']">
+                                    <mat-icon>arrow_back</mat-icon>
+                                </button>
+                                <h2 class="m-0">Article Details</h2></div>
+                                <div fxLayout="row" *ngIf="this.User_ID===''">
+                                        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="['/auth/media-page']">
+                                            <mat-icon>arrow_back</mat-icon>
+                                        </button>
+                                        <h2 class="m-0">Article Details</h2></div>
+                   
+           
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar px-24 py-8">
+                <span></span>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+            <div class="content p-24">
+
+                <!-- DEMO CONTENT -->
+<div class="demo-content line-height-1.75" *ngFor="let article of articles">
+
+    <h1 class="m-0">{{article.Article_Title}}</h1>
+    <h4 class="mt-0 secondary-text">Article Content</h4>
+
+    <p>
+        {{article.Article_Post}} 
+    </p>
+
+
+
+   
+    <img class="mt-24 w-100-p" src="http://bims/resources/assets/uploads/ProfileAttachments/{{article.Filename}}" style="max-width: 640px">
+
+    
+</div>
+<!-- / DEMO CONTENT -->
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

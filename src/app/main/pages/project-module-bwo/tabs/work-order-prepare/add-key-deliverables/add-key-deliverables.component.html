@@ -1,0 +1,113 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Select Key Deliverables</span>
+          <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <div class="horizontal-stepper-wrapper">
+
+              <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                      <mat-step [stepControl]="firstFormGroup">
+                      
+                          <ng-template matStepLabel>Select Key Deliverables</ng-template>
+                         <div class="search-input-wrapper mx-24 m-md-0"
+                          fxFlex="60" fxLayoutAlign="start center">
+                        <strong> <label for="search" class="mr-8">
+                             <mat-icon class="secondary-text">search</mat-icon>
+                         </label> </strong>
+                         <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                             <input id="search" matInput placeholder="Search"  (keyup)="applyFilter($event.target.value)" #optionSearch>
+                         </mat-form-field>
+                     </div>
+                     <form [formGroup]="firstFormGroup" class="form">
+                          <input type="text" formControlName="workID" hidden>
+                          <input type="text" formControlName="typeID" hidden>
+                          <div *ngIf="this.itemCount==0"> Key Deliverables not available for this service</div>
+                         <form class="form" fusePerfectScrollbar  *ngIf="this.itemCount!=0" >
+                             
+                              <mat-selection-list #items class="mat-list" formControlName="itemlist" (selectionChange)="onSelection($event, items.selectedOptions.selected)"
+                              [disableRipple]="true" fusePerfectScrollbar>
+                              <mat-list-option class="ellipsis" *ngFor="let key of keys"
+                                    [value]="key.Key_ID"  matTooltip={{key.Key_Name}}>
+                                   {{key.Key_Name}}
+                                  </mat-list-option>
+                                </mat-selection-list>
+                               
+                            </form>
+                           
+                            
+                              </form>
+                          <div align="right">
+                                  <button mat-raised-button color="accent"  (click)="saveKeys(); dialogRef.close();" >Done</button>&nbsp;&nbsp;&nbsp;
+                              <!--<button mat-raised-button color="accent"  (click)="saveLineItem()" matStepperNext >Next</button>-->
+                          <!-- collectdata(this.firstFormGroup.controls['itemlist'].value)"-->
+                                 
+                            
+                          </div>
+                        
+                      </mat-step>
+                      <mat-step [stepControl]="secondFormGroup">
+                       
+                          <ng-template matStepLabel>Add Custom Key Deliverables</ng-template>
+                          <form [formGroup]="secondFormGroup" class="form">
+                                  <input type="text" formControlName="servID" hidden>
+                                  <input type="text" formControlName="workID" hidden>
+                                  <input type="text" formControlName="typeID" hidden>
+                                  <input type="text" formControlName="amendID" hidden>
+                                  <div fxLayout="row" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" fxFlex>
+                                        <mat-label>Select Service</mat-label>
+                                        <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                                <mat-select formControlName="services">
+                                                        <mat-option *ngFor="let service of services" [value]="service.Service_ID" >{{service.Service_Name}}</mat-option>
+                                                        </mat-select>  
+                                                        </mat-form-field>     
+                                                        
+                                            </div> 
+                                            <div fxLayout="row" fxLayoutAlign="start start">
+                                                <mat-form-field appearance="outline" fxFlex>
+                                                    <mat-label>Key Deliverable Name</mat-label>
+                                                    <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                                              <textarea matInput  formControlName="keyName"></textarea>
+                                              
+                                           </mat-form-field>
+                                           
+                              </div>
+
+                             <!--<div class="mb-14" fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto" >
+                                      <mat-form-field fxFlex="50"  class="pl-12">
+                                  
+                                          <input matInput placeholder="Service Name" formControlName="serName" [disabled]>
+                                          
+                                      
+                                              </mat-form-field>     
+                                              
+                                  </div> --> 
+                              
+                                  
+                                
+                                      </form>
+                                  <div align="right">
+                                          <button mat-raised-button color="accent" [disabled]="secondFormGroup.invalid" (click)="saveCustKeys(secondFormGroup.value);clear();">Save</button>&nbsp;&nbsp;&nbsp;
+                                          
+                                  </div>
+      
+                         
+                      
+                          
+                            
+                      </mat-step>
+                      </mat-horizontal-stepper>
+
+      </div>
+
+  </div>
+
+
+</div>

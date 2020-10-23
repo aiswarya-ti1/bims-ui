@@ -1,0 +1,134 @@
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+
+        <div class="profile-box add-post">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+               
+                
+                <div class="title"> Work Details</div>
+                <div class="more secondary-text"> <a class="pl-12" mat-button (click)="editDetails()" *ngIf="this.Site_Flag==0 || this.Role_ID==1"><mat-icon>edit</mat-icon></a></div>
+            </header>
+
+            <div class="content" *ngFor="let work of works">
+                <div class="info-line" *ngIf="work.Segment_Name">
+                    <div class="title">Segment</div>
+                    <div class="info">{{work.Segment_Name}}</div>
+                </div>
+                <div class="info-line" *ngIf="work.Service_Name">
+                    <div class="title">Services</div>
+                    <div class="info">{{this.newlist}}</div>
+                </div>
+                <div class="info-line" *ngIf="work.Work_Type">
+                    <div class="title">Work Type</div>
+                    <div class="info">{{work.Work_Type}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Work Details</div>
+                    <div class="info">{{work.WorkDetail}}</div>
+                </div>
+                <div class="info-line"*ngIf="work.WorkSpec">
+                    <div class="title">Work Specifications</div>
+                    <div class="info">{{work.WorkSpec}}</div>
+                </div>
+                <div class="info-line" *ngIf="work.Comment">
+                    <div class="title">Comments</div>
+                    <div class="info">{{work.Comment}}</div>
+                </div>
+               
+                <div class="info-line" *ngIf="work.Work_StatusName">
+                        <div class="title">Work Status</div>
+                        <div class="info">{{work.Work_StatusName}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="work.ActualSite_Analysis_Date">
+                        <div class="title">Site Analysis Date</div>
+                        <div class="info">{{work.ActualSite_Analysis_Date}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="this.reason!=''">
+                        <div class="title">Reason For Work Lost</div>
+                        <div class="info">{{this.reason}}</div>
+                    </div>
+
+              
+
+            </div>
+            
+
+        </div>
+
+     
+
+        
+    </div>
+
+    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+        <div  fxLayout="column">
+          <button mat-raised-button color="accent" aria-label="Reference"(click)="viewRef()">References</button>
+    </div>  
+    <div class="profile-box latest-activity" fxLayout="column">
+    </div>
+    <div  fxLayout="column">
+        <button mat-raised-button color="primary" (click)="workLost()">Work Lost</button>
+  </div> 
+  <div class="profile-box latest-activity" fxLayout="column">
+    </div>
+    <div  fxLayout="column">
+        <button mat-raised-button color="primary" (click)="sendMail()">Sent Mail</button>
+  </div> 
+
+<div class="profile-box latest-activity" fxLayout="column">
+    </div>
+        <div class="profile-box latest-activity" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Lead Details</div>
+                
+            </header>
+
+            <div class="content"  *ngFor="let work of works">
+                <div class="info-line">
+                    <div class="title">Customer Name</div>
+                    <div class="info">{{work.Cust_FirstName}} {{work.Cust_MidName}} {{work.Cust_LastName}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Contact</div>
+                    <div class="info">{{work.Contact_phone}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Location</div>
+                    <div class="info">{{work.Loc_Name}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Address</div>
+                    <div class="info">{{work.Address_line1}}, {{work.Address_line2}}</div>
+                </div>
+               
+            </div>
+
+        </div>
+        
+
+        <div class="profile-box latest-activity" fxLayout="column">
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">Travel Details</div>
+                <div class="more secondary-text">
+                    <span><mat-icon>add</mat-icon> </span>
+                </div>
+            </header>
+
+            <div class="content">
+
+                <div class="group" fxLayout="row"
+                     fxLayoutAlign="space-between center">
+
+                    <span>No Data Available</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

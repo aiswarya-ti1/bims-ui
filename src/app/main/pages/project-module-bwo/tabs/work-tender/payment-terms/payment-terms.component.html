@@ -1,0 +1,49 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Add Payment Terms</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+       
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="termsForm">
+     
+             
+              <input type="text" formControlName="work_ID" hidden>
+              <input type="text" formControlName="type_ID" hidden>
+              <input type="text" formControlName="tender_ID" hidden>
+              <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field  appearance="outline" fxFlex>
+                        <mat-label>Payment Terms</mat-label>
+                        <mat-icon matSuffix class="secondary-text">category</mat-icon>
+                    <textarea matInput placeholder="" formControlName="comment" cols="2" rows="6"></textarea>
+                       
+                     </mat-form-field>
+                          </div>
+    
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+
+      <button 
+              mat-raised-button
+              (click)="addPaymentTerms(termsForm.value);dialogRef.close();"
+              class="save-button mat-accent"
+              [disabled]="termsForm.invalid"
+              [hidden]="saveBtn"
+              aria-label="SAVE">
+        SAVE
+      </button>
+     
+
+      
+  </div>
+</div>

@@ -1,0 +1,41 @@
+
+    
+<div id="timeline" class="p-24" fxLayout="row wrap">
+       
+  <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+    <div class="profile-box add-post">
+      
+    <button mat-fab class="add-event-button mat-accent" (click)="addService()" aria-label="Add lead"
+    [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+<mat-icon>add</mat-icon>
+</button>        
+     
+<mat-accordion class="example-headers-align" multi  *ngFor="let seg of segments" >
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="accent">
+      <mat-panel-title style="color: white; font-weight: bold;">
+       {{seg.Seg_Name}}
+      </mat-panel-title>
+     
+    </mat-expansion-panel-header>
+
+    <div *ngFor="let group of groups">
+        
+      <div class="primary-200-fg line-height-2 check" *ngIf="group.Seg_ID===seg.Seg_ID">
+          <mat-checkbox  value="{{group.Group_ID}}" [checked]="false">{{group.Group_Name}}</mat-checkbox>
+          
+          </div>
+        </div>
+         
+  </mat-expansion-panel>
+
+
+
+  
+</mat-accordion>
+       
+      </div>
+      </div>
+      </div>
+
+       
